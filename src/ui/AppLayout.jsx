@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "../features/navbar/Navbar";
 import Footer from "../features/footer/Footer";
+import { useEffect, useState } from "react";
 
 const StyledAppLayout = styled.div`
   display: grid;
@@ -14,13 +15,22 @@ const StyledAppLayout = styled.div`
 `;
 
 function AppLayout() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [isMobile]);
   return (
     <StyledAppLayout>
-      <Navbar />
+      <Navbar isMobile={isMobile} />
       <main>
         <Outlet />
       </main>
-      <Footer />
+      <Footer isMobile={isMobile} />
     </StyledAppLayout>
   );
 }

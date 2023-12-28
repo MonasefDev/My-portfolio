@@ -43,9 +43,12 @@ html {
   font-size: 62.5%;
   font-weight: 400;
   background-color: var(--color-primary-1);
-    height: 100%;
+  height: 100%;
   width: 100%;
   padding: 30px;
+  @media only screen and (max-width: 1024px) {
+    padding: 15px;
+  }
 }
 
 body {
