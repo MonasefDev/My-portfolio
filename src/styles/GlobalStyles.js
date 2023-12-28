@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
 :root {
@@ -7,6 +7,7 @@ const GlobalStyles = createGlobalStyle`
   --color-primary-2: #011221;
   --color-primary-3: #011627;
   /* color secondary */
+  --color-grey-0: #1e2d3d74;
   --color-grey-1: #607B96;
   --color-teal-1: #3C9D93;
   --color-purple-1 : #4D5BCE;
@@ -23,6 +24,10 @@ const GlobalStyles = createGlobalStyle`
   --color-button-d-2: #FFAC6B;
   --color-button-p-1: #1C2B3A;
   --color-button-p-2: #263B50;
+
+  --break-point-mob: 768px;
+  --break-point-tab: 1024px;
+  --break-point-desk: 1440px;
 }
 
 *,
@@ -31,6 +36,7 @@ const GlobalStyles = createGlobalStyle`
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  transition: background-color 0.3s;
 }
 
 html {
@@ -47,8 +53,11 @@ body {
   color: var(--color-grey-1);
   height: 100%;
   width: 100%;
-  background-color: var(--color-primary-3);
   font-size: 1.6rem;
+}
+#root {
+  height: 100%;
+  position: relative;
 }
 
 input,
