@@ -4,7 +4,7 @@ import ProjectList from "../features/projects/ProjectList";
 import ModelDetails from "../features/projects/ModelDetails";
 import FilterTechnologies from "../features/projects/FilterTechnologies";
 
-const Container_Projects = styled.div`
+const ContainerProjects = styled.div`
   display: flex;
   margin: 0 auto;
 `;
@@ -44,11 +44,11 @@ function Projects() {
   );
 
   return (
-    <Container_Projects>
+    <ContainerProjects>
       <FilterTechnologies technologies={allTechnologies} onFilterChange={handleFilterChange} />
       <ProjectList projects={filteredProjects} onSelectProject={handleSelectProject} />
       <ModelDetails selectedProject={selectedProject} />
-    </Container_Projects>
+    </ContainerProjects>
   );
 }
 
