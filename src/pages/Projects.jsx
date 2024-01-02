@@ -1,64 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProjectList from "../features/projects/ProjectList";
 import ModelDetails from "../features/projects/ModelDetails";
 import FilterTechnologies from "../features/projects/FilterTechnologies";
 
 function Projects() {
-
-    const [projects, setProjects] = useState([
-    {
-      id: 1,
-      title: "Project 1",
-      description: "Description for New Project",
-      details: "Details for New Project",
-      poster_img: "new_img.jpg",
-      technologies: ["Ruby", "Rails", "PostgreSQL"],
-      features: ["new_feat1", "new_feat2"],
-      images: ["new_img1", "new_img2"],
-      github_link: "https://github.com/new_project",
-      live_link: "https://new_project.com"
-    },
-    {
-      id: 2,
-      title: "Project 2",
-      description: "Description for New Project",
-      details: "Details for New Project",
-      poster_img: "new_img.jpg",
-      technologies: ["HTML"],
-      features: ["new_feat1", "new_feat2"],
-      images: ["new_img1", "new_img2"],
-      github_link: "https://github.com/new_project",
-      live_link: "https://new_project.com"
-    },
-    {
-      id: 3,
-      title: "Project 3",
-      description: "Description for New Project",
-      details: "Details for New Project",
-      poster_img: "new_img.jpg",
-      technologies: ["Ruby", "CSS"],
-      features: ["new_feat1", "new_feat2"],
-      images: ["new_img1", "new_img2"],
-      github_link: "https://github.com/new_project",
-      live_link: "https://new_project.com"
-    }
-  ]);
-
+  const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
-  const [filteredTechnology, setFilteredTechnology] = useState("");
+  const [filteredTechnologies, setFilteredTechnologies] = useState([]);
   const allTechnologies = Array.from(new Set(projects.flatMap((project) => project.technologies)));
+
+  useEffect(() => {
+    // Fetch projects data from the JSON file
+    fetch("db/data.json")
+      .then((response) => response.json())
+      .then((data) => setProjects(data))
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []); // Run this effect only once on component mount
 
   const handleSelectProject = (project) => {
     setSelectedProject(project);
   };
 
   const handleFilterChange = (selectedTechnology) => {
-    setFilteredTechnology(selectedTechnology);
+    if (filteredTechnologies.includes(selectedTechnology)) {
+      // Remove technology if it's already selected
+      setFilteredTechnologies(filteredTechnologies.filter((tech) => tech !== selectedTechnology));
+    } else {
+      // Add technology if it's not selected
+      setFilteredTechnologies([...filteredTechnologies, selectedTechnology]);
+    }
     setSelectedProject(null); // Clear selected project when filtering
   };
 
   const filteredProjects = projects.filter(
-    (project) => !filteredTechnology || project.technologies.includes(filteredTechnology)
+    (project) =>
+      filteredTechnologies.length === 0 || filteredTechnologies.every((tech) => project.technologies.includes(tech))
   );
 
   return (
