@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 import ProjectList from "../features/projects/ProjectList";
 import ModelDetails from "../features/projects/ModelDetails";
 import FilterTechnologies from "../features/projects/FilterTechnologies";
+
+const Container_Projects = styled.div`
+  display: flex;
+  margin: 0 auto;
+`;
 
 function Projects() {
   const [projects, setProjects] = useState([]);
@@ -38,11 +44,11 @@ function Projects() {
   );
 
   return (
-    <div>
+    <Container_Projects>
       <FilterTechnologies technologies={allTechnologies} onFilterChange={handleFilterChange} />
       <ProjectList projects={filteredProjects} onSelectProject={handleSelectProject} />
       <ModelDetails selectedProject={selectedProject} />
-    </div>
+    </Container_Projects>
   );
 }
 
