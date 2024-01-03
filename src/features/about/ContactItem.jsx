@@ -29,6 +29,9 @@ const SectionFolder = styled.div`
   flex-direction: column;
   gap: 1.5rem;
   padding: 2rem;
+  @media only screen and (max-width: 1024px) {
+    border-bottom: 1px solid var(--color-lines);
+  }
 `;
 
 const FolderImg = styled.div`
@@ -66,7 +69,7 @@ function ContactItem() {
           </FolderImg>
           <FolderImg>
             <img src={`/assets/icons/phone.svg`} alt="email" />
-            <span>+212 6 70 00 00 00</span>
+            <span>+2126 70 00 00 00</span>
           </FolderImg>
         </SectionFolder>
       )}

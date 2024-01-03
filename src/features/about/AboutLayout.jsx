@@ -3,12 +3,21 @@ import styled from "styled-components";
 import Sidebar from "./Sidebar";
 import Content from "./Content";
 import { sections } from "../../data/sections";
+import CodeSnippet from "./CodeSnippet";
 
 const StyledAboutLayout = styled.div`
   height: 100%;
   width: 100%;
   display: grid;
   grid-template-columns: var(--sidebar-width) 1fr;
+  @media only screen and (max-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+  }
+`;
+const ContentSection = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   @media only screen and (max-width: 1024px) {
     display: flex;
     flex-direction: column;
@@ -27,7 +36,13 @@ function AboutLayout() {
         selectedItem={selectedItem}
         setSelectedItem={setSelectedItem}
       />
-      <Content selectedSection={selectedSection} selectedItem={selectedItem} />
+      <ContentSection>
+        <Content
+          selectedSection={selectedSection}
+          selectedItem={selectedItem}
+        />
+        <CodeSnippet />
+      </ContentSection>
     </StyledAboutLayout>
   );
 }

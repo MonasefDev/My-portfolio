@@ -62,6 +62,8 @@ function Sidebar({
           <InfoItem
             selectedItem={selectedItem}
             setSelectedItem={setSelectedItem}
+            selectedSection={selectedSection}
+            setSelectedSection={setSelectedSection}
             info={
               sections[
                 sections.findIndex(
