@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import githubIcon from "../../assets/icons/social/github.svg";
-import linkedInIcon from "../../assets/icons/social/linkedin.svg";
-import facebookIcon from "../../assets/icons/social/facebook.svg";
+import githubIcon from "/assets/icons/social/github.svg";
+import linkedInIcon from "/assets/icons/social/linkedin.svg";
+import facebookIcon from "/assets/icons/social/facebook.svg";
+import useIsMobile from "../../hooks/useIsMobile";
 
 const StyledFooter = styled.footer`
-  height: 5.6rem;
+  height: 5rem;
   border-top: 1px solid var(--color-lines);
   display: grid;
   grid-template-columns: repeat(3, auto) 1fr auto;
@@ -32,14 +33,15 @@ const StyledFooter = styled.footer`
   }
 `;
 const Img = styled.img`
-  height: 2.4rem;
+  height: 2rem;
   cursor: pointer;
-  filter: brightness(0.8);
+  filter: brightness(0.6);
   @media only screen and (max-width: 1024px) {
     height: 1.8rem;
   }
 `;
-function Footer({ isMobile }) {
+function Footer() {
+  const isMobile = useIsMobile();
   return (
     <StyledFooter>
       <div>find-me in :</div>

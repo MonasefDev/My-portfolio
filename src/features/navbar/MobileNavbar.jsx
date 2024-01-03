@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import burger from "../../assets/icons/burger.svg";
-import burgerClose from "../../assets/icons/burger-close.svg";
+import burger from "/assets/icons/burger.svg";
+import burgerClose from "/assets/icons/burger-close.svg";
 
 const StyledMobileNavbar = styled.div`
   display: flex;
