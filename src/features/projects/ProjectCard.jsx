@@ -30,9 +30,10 @@ const CardContainer = styled.div`
   }
 `;
 
-function ProjectCard({ project, onSelectProject }) {
+function ProjectCard({ project, onSelectProject, onToggleModal }) {
   const handleProjectSelect = () => {
     onSelectProject(project);
+    onToggleModal(true);
   };
 
   return (
