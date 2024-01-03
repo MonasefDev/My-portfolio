@@ -28,6 +28,8 @@ const GlobalStyles = createGlobalStyle`
   --break-point-mob: 768px;
   --break-point-tab: 1024px;
   --break-point-desk: 1440px;
+
+  --sidebar-width : 30rem;
 }
 
 *,
@@ -104,6 +106,34 @@ h6 {
   overflow-wrap: break-word;
   hyphens: auto;
 }
+/* Scroll bar */
+
+/* width */
+::-webkit-scrollbar {
+  width: 20px;
+  border-left: 1px solid #1e2d3d;
+  display: none;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #607b96;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #7b9bbb;
+}
+.no-scroll {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
 `;
 
 export default GlobalStyles;
