@@ -32,7 +32,7 @@ const DetailsContainer = styled.div`
 
 `;
 
-function ModelDetails({ selectedProject }) {
+function ModelDetails({ selectedProject, onCloseModal }) {
   return (
     <DetailsContainer>
       <h2 className="details-heading">Model Details</h2>
@@ -63,6 +63,9 @@ function ModelDetails({ selectedProject }) {
       ) : (
         <p className="details-paragraph">Select a project to view details.</p>
       )}
+      <button className="details-link" onClick={() => onCloseModal(false)}>
+        Close
+      </button>
     </DetailsContainer>
   );
 }

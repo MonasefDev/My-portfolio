@@ -12,13 +12,13 @@ width: 80%;
 }
 `;
 
-const ProjectList = ({ projects, onSelectProject }) => (
+const ProjectList = ({ projects, onSelectProject, onToggleModal }) => (
   <ListContainer>
     <h2 className="title">Projects</h2>
     <ul className="project-list">
       {projects.map((project) => (
         <li key={project.id} className="project-item">
-          <ProjectCard project={project} onSelectProject={onSelectProject} />
+          <ProjectCard project={project} onSelectProject={onSelectProject} onToggleModal={onToggleModal}/>
         </li>
       ))}
     </ul>

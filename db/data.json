@@ -70,5 +70,17 @@
         "images": ["new_img1", "new_img2"],
         "github_link": "https://github.com/new_project",
         "live_link": "https://new_project.com"
+    },
+    {
+        "id": 7,
+        "title": "Project 6",
+        "description": "Description for New Project",
+        "details": "Details for New Project",
+        "poster_img": "new_img.jpg",
+        "technologies": ["Ruby", "VueJS", "PostgreSQL"],
+        "features": ["new_feat1", "new_feat2"],
+        "images": ["new_img1", "new_img2"],
+        "github_link": "https://github.com/new_project",
+        "live_link": "https://new_project.com"
     }
 ]

@@ -10,6 +10,7 @@ const ContainerProjects = styled.div`
 `;
 
 function Projects() {
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
   const [filteredTechnologies, setFilteredTechnologies] = useState([]);
@@ -43,11 +44,21 @@ function Projects() {
       filteredTechnologies.length === 0 || filteredTechnologies.every((tech) => project.technologies.includes(tech))
   );
 
+   const handleToggleModal = (isVisible) => {
+    setIsModalVisible(isVisible);
+  };
+
   return (
     <ContainerProjects>
       <FilterTechnologies technologies={allTechnologies} onFilterChange={handleFilterChange} />
-      <ProjectList projects={filteredProjects} onSelectProject={handleSelectProject} />
-      <ModelDetails selectedProject={selectedProject} />
+      <ProjectList
+        projects={filteredProjects}
+        onSelectProject={handleSelectProject}
+        onToggleModal={handleToggleModal}
+      />
+      {isModalVisible && (
+        <ModelDetails selectedProject={selectedProject} onCloseModal={() => handleToggleModal(false)} />
+      )}
     </ContainerProjects>
   );
 }
