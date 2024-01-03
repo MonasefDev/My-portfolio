@@ -28,6 +28,8 @@ const GlobalStyles = createGlobalStyle`
   --break-point-mob: 768px;
   --break-point-tab: 1024px;
   --break-point-desk: 1440px;
+
+  --sidebar-width : 30rem;
 }
 
 *,

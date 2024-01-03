@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const StyledDesktopNavbar = styled.header`
   display: grid;
-  grid-template-columns: 30rem repeat(3, auto) 1fr auto;
+  grid-template-columns: var(--sidebar-width) repeat(3, auto) 1fr auto;
   border-bottom: 1px solid var(--color-lines);
   a {
     display: flex;
