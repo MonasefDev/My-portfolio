@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import HeaderText from "../../ui/HeaderText";
 
 function CodeSnippet() {
   return (
@@ -7,7 +8,8 @@ function CodeSnippet() {
       <div />
       <CodeSnippetSection>
         <Container>
-          <Title>{"// code snippet showcase"}</Title>
+          <HeaderText text="// code snippet showcase" />
+
           <CodeSnippetContent>code snippet</CodeSnippetContent>
         </Container>
         <Scrollbar>
@@ -40,14 +42,6 @@ const CodeSnippetSection = styled.div`
 `;
 
 const CodeSnippetContent = styled.div``;
-
-const Title = styled.div`
-  padding: 2rem 4rem;
-  @media only screen and (max-width: 1024px) {
-    padding: 4rem 2rem 2rem;
-    color: var(--color-white);
-  }
-`;
 
 const Container = styled.div`
   display: flex;

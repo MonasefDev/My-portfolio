@@ -7,7 +7,7 @@ const GlobalStyles = createGlobalStyle`
   --color-primary-2: #011221;
   --color-primary-3: #011627;
   /* color secondary */
-  --color-grey-0: #1e2d3d74;
+  --color-grey-0: #1E2D3D;
   --color-grey-1: #607B96;
   --color-teal-1: #3C9D93;
   --color-purple-1 : #4D5BCE;
@@ -105,6 +105,7 @@ h5,
 h6 {
   overflow-wrap: break-word;
   hyphens: auto;
+  font-size: 1;
 }
 /* Scroll bar */
 

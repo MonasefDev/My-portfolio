@@ -1,29 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { userData } from "../../data/user-data";
 import CommentedText from "./CommentedText";
+import Education from "./Education";
+import HeaderText from "../../ui/HeaderText";
 
 function Content({ selectedSection, selectedItem }) {
-  console.log(userData[selectedItem]);
-  return (
-    <StyledContent>
-      <Title>
-        <div>{selectedSection}</div>
-        <img src="/assets/icons/close.svg" alt="close" />
-        <div />
-      </Title>
-      <TitleMobile>
-        <span>{`//${selectedSection}`}</span>
-        {` / ${selectedItem}`}
-      </TitleMobile>
-      <SectionContent>
-        <div>
+  const [currentElement, setCurrentElement] = useState(null);
+  useEffect(() => {
+    switch (selectedItem) {
+      case "education":
+        setCurrentElement(<Education />);
+        break;
+      default:
+        setCurrentElement(
           <CommentedText
             text={
               userData?.find((item) => item.title === selectedItem).description
             }
           />
-        </div>
+        );
+    }
+  }, [selectedItem]);
+  return (
+    <StyledContent>
+      <HeaderText text={selectedSection} />
+      <TitleMobile>
+        <span>{`//${selectedSection}`}</span>
+        {` / ${selectedItem}`}
+      </TitleMobile>
+      <SectionContent>
+        <div>{currentElement}</div>
         <Scrollbar>
           <div />
         </Scrollbar>
@@ -43,24 +50,6 @@ const StyledContent = styled.div`
   }
 `;
 
-const Title = styled.div`
-  display: grid;
-  grid-template-columns: auto auto 1fr;
-  align-items: center;
-  height: 4rem;
-  border-bottom: 1px solid var(--color-lines);
-  padding: 0 2rem;
-  img {
-    padding: 0 1rem 0 3rem;
-  }
-  & > div:last-child {
-    height: 100%;
-    border-left: 1px solid var(--color-lines);
-  }
-  @media only screen and (max-width: 1024px) {
-    display: none;
-  }
-`;
 const TitleMobile = styled.div`
   display: none;
   margin: 4rem 2rem 2rem;
@@ -74,6 +63,7 @@ const TitleMobile = styled.div`
 const SectionContent = styled.div`
   display: grid;
   grid-template-columns: 1fr 2.6rem;
+  grid-template-rows: 100%;
   height: 100%;
   @media only screen and (max-width: 1024px) {
     display: flex;
