@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import useIsMobile from "../../hooks/useIsMobile";
 const StyledContactItem = styled.div``;
@@ -12,12 +12,10 @@ const Title = styled.div`
   border-bottom: 1px solid var(--color-lines);
 
   cursor: pointer;
-  background-color: ${(props) =>
-    props.mobile ? "var(--color-lines)" : "transparent"};
+
   @media only screen and (max-width: 1024px) {
-    background-color: ${(props) =>
-      props.mobile ? "var(--color-lines)" : "transparent"};
     margin-bottom: 3px;
+    background-color: var(--color-grey-0);
   }
   img {
     transition: all 0.2s ease-in-out;
@@ -57,7 +55,7 @@ function ContactItem() {
 
   return (
     <StyledContactItem>
-      <Title mobile={isMobile} open={isOpen} onClick={() => setIsOpen(!isOpen)}>
+      <Title open={isOpen} onClick={() => setIsOpen(!isOpen)}>
         <img src="/assets/icons/arrow.svg" alt="arrow" />
         contact
       </Title>
