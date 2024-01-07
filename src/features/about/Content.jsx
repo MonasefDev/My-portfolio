@@ -30,7 +30,7 @@ function Content({ selectedSection, selectedItem }) {
         {` / ${selectedItem}`}
       </TitleMobile>
       <SectionContent>
-        <div>{currentElement}</div>
+        <Container>{currentElement}</Container>
         <Scrollbar>
           <div />
         </Scrollbar>
@@ -41,7 +41,8 @@ function Content({ selectedSection, selectedItem }) {
 
 const StyledContent = styled.div`
   display: grid;
-  grid-template-rows: 4rem 1fr;
+  grid-template-rows: 4rem calc(100% - 4rem);
+  overflow: hidden;
   border-right: 1px solid var(--color-lines);
   @media only screen and (max-width: 1024px) {
     display: flex;
@@ -70,6 +71,10 @@ const SectionContent = styled.div`
     flex-direction: column;
     width: 100%;
   }
+`;
+
+const Container = styled.div`
+  overflow: auto;
 `;
 
 const Scrollbar = styled.div`

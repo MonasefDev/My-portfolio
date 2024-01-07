@@ -19,6 +19,7 @@ const StyledAboutLayout = styled.div`
 const ContentSection = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: 100%;
   @media only screen and (max-width: 1024px) {
     display: flex;
     flex-direction: column;

@@ -23,7 +23,8 @@ const StyledHeaderText = styled.div`
   }
   & > div:last-child {
     height: 100%;
-    border-left: 1px solid var(--color-lines);
+    border-left: ${(props) =>
+      props.text ? "1px solid var(--color-lines);" : "none"};
   }
   @media only screen and (max-width: 1024px) {
     display: none;

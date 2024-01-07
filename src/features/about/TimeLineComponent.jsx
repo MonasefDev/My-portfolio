@@ -9,7 +9,7 @@ const TimeLineComponentWrapper = styled.div`
   padding: 2px;
 
   @media (min-width: 1024px) {
-    padding-top: 5rem; /* Adjust according to your design */
+    padding-top: 2rem; /* Adjust according to your design */
   }
 `;
 
@@ -34,7 +34,7 @@ const TimeLineComponent = ({ element }) => {
 
 const TimelineWrapper = styled.div`
   position: relative;
-  margin-left: 25px;
+  margin-left: 3rem;
   &::after {
     content: "";
     position: absolute;
@@ -42,7 +42,7 @@ const TimelineWrapper = styled.div`
     height: 100%;
     background-color: #607b96;
     top: 0;
-    left: -2px;
+    left: -1.3rem;
     z-index: 1;
     animation: moveline 3s linear forwards;
   }

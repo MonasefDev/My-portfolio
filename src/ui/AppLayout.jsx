@@ -17,7 +17,9 @@ const StyledAppLayout = styled.div`
       overflow-y: auto;
     }
     & > div {
-      overflow: hidden;
+      @media only screen and (min-width: 1024px) {
+        overflow: hidden;
+      }
     }
   }
 `;

@@ -23,7 +23,7 @@ const Menu = styled.div`
   top: 5.7rem;
   left: 1px;
   right: 1px;
-  bottom: 5.7rem;
+  bottom: 5.1rem;
   z-index: 9999;
   /* margin: 2px; */
   background-color: var(--color-primary-3);

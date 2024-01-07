@@ -11,24 +11,23 @@ const TimelineElementWrapper = styled.div`
 
   .img {
     position: absolute;
-    left: -4px;
-    top: 5px;
+    left: -2.3rem;
+    top: 3.3rem;
     z-index: 555;
     display: flex;
-    height: 8px;
-    width: 8px;
-    items: center;
+    height: 25px;
+    width: 25px;
+    align-items: center;
     justify-content: center;
     border-radius: 50%;
     background-color: #011221;
     padding: 2px;
     color: #607b96;
-    ring: 1px solid #607b96;
+    border: 1px solid #607b96;
 
-    @media (min-width: 1024px) {
-      left: -6px;
-      height: 12px;
-      width: 12px;
+    @media only screen and (max-width: 1024px) {
+      width: 2rem;
+      height: 2rem;
     }
   }
 

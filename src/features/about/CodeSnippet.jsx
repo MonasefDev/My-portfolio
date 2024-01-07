@@ -1,16 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 import HeaderText from "../../ui/HeaderText";
+import CodeSnippetGist from "./CodeSnippetGist";
 
 function CodeSnippet() {
   return (
     <StyledCodeSnippet>
-      <div />
+      <HeaderText />
       <CodeSnippetSection>
         <Container>
-          <HeaderText text="// code snippet showcase" />
-
-          <CodeSnippetContent>code snippet</CodeSnippetContent>
+          <div>{"// code snippet showcase"}</div>
+          <CodeSnippetContent>
+            <CodeSnippetGist />
+          </CodeSnippetContent>
         </Container>
         <Scrollbar>
           <div />
@@ -34,6 +36,7 @@ const CodeSnippetSection = styled.div`
   display: grid;
   grid-template-columns: 1fr 2.6rem;
   height: 100%;
+
   @media only screen and (max-width: 1024px) {
     display: flex;
     flex-direction: column;
@@ -46,6 +49,7 @@ const CodeSnippetContent = styled.div``;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 2rem;
 `;
 
 const Scrollbar = styled.div`
