@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import useIsMobile from "../../hooks/useIsMobile";
 const StyledInfoItem = styled.div``;
@@ -11,11 +11,9 @@ const Title = styled.div`
   color: var(--color-white);
   border-bottom: 1px solid var(--color-lines);
   cursor: pointer;
-  background-color: ${(props) =>
-    props.mobile ? "var(--color-lines)" : "transparent"};
+
   @media only screen and (max-width: 1024px) {
-    background-color: ${(props) =>
-      props.mobile ? "var(--color-lines)" : "transparent"};
+    background-color: var(--color-grey-0);
     margin-bottom: 3px;
   }
   img {
@@ -62,7 +60,7 @@ function InfoItem({
   );
   return (
     <StyledInfoItem>
-      <Title mobile={isMobile} open={isOpen} onClick={() => setIsOpen(!isOpen)}>
+      <Title open={isOpen} onClick={() => setIsOpen(!isOpen)}>
         <img src="/assets/icons/arrow.svg" alt={info.title} />
         {info.title}
       </Title>

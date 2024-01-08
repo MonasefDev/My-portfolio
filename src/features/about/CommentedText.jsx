@@ -53,7 +53,6 @@ const CommentedTextContent = styled.div`
 function CommentedText({ text }) {
   const [lineCount, setLineCount] = useState(0);
   const ref = useRef(null);
-  console.log(ref);
   const updateLines = () => {
     const textElement = ref.current;
     if (textElement) {
@@ -61,7 +60,6 @@ function CommentedText({ text }) {
       const lineHeight = parseFloat(getComputedStyle(textElement).lineHeight);
       const lines = Math.ceil(elementHeight / lineHeight);
       setLineCount(lines);
-      console.log(lines);
     }
   };
 

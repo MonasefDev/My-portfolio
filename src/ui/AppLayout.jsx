@@ -12,8 +12,14 @@ const StyledAppLayout = styled.div`
   border-radius: 8px;
   border: 1px solid var(--color-lines);
   main {
+    overflow: hidden;
     @media only screen and (max-width: 1024px) {
       overflow-y: auto;
+    }
+    & > div {
+      @media only screen and (min-width: 1024px) {
+        overflow: hidden;
+      }
     }
   }
 `;
