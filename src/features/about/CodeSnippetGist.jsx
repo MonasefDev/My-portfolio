@@ -131,23 +131,4 @@ const DetailsAndStars = styled.div`
   }
 `;
 
-const CommentSection = styled.div`
-  border-top: 1px solid #1e2d3d;
-  margin-top: 1rem;
-  display: flex;
-  justify-content: space-between;
-  padding-top: 1rem;
-  font-family: "fira_retina";
-  font-size: 0.75rem;
-  color: #7f8d9e;
-
-  & > p {
-    width: 83.33333%;
-  }
-
-  & > img {
-    cursor: pointer;
-  }
-`;
-
 export default CodeSnippetGist;
