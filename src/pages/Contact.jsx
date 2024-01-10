@@ -1,7 +1,8 @@
 import React from "react";
+import ContactLayout from "../features/contact/ContactLayout";
 
 function Contact() {
-  return <div>Contact</div>;
+  return <ContactLayout />;
 }
 
 export default Contact;
