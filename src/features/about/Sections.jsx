@@ -19,7 +19,6 @@ const Img = styled.img`
 `;
 
 function Sections({ selectedSection, setSelectedSection, setSelectedItem }) {
-  console.log(selectedSection);
   return (
     <StyledSections>
       {sections.map((section) => (
