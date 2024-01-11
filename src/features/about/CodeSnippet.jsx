@@ -36,7 +36,7 @@ const CodeSnippetSection = styled.div`
   display: grid;
   grid-template-columns: 1fr var(--scroll-width);
   height: 100%;
-
+  overflow: hidden;
   @media only screen and (max-width: 1024px) {
     display: flex;
     flex-direction: column;
@@ -44,12 +44,15 @@ const CodeSnippetSection = styled.div`
   }
 `;
 
-const CodeSnippetContent = styled.div``;
+const CodeSnippetContent = styled.div`
+  width: 100%;
+`;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 2rem;
+  overflow: auto;
 `;
 
 const Scrollbar = styled.div`
