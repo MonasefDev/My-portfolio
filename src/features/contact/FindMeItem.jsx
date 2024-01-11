@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import useIsMobile from "../../hooks/useIsMobile";
-const StyledFindMeItem = styled.div``;
+const StyledFindMeItem = styled.div`
+  border-bottom: ${(props) =>
+    props.open ? "1px solid var(--color-lines)" : "none"};
+`;
 const Title = styled.div`
   height: 4rem;
   display: flex;
@@ -10,7 +13,6 @@ const Title = styled.div`
   gap: 1rem;
   color: var(--color-white);
   border-bottom: 1px solid var(--color-lines);
-
   cursor: pointer;
 
   @media only screen and (max-width: 1024px) {
@@ -57,7 +59,7 @@ function FindMeItem() {
   const [isOpen, setIsOpen] = useState(!isMobile);
 
   return (
-    <StyledFindMeItem>
+    <StyledFindMeItem open={isOpen}>
       <Title open={isOpen} onClick={() => setIsOpen(!isOpen)}>
         <img src="/assets/icons/arrow.svg" alt="arrow" />
         find-me-also-in

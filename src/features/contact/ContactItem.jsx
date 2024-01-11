@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import useIsMobile from "../../hooks/useIsMobile";
-const StyledContactItem = styled.div``;
+const StyledContactItem = styled.div`
+  border-bottom: ${(props) =>
+    props.open ? "1px solid var(--color-lines)" : "none"};
+`;
 const Title = styled.div`
   height: 4rem;
   display: flex;
@@ -54,7 +57,7 @@ function ContactItem() {
   const [isOpen, setIsOpen] = useState(!isMobile);
 
   return (
-    <StyledContactItem>
+    <StyledContactItem open={isOpen}>
       <Title open={isOpen} onClick={() => setIsOpen(!isOpen)}>
         <img src="/assets/icons/arrow.svg" alt="arrow" />
         contact
