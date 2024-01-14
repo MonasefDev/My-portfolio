@@ -3,10 +3,10 @@ import styled from "styled-components";
 import Sidebar from "./Sidebar";
 import ContactForm from "./ContactForm";
 import HeaderText from "../../ui/HeaderText";
-import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
-import { snippet1 } from "../../data/snippet";
+import useIsMobile from "../../hooks/useIsMobile";
 
 function ContactLayout() {
+  const isMobile = useIsMobile();
   return (
     <StyledContactLayout>
       <Sidebar />
@@ -14,7 +14,9 @@ function ContactLayout() {
         <HeaderText text="contacts" />
         <Content>
           <ContactForm />
-          <SnippetContainer>code snippet here</SnippetContainer>
+          <SnippetContainer $mobile={isMobile}>
+            code snippet here
+          </SnippetContainer>
         </Content>
       </ContentContainer>
     </StyledContactLayout>
@@ -24,6 +26,7 @@ function ContactLayout() {
 const StyledContactLayout = styled.div`
   display: grid;
   grid-template-columns: var(--sidebar-width) 1fr;
+  grid-template-rows: 100%;
   height: 100%;
   @media only screen and (max-width: 1024px) {
     display: flex;
@@ -42,7 +45,6 @@ const Content = styled.div`
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 100%;
   overflow: hidden;
-  margin-bottom: 1rem;
   @media only screen and (max-width: 1024px) {
     display: flex;
     flex-direction: column;
@@ -52,6 +54,11 @@ const Content = styled.div`
 
 const SnippetContainer = styled.div`
   padding: 2rem;
+  border-left: ${(props) =>
+    props.mobile ? "none" : "1px solid var(--color-lines)"};
+  @media only screen and (max-width: 1024px) {
+    display: none;
+  }
 `;
 
 export default ContactLayout;

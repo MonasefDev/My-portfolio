@@ -1,7 +1,88 @@
-import React from "react";
-
 import styled from "styled-components";
 import Button from "../../ui/Button";
+import { ValidationError, useForm } from "@formspree/react";
+import { useEffect, useState } from "react";
+
+const ContactForm = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [state, handleSubmit, reset] = useForm("mnqennyj");
+  useEffect(() => {
+    if (state.succeeded) {
+      console.log("Thanks for joining!");
+      setName("");
+      setEmail("");
+      setMessage("");
+    }
+  }, [state]);
+  return (
+    <StyledContactForm>
+      {!state.succeeded ? (
+        <form id="contact-form" onSubmit={handleSubmit}>
+          <FormGroup>
+            <Label>_name:</Label>
+            <Input
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+              type="text"
+              id="name-input"
+              name="user_name"
+              placeholder="name"
+              required
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label>_email:</Label>
+            <Input
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              value={email}
+              id="email-input"
+              name="user_email"
+              placeholder="email"
+              required
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label>_message:</Label>
+            <Textarea
+              onChange={(e) => setMessage(e.target.value)}
+              id="message-input"
+              value={message}
+              name="message"
+              placeholder="message"
+              required
+            />
+          </FormGroup>
+          <ValidationError
+            prefix="Message"
+            field="message"
+            errors={state.errors}
+          />
+          <Button
+            disabled={state.submitting}
+            id="submit-button"
+            type="submit"
+            variation="default"
+          >
+            submit-message
+          </Button>
+        </form>
+      ) : (
+        <MessageSucc>
+          <h3>Thank you! 🤘</h3>
+          <p>
+            Your message has been accepted. You will recieve answer really soon!
+          </p>
+          <Button variation="default" onClick={() => reset()}>
+            send-new-message
+          </Button>
+        </MessageSucc>
+      )}
+    </StyledContactForm>
+  );
+};
 
 const StyledContactForm = styled.div`
   display: flex;
@@ -61,45 +142,22 @@ const Textarea = styled.textarea`
   }
 `;
 
-const ContactForm = () => {
-  return (
-    <StyledContactForm>
-      <form id="contact-form">
-        <FormGroup>
-          <Label>_name:</Label>
-          <Input
-            type="text"
-            id="name-input"
-            name="user_name"
-            placeholder="name"
-            required
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label>_email:</Label>
-          <Input
-            type="email"
-            id="email-input"
-            name="user_email"
-            placeholder="email"
-            required
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label>_message:</Label>
-          <Textarea
-            id="message-input"
-            name="message"
-            placeholder="message"
-            required
-          />
-        </FormGroup>
-        <Button id="submit-button" type="submit" variation="default">
-          submit-message
-        </Button>
-      </form>
-    </StyledContactForm>
-  );
-};
+const MessageSucc = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  h3 {
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: var(--color-white);
+  }
+  p {
+    text-align: center;
+    max-width: 40rem;
+  }
+`;
 
 export default ContactForm;
