@@ -41,6 +41,16 @@ const Container = styled.div`
     width: 100%;
     overflow-x: scroll;
   }
+  .hljs-string {
+    color: var(--color-accent-4);
+  }
+  .hljs-built_in,
+  .hljs-function {
+    color: var(--color-accent-1);
+  }
+  .coffeescript {
+    color: var(--color-purple-2);
+  }
 `;
 
 const Scrollbar = styled.div`
