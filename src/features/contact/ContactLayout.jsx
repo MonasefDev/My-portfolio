@@ -4,9 +4,9 @@ import Sidebar from "./Sidebar";
 import ContactForm from "./ContactForm";
 import HeaderText from "../../ui/HeaderText";
 import useIsMobile from "../../hooks/useIsMobile";
+import CodeSnippet from "./CodeSnippet";
 
 function ContactLayout() {
-  const isMobile = useIsMobile();
   return (
     <StyledContactLayout>
       <Sidebar />
@@ -14,9 +14,7 @@ function ContactLayout() {
         <HeaderText text="contacts" />
         <Content>
           <ContactForm />
-          <SnippetContainer $mobile={isMobile}>
-            code snippet here
-          </SnippetContainer>
+          <CodeSnippet />
         </Content>
       </ContentContainer>
     </StyledContactLayout>
@@ -42,22 +40,13 @@ const ContentContainer = styled.div`
 
 const Content = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 50%);
   grid-template-rows: 100%;
   overflow: hidden;
   @media only screen and (max-width: 1024px) {
     display: flex;
     flex-direction: column;
     overflow: visible;
-  }
-`;
-
-const SnippetContainer = styled.div`
-  padding: 2rem;
-  border-left: ${(props) =>
-    props.mobile ? "none" : "1px solid var(--color-lines)"};
-  @media only screen and (max-width: 1024px) {
-    display: none;
   }
 `;
 

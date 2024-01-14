@@ -34,7 +34,7 @@ const StyledCodeSnippet = styled.div`
 `;
 const CodeSnippetSection = styled.div`
   display: grid;
-  grid-template-columns: 1fr 2.6rem;
+  grid-template-columns: 1fr var(--scroll-width);
   height: 100%;
 
   @media only screen and (max-width: 1024px) {
