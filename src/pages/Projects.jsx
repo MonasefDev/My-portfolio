@@ -7,6 +7,19 @@ import FilterTechnologies from "../features/projects/FilterTechnologies";
 const ContainerProjects = styled.div`
   display: flex;
   margin: 0 auto;
+  position: relative;
+`;
+
+const BlurOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  z-index: 1;
+  backdrop-filter: blur(20px);
+  pointer-events: ${({ isVisible }) => (isVisible ? "auto" : "none")};
 `;
 
 function Projects() {
@@ -14,15 +27,16 @@ function Projects() {
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
   const [filteredTechnologies, setFilteredTechnologies] = useState([]);
-  const allTechnologies = Array.from(new Set(projects.flatMap((project) => project.technologies)));
+  const allTechnologies = Array.from(
+    new Set(projects.flatMap((project) => project.technologies))
+  );
 
   useEffect(() => {
-    // Fetch projects data from the JSON file
     fetch("db/data.json")
       .then((response) => response.json())
       .then((data) => setProjects(data))
       .catch((error) => console.error("Error fetching data:", error));
-  }, []); // Run this effect only once on component mount
+  }, []);
 
   const handleSelectProject = (project) => {
     setSelectedProject(project);
@@ -30,34 +44,51 @@ function Projects() {
 
   const handleFilterChange = (selectedTechnology) => {
     if (filteredTechnologies.includes(selectedTechnology)) {
-      // Remove technology if it's already selected
-      setFilteredTechnologies(filteredTechnologies.filter((tech) => tech !== selectedTechnology));
+      setFilteredTechnologies(
+        filteredTechnologies.filter((tech) => tech !== selectedTechnology)
+      );
     } else {
-      // Add technology if it's not selected
       setFilteredTechnologies([...filteredTechnologies, selectedTechnology]);
     }
-    setSelectedProject(null); // Clear selected project when filtering
+    setSelectedProject(null);
   };
 
   const filteredProjects = projects.filter(
     (project) =>
-      filteredTechnologies.length === 0 || filteredTechnologies.every((tech) => project.technologies.includes(tech))
+      filteredTechnologies.length === 0 ||
+      filteredTechnologies.every((tech) => project.technologies.includes(tech))
   );
 
-   const handleToggleModal = (isVisible) => {
+  const handleToggleModal = (isVisible) => {
     setIsModalVisible(isVisible);
+  };
+
+  const handleBlurOverlayClick = () => {
+    handleToggleModal(false);
   };
 
   return (
     <ContainerProjects>
-      <FilterTechnologies technologies={allTechnologies} onFilterChange={handleFilterChange} />
+      <FilterTechnologies
+        technologies={allTechnologies}
+        onFilterChange={handleFilterChange}
+      />
       <ProjectList
         projects={filteredProjects}
         onSelectProject={handleSelectProject}
         onToggleModal={handleToggleModal}
       />
       {isModalVisible && (
-        <ModelDetails selectedProject={selectedProject} onCloseModal={() => handleToggleModal(false)} />
+        <BlurOverlay
+          isVisible={isModalVisible}
+          onClick={handleBlurOverlayClick}
+        />
+      )}
+      {isModalVisible && (
+        <ModelDetails
+          selectedProject={selectedProject}
+          onCloseModal={() => handleToggleModal(false)}
+        />
       )}
     </ContainerProjects>
   );
