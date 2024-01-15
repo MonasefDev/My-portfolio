@@ -65,6 +65,9 @@ function MobileNavbar() {
           <Link onClick={() => setIsMenuOpen(false)} to="/projects">
             _projects
           </Link>
+          <Link onClick={() => setIsMenuOpen(false)} to="/dashboard">
+            _dashboard
+          </Link>
           <Link onClick={() => setIsMenuOpen(false)} to="/contact">
             _contact
           </Link>
