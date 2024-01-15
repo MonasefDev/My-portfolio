@@ -5,8 +5,13 @@ const FilterContainer = styled.div`
   margin-bottom: 20px;
   min-width: var(--sidebar-width);
   border-right: 1px solid var(--color-lines);
-  height: 100vh;
   padding: 0;
+  position: relative;
+
+  .filter-wrapper {
+    position: fixed;
+    min-width: var(--sidebar-width);
+  }
 `;
 
 const FilterHeading = styled.h4`
@@ -22,6 +27,7 @@ const FilterItem = styled.div`
   display: flex;
   align-items: center;
   padding: 0 0 0 1rem;
+  width: 100%;
 
   input:checked + label {
     color: var(--color-white);
@@ -86,23 +92,25 @@ function FilterTechnologies({ technologies, onFilterChange }) {
 
   return (
     <FilterContainer>
-      <FilterHeading>
-        <img src="/assets/icons/arrow.svg" alt="arrow" /> projects
-      </FilterHeading>
-      {technologies.map((technology) => (
-        <FilterItem key={technology}>
-          <FilterInput
-            type="checkbox"
-            id={technology}
-            value={technology}
-            onChange={handleCheckboxChange}
-            className="filter-input"
-          />
-          <FilterLabel htmlFor={technology} className="filter-label">
-            {technology}
-          </FilterLabel>
-        </FilterItem>
-      ))}
+      <div className="filter-wrapper">
+        <FilterHeading>
+          <img src="/assets/icons/arrow.svg" alt="arrow" /> projects
+        </FilterHeading>
+        {technologies.map((technology) => (
+          <FilterItem key={technology}>
+            <FilterInput
+              type="checkbox"
+              id={technology}
+              value={technology}
+              onChange={handleCheckboxChange}
+              className="filter-input"
+            />
+            <FilterLabel htmlFor={technology} className="filter-label">
+              {technology}
+            </FilterLabel>
+          </FilterItem>
+        ))}
+      </div>
     </FilterContainer>
   );
 }

@@ -1,94 +1,165 @@
+import "react-image-gallery/styles/css/image-gallery.css";
 import React from "react";
+import ReactImageGallery from "react-image-gallery";
 import styled from "styled-components";
 
 const DetailsContainer = styled.div`
   margin-top: 2rem;
-  padding: 1.6rem;
+  padding: 5rem;
   border: 1px solid var(--color-lines);
   border-radius: 0.8rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: var(--color-grey-2);
-  position: absolute;
+  position: fixed;
   left: 10%;
   right: 10%;
-  top: 10%;
+  top: 0;
   z-index: 9999;
-  overflow: hidden;
   background-color: var(--color-primary-1);
+  height: 95%;
+  overflow: scroll;
 
-  .details-heading {
-    margin-bottom: 1.6rem;
+  .details {
+    &-wrapper {
+      overflow: scroll;
+    }
+
+    &-gallery {
+      margin: 0 auto;
+      width: 90%;
+    }
+
+    &-content {
+      padding: 4rem 8rem 4rem 10rem;
+    }
+  }
+`;
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--color-teal-1);
+  cursor: pointer;
+`;
+
+const DetailsSubheading = styled.h3`
+  margin-bottom: 0.8rem;
+`;
+
+const DetailsParagraph = styled.p`
+  margin-bottom: 1.2rem;
+  margin-top: 2rem;
+  h4 {
+    display: inline;
   }
 
-  .details-subheading {
-    margin-bottom: 0.8rem;
-  }
+  span {
+    padding: 0.4rem 0.8rem;
+    background-color: var(--color-teal-1);
+    border-radius: 0.4rem;
+    color: var(--color-lines);
+    margin: 0.4rem;
+    margin-top: 2rem;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
 
-  .details-paragraph {
-    margin-bottom: 1.2rem;
-  }
-
-  .details-link {
-    color: #3498db;
-    text-decoration: none;
-    margin-right: 1rem;
     &:hover {
-      text-decoration: underline;
+      background-color: var(--color-button-d-2);
     }
   }
 
-  .close-button {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: none;
-    border: none;
-    color: #3498db;
-    cursor: pointer;
+  li {
+    display: table-row;
+  }
+
+  li:before {
+    content: "✓";
+    color: var(--color-teal-1);
+  }
+
+  li > div {
+    display: table-cell;
+    padding: 1rem;
+
+    &:hover {
+      color: var(--color-white);
+    }
+  }
+`;
+
+const DetailsLink = styled.a`
+  color: var(--color-teal-1);
+  text-decoration: none;
+  margin-right: 1rem;
+  &:hover {
+    text-decoration: underline;
   }
 `;
 
 function ModelDetails({ selectedProject, onCloseModal }) {
+  const images = selectedProject.images.map((image) => ({
+    original: image,
+    thumbnail: image,
+  }));
+
+  const tech = selectedProject.technologies.map((technology) => (
+    <span key={technology}>{technology}</span>
+  ));
+
+  const features = selectedProject.features.map((feature) => (
+    <li key={feature}>
+      <div>{feature}</div>
+    </li>
+  ));
+
   return (
     <DetailsContainer>
-      <button className="close-button" onClick={() => onCloseModal(false)}>
-        ✕
-      </button>
-      <h2 className="details-heading">Model Details</h2>
+      <CloseButton onClick={() => onCloseModal(false)}>✕</CloseButton>
       {selectedProject ? (
-        <div>
-          <h3 className="details-subheading">{selectedProject.title}</h3>
-          <p className="details-paragraph">
-            Description: {selectedProject.description}
-          </p>
-          <p className="details-paragraph">
-            Details: {selectedProject.details}
-          </p>
-          <p className="details-paragraph">
-            Technologies: {selectedProject.technologies.join(", ")}
-          </p>
-          <p className="details-paragraph">
-            Features: {selectedProject.features.join(", ")}
-          </p>
-          <a
-            className="details-link"
-            href={selectedProject.github_link}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View on GitHub
-          </a>
-          <a
-            className="details-link"
-            href={selectedProject.live_link}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Live Demo
-          </a>
+        <div className="details">
+          <div className="details-wrapper">
+            <div className="details-gallery">
+              <ReactImageGallery items={images} />
+            </div>
+            <div className="details-content">
+              <DetailsSubheading>{selectedProject.title}</DetailsSubheading>
+              <DetailsParagraph>
+                Description: {selectedProject.description}
+              </DetailsParagraph>
+              <DetailsParagraph>
+                Details: {selectedProject.details}
+              </DetailsParagraph>
+              <DetailsParagraph>
+                <h4>Technologies:</h4>
+                {tech}
+              </DetailsParagraph>
+              <DetailsParagraph>
+                {" "}
+                <h4>Features:</h4>
+                <ul> {features} </ul>
+              </DetailsParagraph>
+              <DetailsLink
+                href={selectedProject.github_link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View on GitHub
+              </DetailsLink>
+              <DetailsLink
+                href={selectedProject.live_link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Live Demo
+              </DetailsLink>
+            </div>
+          </div>
         </div>
       ) : (
-        <p className="details-paragraph">Select a project to view details.</p>
+        <DetailsParagraph>Select a project to view details.</DetailsParagraph>
       )}
     </DetailsContainer>
   );

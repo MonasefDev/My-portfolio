@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Sidebar from "./Sidebar";
 import ContactForm from "./ContactForm";
 import HeaderText from "../../ui/HeaderText";
-import useIsMobile from "../../hooks/useIsMobile";
 import CodeSnippet from "./CodeSnippet";
 
 function ContactLayout() {

@@ -2,12 +2,25 @@
   {
     "id": 1,
     "title": "ui animotinos",
-    "description": "Description for New Project",
-    "details": "Details for New Project",
+    "description": "lorem ipsum dolor sit amet,",
+    "details": "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
     "poster_img": "https://source.unsplash.com/random/200x200?sig=",
     "technologies": ["Ruby", "Rails", "PostgreSQL"],
-    "features": ["new_feat1", "new_feat2"],
-    "images": ["new_img1", "new_img2"],
+    "features": [
+      "new_feat1",
+      "new_feat2",
+      "new_feat3",
+      "new_feat4",
+      "new_feat5",
+      "new_feat6"
+    ],
+    "images": [
+      "https://i.ibb.co/TMK2hwc/img1.png",
+      "https://i.ibb.co/X8SH1gM/img2.png",
+      "https://i.ibb.co/vjFWVkF/img3.png",
+      "https://i.ibb.co/wNkSNS0/img4.png",
+      "https://i.ibb.co/99HWLdF/img5.png"
+    ],
     "github_link": "https://github.com/new_project",
     "live_link": "https://new_project.com"
   },
@@ -18,8 +31,21 @@
     "details": "Details for New Project",
     "poster_img": "https://source.unsplash.com/random/200x200?sig=",
     "technologies": ["HTML"],
-    "features": ["new_feat1", "new_feat2"],
-    "images": ["new_img1", "new_img2"],
+    "features": [
+      "new_feat1",
+      "new_feat2",
+      "new_feat3",
+      "new_feat4",
+      "new_feat5",
+      "new_feat6"
+    ],
+    "images": [
+      "https://i.ibb.co/TMK2hwc/img1.png",
+      "https://i.ibb.co/X8SH1gM/img2.png",
+      "https://i.ibb.co/vjFWVkF/img3.png",
+      "https://i.ibb.co/wNkSNS0/img4.png",
+      "https://i.ibb.co/99HWLdF/img5.png"
+    ],
     "github_link": "https://github.com/new_project",
     "live_link": "https://new_project.com"
   },
@@ -30,8 +56,21 @@
     "details": "Details for New Project",
     "poster_img": "https://source.unsplash.com/random/200x200?sig=",
     "technologies": ["Ruby", "CSS"],
-    "features": ["new_feat1", "new_feat2"],
-    "images": ["new_img1", "new_img2"],
+    "features": [
+      "new_feat1",
+      "new_feat2",
+      "new_feat3",
+      "new_feat4",
+      "new_feat5",
+      "new_feat6"
+    ],
+    "images": [
+      "https://i.ibb.co/TMK2hwc/img1.png",
+      "https://i.ibb.co/X8SH1gM/img2.png",
+      "https://i.ibb.co/vjFWVkF/img3.png",
+      "https://i.ibb.co/wNkSNS0/img4.png",
+      "https://i.ibb.co/99HWLdF/img5.png"
+    ],
     "github_link": "https://github.com/new_project",
     "live_link": "https://new_project.com"
   },
@@ -42,8 +81,21 @@
     "details": "Details for New Project",
     "poster_img": "https://source.unsplash.com/random/200x200?sig=",
     "technologies": ["Ruby", "Rails", "PostgreSQL"],
-    "features": ["new_feat1", "new_feat2"],
-    "images": ["new_img1", "new_img2"],
+    "features": [
+      "new_feat1",
+      "new_feat2",
+      "new_feat3",
+      "new_feat4",
+      "new_feat5",
+      "new_feat6"
+    ],
+    "images": [
+      "https://i.ibb.co/TMK2hwc/img1.png",
+      "https://i.ibb.co/X8SH1gM/img2.png",
+      "https://i.ibb.co/vjFWVkF/img3.png",
+      "https://i.ibb.co/wNkSNS0/img4.png",
+      "https://i.ibb.co/99HWLdF/img5.png"
+    ],
     "github_link": "https://github.com/new_project",
     "live_link": "https://new_project.com"
   },
@@ -54,8 +106,14 @@
     "details": "Details for New Project",
     "poster_img": "https://source.unsplash.com/random/200x200?sig=",
     "technologies": ["HTML"],
-    "features": ["new_feat1", "new_feat2"],
-    "images": ["new_img1", "new_img2"],
+    "features": ["new_feat1", "new_feat2,"],
+    "images": [
+      "https://i.ibb.co/TMK2hwc/img1.png",
+      "https://i.ibb.co/X8SH1gM/img2.png",
+      "https://i.ibb.co/vjFWVkF/img3.png",
+      "https://i.ibb.co/wNkSNS0/img4.png",
+      "https://i.ibb.co/99HWLdF/img5.png"
+    ],
     "github_link": "https://github.com/new_project",
     "live_link": "https://new_project.com"
   },
@@ -66,8 +124,21 @@
     "details": "Details for New Project",
     "poster_img": "https://source.unsplash.com/random/200x200?sig=",
     "technologies": ["Ruby", "CSS"],
-    "features": ["new_feat1", "new_feat2"],
-    "images": ["new_img1", "new_img2"],
+    "features": [
+      "new_feat1",
+      "new_feat2",
+      "new_feat3",
+      "new_feat4",
+      "new_feat5",
+      "new_feat6"
+    ],
+    "images": [
+      "https://i.ibb.co/TMK2hwc/img1.png",
+      "https://i.ibb.co/X8SH1gM/img2.png",
+      "https://i.ibb.co/vjFWVkF/img3.png",
+      "https://i.ibb.co/wNkSNS0/img4.png",
+      "https://i.ibb.co/99HWLdF/img5.png"
+    ],
     "github_link": "https://github.com/new_project",
     "live_link": "https://new_project.com"
   },
@@ -78,8 +149,271 @@
     "details": "Details for New Project",
     "poster_img": "https://source.unsplash.com/random/200x200?sig=",
     "technologies": ["Ruby", "VueJS", "PostgreSQL"],
-    "features": ["new_feat1", "new_feat2"],
-    "images": ["new_img1", "new_img2"],
+    "features": [
+      "new_feat1",
+      "new_feat2",
+      "new_feat3",
+      "new_feat4",
+      "new_feat5",
+      "new_feat6"
+    ],
+    "images": [
+      "https://i.ibb.co/TMK2hwc/img1.png",
+      "https://i.ibb.co/X8SH1gM/img2.png",
+      "https://i.ibb.co/vjFWVkF/img3.png",
+      "https://i.ibb.co/wNkSNS0/img4.png",
+      "https://i.ibb.co/99HWLdF/img5.png"
+    ],
+    "github_link": "https://github.com/new_project",
+    "live_link": "https://new_project.com"
+  },
+  {
+    "id": 8,
+    "title": "digital agency",
+    "description": "Description for New Project",
+    "details": "Details for New Project",
+    "poster_img": "https://source.unsplash.com/random/200x200?sig=",
+    "technologies": ["Ruby", "VueJS", "PostgreSQL"],
+    "features": [
+      "new_feat1",
+      "new_feat2",
+      "new_feat3",
+      "new_feat4",
+      "new_feat5",
+      "new_feat6"
+    ],
+    "images": [
+      "https://i.ibb.co/TMK2hwc/img1.png",
+      "https://i.ibb.co/X8SH1gM/img2.png",
+      "https://i.ibb.co/vjFWVkF/img3.png",
+      "https://i.ibb.co/wNkSNS0/img4.png",
+      "https://i.ibb.co/99HWLdF/img5.png"
+    ],
+    "github_link": "https://github.com/new_project",
+    "live_link": "https://new_project.com"
+  },
+  {
+    "id": 9,
+    "title": "food delivery",
+    "description": "Description for New Project",
+    "details": "Details for New Project",
+    "poster_img": "https://source.unsplash.com/random/200x200?sig=",
+    "technologies": ["Ruby", "VueJS", "PostgreSQL"],
+    "features": [
+      "new_feat1",
+      "new_feat2",
+      "new_feat3",
+      "new_feat4",
+      "new_feat5",
+      "new_feat6"
+    ],
+    "images": [
+      "https://i.ibb.co/TMK2hwc/img1.png",
+      "https://i.ibb.co/X8SH1gM/img2.png",
+      "https://i.ibb.co/vjFWVkF/img3.png",
+      "https://i.ibb.co/wNkSNS0/img4.png",
+      "https://i.ibb.co/99HWLdF/img5.png"
+    ],
+    "github_link": "https://github.com/new_project",
+    "live_link": "https://new_project.com"
+  },
+  {
+    "id": 10,
+    "title": "Neosfera",
+    "description": "Description for New Project",
+    "details": "Details for New Project",
+    "poster_img": "https://source.unsplash.com/random/200x200?sig=",
+    "technologies": ["Ruby", "VueJS", "PostgreSQL"],
+    "features": [
+      "new_feat1",
+      "new_feat2",
+      "new_feat3",
+      "new_feat4",
+      "new_feat5",
+      "new_feat6"
+    ],
+    "images": [
+      "https://i.ibb.co/TMK2hwc/img1.png",
+      "https://i.ibb.co/X8SH1gM/img2.png",
+      "https://i.ibb.co/vjFWVkF/img3.png",
+      "https://i.ibb.co/wNkSNS0/img4.png",
+      "https://i.ibb.co/99HWLdF/img5.png"
+    ],
+    "github_link": "https://github.com/new_project",
+    "live_link": "https://new_project.com"
+  },
+  {
+    "id": 11,
+    "title": "Tivi online",
+    "description": "Description for New Project",
+    "details": "Details for New Project",
+    "poster_img": "https://source.unsplash.com/random/200x200?sig=",
+    "technologies": ["Ruby", "VueJS", "PostgreSQL"],
+    "features": [
+      "new_feat1",
+      "new_feat2",
+      "new_feat3",
+      "new_feat4",
+      "new_feat5",
+      "new_feat6"
+    ],
+    "images": [
+      "https://i.ibb.co/TMK2hwc/img1.png",
+      "https://i.ibb.co/X8SH1gM/img2.png",
+      "https://i.ibb.co/vjFWVkF/img3.png",
+      "https://i.ibb.co/wNkSNS0/img4.png",
+      "https://i.ibb.co/99HWLdF/img5.png"
+    ],
+    "github_link": "https://github.com/new_project",
+    "live_link": "https://new_project.com"
+  },
+  {
+    "id": 12,
+    "title": "zomato clone",
+    "description": "Description for New Project",
+    "details": "Details for New Project",
+    "poster_img": "https://source.unsplash.com/random/200x200?sig=",
+    "technologies": ["Ruby", "VueJS", "PostgreSQL"],
+    "features": [
+      "new_feat1",
+      "new_feat2",
+      "new_feat3",
+      "new_feat4",
+      "new_feat5",
+      "new_feat6"
+    ],
+    "images": [
+      "https://i.ibb.co/TMK2hwc/img1.png",
+      "https://i.ibb.co/X8SH1gM/img2.png",
+      "https://i.ibb.co/vjFWVkF/img3.png",
+      "https://i.ibb.co/wNkSNS0/img4.png",
+      "https://i.ibb.co/99HWLdF/img5.png"
+    ],
+    "github_link": "https://github.com/new_project",
+    "live_link": "https://new_project.com"
+  },
+  {
+    "id": 13,
+    "title": "weather app",
+    "description": "Description for New Project",
+    "details": "Details for New Project",
+    "poster_img": "https://source.unsplash.com/random/200x200?sig=",
+    "technologies": ["Ruby", "VueJS", "PostgreSQL"],
+    "features": [
+      "new_feat1",
+      "new_feat2",
+      "new_feat3",
+      "new_feat4",
+      "new_feat5",
+      "new_feat6"
+    ],
+    "images": [
+      "https://i.ibb.co/TMK2hwc/img1.png",
+      "https://i.ibb.co/X8SH1gM/img2.png",
+      "https://i.ibb.co/vjFWVkF/img3.png",
+      "https://i.ibb.co/wNkSNS0/img4.png",
+      "https://i.ibb.co/99HWLdF/img5.png"
+    ],
+    "github_link": "https://github.com/new_project",
+    "live_link": "https://new_project.com"
+  },
+  {
+    "id": 14,
+    "title": "edeitting app",
+    "description": "Description for New Project",
+    "details": "Details for New Project",
+    "poster_img": "https://source.unsplash.com/random/200x200?sig=",
+    "technologies": ["Ruby", "VueJS", "PostgreSQL"],
+    "features": [
+      "new_feat1",
+      "new_feat2",
+      "new_feat3",
+      "new_feat4",
+      "new_feat5",
+      "new_feat6"
+    ],
+    "images": [
+      "https://i.ibb.co/TMK2hwc/img1.png",
+      "https://i.ibb.co/X8SH1gM/img2.png",
+      "https://i.ibb.co/vjFWVkF/img3.png",
+      "https://i.ibb.co/wNkSNS0/img4.png",
+      "https://i.ibb.co/99HWLdF/img5.png"
+    ],
+    "github_link": "https://github.com/new_project",
+    "live_link": "https://new_project.com"
+  },
+  {
+    "id": 15,
+    "title": "todo app",
+    "description": "Description for New Project",
+    "details": "Details for New Project",
+    "poster_img": "https://source.unsplash.com/random/200x200?sig=",
+    "technologies": ["Php", "JavaScript", "PostgreSQL"],
+    "features": [
+      "new_feat1",
+      "new_feat2",
+      "new_feat3",
+      "new_feat4",
+      "new_feat5",
+      "new_feat6"
+    ],
+    "images": [
+      "https://i.ibb.co/TMK2hwc/img1.png",
+      "https://i.ibb.co/X8SH1gM/img2.png",
+      "https://i.ibb.co/vjFWVkF/img3.png",
+      "https://i.ibb.co/wNkSNS0/img4.png",
+      "https://i.ibb.co/99HWLdF/img5.png"
+    ],
+    "github_link": "https://github.com/new_project",
+    "live_link": "https://new_project.com"
+  },
+  {
+    "id": 16,
+    "title": "korean food",
+    "description": "Description for New Project",
+    "details": "Details for New Project",
+    "poster_img": "https://source.unsplash.com/random/200x200?sig=",
+    "technologies": ["React", "Php", "PostgreSQL"],
+    "features": [
+      "new_feat1",
+      "new_feat2",
+      "new_feat3",
+      "new_feat4",
+      "new_feat5",
+      "new_feat6"
+    ],
+    "images": [
+      "https://i.ibb.co/TMK2hwc/img1.png",
+      "https://i.ibb.co/X8SH1gM/img2.png",
+      "https://i.ibb.co/vjFWVkF/img3.png",
+      "https://i.ibb.co/wNkSNS0/img4.png",
+      "https://i.ibb.co/99HWLdF/img5.png"
+    ],
+    "github_link": "https://github.com/new_project",
+    "live_link": "https://new_project.com"
+  },
+  {
+    "id": 17,
+    "title": "google clone",
+    "description": "Description for New Project",
+    "details": "Details for New Project",
+    "poster_img": "https://source.unsplash.com/random/200x200?sig=",
+    "technologies": ["Ruby", "Angular", "PostgreSQL"],
+    "features": [
+      "new_feat1",
+      "new_feat2",
+      "new_feat3",
+      "new_feat4",
+      "new_feat5",
+      "new_feat6"
+    ],
+    "images": [
+      "https://i.ibb.co/TMK2hwc/img1.png",
+      "https://i.ibb.co/X8SH1gM/img2.png",
+      "https://i.ibb.co/vjFWVkF/img3.png",
+      "https://i.ibb.co/wNkSNS0/img4.png",
+      "https://i.ibb.co/99HWLdF/img5.png"
+    ],
     "github_link": "https://github.com/new_project",
     "live_link": "https://new_project.com"
   }
