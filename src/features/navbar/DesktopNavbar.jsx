@@ -1,10 +1,10 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledDesktopNavbar = styled.header`
   display: grid;
-  grid-template-columns: var(--sidebar-width) repeat(3, auto) 1fr auto;
+  grid-template-columns: var(--sidebar-width) repeat(4, auto) 1fr auto;
   border-bottom: 1px solid var(--color-lines);
   a {
     display: flex;
@@ -68,6 +68,9 @@ function DesktopNavbar() {
       </NavLink>
       <NavLink className="nav-link" to="/projects">
         _projects
+      </NavLink>
+      <NavLink className="nav-link" to="/dashboard">
+        _dashboard
       </NavLink>
       <div />
       <NavLink className="nav-link" to="/contact">

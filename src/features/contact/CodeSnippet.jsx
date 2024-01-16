@@ -1,12 +1,39 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Highlight from "react-highlight";
 import styled from "styled-components";
 import { snippet1 } from "../../data/snippet";
 
 function CodeSnippet() {
+  const [lineCount, setLineCount] = useState(0);
+  const ref = useRef(null);
+  console.log(lineCount);
+  const updateLines = () => {
+    const textElement = ref.current.querySelector("pre");
+    if (textElement) {
+      const elementHeight = textElement.getBoundingClientRect().height;
+      console.log(elementHeight);
+      const lineHeight = parseFloat(getComputedStyle(textElement).lineHeight);
+      const lines = Math.ceil(elementHeight / lineHeight);
+      setLineCount(lines);
+    }
+  };
+
+  useEffect(() => {
+    updateLines();
+    window.addEventListener("resize", updateLines);
+
+    return () => {
+      window.removeEventListener("resize", updateLines);
+    };
+  }, [lineCount]);
   return (
     <StyledCodeSnippet>
-      <Container>
+      <Container ref={ref}>
+        <LineNumber>
+          {Array.from({ length: lineCount }, (_, i) => (
+            <div key={i}>{i + 1}</div>
+          ))}
+        </LineNumber>
         <Highlight>{snippet1}</Highlight>
       </Container>
       <Scrollbar>
@@ -27,12 +54,18 @@ const StyledCodeSnippet = styled.div`
     display: none;
   }
 `;
-
-const Container = styled.div`
+const LineNumber = styled.div`
   display: flex;
   flex-direction: column;
+  line-height: 2rem;
+`;
+const Container = styled.div`
+  display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 4rem;
   padding: 2rem;
+  line-height: 2rem;
   pre {
     overflow: hidden;
   }

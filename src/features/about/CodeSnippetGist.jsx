@@ -18,7 +18,7 @@ function CodeSnippetGist() {
   return (
     <>
       {gists.map((gist, index) => (
-        <GistContainer>
+        <GistContainer key={index}>
           {/* <!-- head info --> */}
           <HeadInfo>
             <div>
@@ -79,6 +79,7 @@ const ContainerSnippet = styled.div`
     overflow-y: scroll;
     overflow-x: scroll;
     max-height: 240px;
+    padding: 0 10px;
   }
   code {
     max-height: 220px;

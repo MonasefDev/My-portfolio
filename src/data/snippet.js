@@ -1,6 +1,4 @@
-export const snippet1 = `
-const button = document.querySelector('#sendBtn');
-
+export const snippet1 = `const button = document.querySelector('#sendBtn');
 const message = {
 	name: "Jonathan Davis",
 	email: "jonathan-davis@gmail.com",
@@ -9,7 +7,6 @@ const message = {
 		Lerned a few nice tips. Thanks!",
 	date: "Thu 21 Apr"
 }
-
 button.addEventListener('click', () => {
 	form.send(message);
 })
