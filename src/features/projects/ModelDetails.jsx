@@ -51,6 +51,10 @@ const DetailsSubheading = styled.h3`
 
 const DetailsParagraph = styled.p`
   margin-bottom: 1.2rem;
+`;
+
+const DetailsBox = styled.div`
+  margin-bottom: 1.2rem;
   margin-top: 2rem;
   h4 {
     display: inline;
@@ -80,7 +84,7 @@ const DetailsParagraph = styled.p`
     color: var(--color-teal-1);
   }
 
-  li > div {
+  li > p {
     display: table-cell;
     padding: 1rem;
 
@@ -111,7 +115,7 @@ function ModelDetails({ selectedProject, onCloseModal }) {
 
   const features = selectedProject.features.map((feature) => (
     <li key={feature}>
-      <div>{feature}</div>
+      <p>{feature}</p>
     </li>
   ));
 
@@ -132,15 +136,15 @@ function ModelDetails({ selectedProject, onCloseModal }) {
               <DetailsParagraph>
                 Details: {selectedProject.details}
               </DetailsParagraph>
-              <DetailsParagraph>
+              <DetailsBox>
                 <h4>Technologies:</h4>
                 {tech}
-              </DetailsParagraph>
-              <DetailsParagraph>
+              </DetailsBox>
+              <DetailsBox>
                 {" "}
                 <h4>Features:</h4>
                 <ul> {features} </ul>
-              </DetailsParagraph>
+              </DetailsBox>
               <DetailsLink
                 href={selectedProject.github_link}
                 target="_blank"

@@ -10,6 +10,22 @@ const ContainerProjects = styled.div`
   position: relative;
 `;
 
+const ProjectsWrapper = styled.div`
+  flex: 1;
+`;
+
+const ProjectsHeader = styled.div`
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--color-lines);
+  width: 100%;
+  padding: 1rem 1rem 1rem 2rem;
+`;
+
+const ClearFilterButton = styled.button`
+  background-color: transparent;
+  border: none;
+`;
+
 const BlurOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -19,7 +35,12 @@ const BlurOverlay = styled.div`
   background-color: rgba(255, 255, 255, 0.1);
   z-index: 1;
   backdrop-filter: blur(8px);
-  pointer-events: ${({ isVisible }) => (isVisible ? "auto" : "none")};
+  pointer-events: ${({ isvisible }) => (isvisible ? "auto" : "none")};
+`;
+
+const StyledClearFilterButton = styled(ClearFilterButton)`
+  background-color: transparent;
+  border: none;
 `;
 
 function Projects() {
@@ -32,10 +53,17 @@ function Projects() {
   );
 
   useEffect(() => {
-    fetch("db/data.json")
-      .then((response) => response.json())
-      .then((data) => setProjects(data))
-      .catch((error) => console.error("Error fetching data:", error));
+    const fetchData = async () => {
+      try {
+        const response = await fetch("db/data.json");
+        const data = await response.json();
+        setProjects(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const handleSelectProject = (project) => {
@@ -73,22 +101,30 @@ function Projects() {
         technologies={allTechnologies}
         onFilterChange={handleFilterChange}
       />
-      <ProjectList
-        projects={filteredProjects}
-        onSelectProject={handleSelectProject}
-        onToggleModal={handleToggleModal}
-      />
-      {isModalVisible && (
-        <BlurOverlay
-          isVisible={isModalVisible}
-          onClick={handleBlurOverlayClick}
+      <ProjectsWrapper>
+        <ProjectsHeader>
+          {filteredTechnologies.map((tech) => (
+            <span key={tech}>{tech}; </span>
+          ))}
+          <StyledClearFilterButton>✕</StyledClearFilterButton>
+        </ProjectsHeader>
+        <ProjectList
+          projects={filteredProjects}
+          onSelectProject={handleSelectProject}
+          onToggleModal={handleToggleModal}
         />
-      )}
+      </ProjectsWrapper>
       {isModalVisible && (
-        <ModelDetails
-          selectedProject={selectedProject}
-          onCloseModal={() => handleToggleModal(false)}
-        />
+        <>
+          <BlurOverlay
+            isvisible={isModalVisible.toString()}
+            onClick={handleBlurOverlayClick}
+          />
+          <ModelDetails
+            selectedProject={selectedProject}
+            onCloseModal={() => handleToggleModal(false)}
+          />
+        </>
       )}
     </ContainerProjects>
   );

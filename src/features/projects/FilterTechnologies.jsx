@@ -7,6 +7,7 @@ const FilterContainer = styled.div`
   border-right: 1px solid var(--color-lines);
   padding: 0;
   position: relative;
+  height: 100vh;
 
   .filter-wrapper {
     position: fixed;
