@@ -8,7 +8,7 @@ function AddProject() {
   const [features, setFeatures] = useState([]);
   const [feature, setFeature] = useState("");
   const [image, setImage] = useState("");
-  console.log(image);
+  const [images, setImages] = useState([]);
   const {
     register,
     handleSubmit,
@@ -19,7 +19,7 @@ function AddProject() {
   const onSubmit = (data) => {
     // setImage(data.images[0]);
     // console.log(data.images[0]);
-    data = { ...data, poster_img: image };
+    data = { ...data, poster_img: image, images };
     console.log(data);
   };
   return (
@@ -139,6 +139,7 @@ function AddProject() {
               required: "This field is required",
             })}
             name="Choose File"
+            onChange={(e) => setImages(e.target.files)}
           />
           {errors?.images && <ErrorBox>{errors?.images?.message}</ErrorBox>}
         </FormGroup>
