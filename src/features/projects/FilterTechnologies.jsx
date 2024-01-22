@@ -81,7 +81,6 @@ const FilterContainer = styled.div`
 `;
 
 const FilterWrapper = styled.div`
-  position: fixed;
   min-width: var(--sidebar-width);
 
   ${mobileStyles}

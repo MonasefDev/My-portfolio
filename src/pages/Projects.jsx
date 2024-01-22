@@ -5,6 +5,7 @@ import ModelDetails from "../features/projects/ModelDetails";
 import FilterTechnologies from "../features/projects/FilterTechnologies";
 import HeaderText from "../ui/HeaderText";
 import ScrollBar from "../ui/ScrollBar";
+import HeaderTextMobile from "../ui/HeaderTextMobile";
 
 const fetchData = async (setProjects) => {
   try {
@@ -66,6 +67,16 @@ function Projects() {
                 ))
           }
         />
+        <HeaderTextMobile>
+          <span>{"// projects"}</span>
+          {` / ${
+            filteredTechnologies.length === 0
+              ? "All"
+              : filteredTechnologies.map((tech) => (
+                  <span key={tech}>{tech}; </span>
+                ))
+          }`}
+        </HeaderTextMobile>
         <ProjectList
           projects={filteredProjects}
           onSelectProject={handleSelectProject}

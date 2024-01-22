@@ -4,6 +4,7 @@ import { userData } from "../../data/user-data";
 import CommentedText from "./CommentedText";
 import Education from "./Education";
 import HeaderText from "../../ui/HeaderText";
+import HeaderTextMobile from "../../ui/HeaderTextMobile";
 
 function Content({ selectedSection, selectedItem }) {
   const [currentElement, setCurrentElement] = useState(null);
@@ -25,10 +26,10 @@ function Content({ selectedSection, selectedItem }) {
   return (
     <StyledContent>
       <HeaderText text={selectedSection} />
-      <TitleMobile>
+      <HeaderTextMobile>
         <span>{`//${selectedSection}`}</span>
         {` / ${selectedItem}`}
-      </TitleMobile>
+      </HeaderTextMobile>
       <SectionContent>
         <Container>{currentElement}</Container>
         <Scrollbar>
@@ -51,16 +52,6 @@ const StyledContent = styled.div`
   }
 `;
 
-const TitleMobile = styled.div`
-  display: none;
-  margin: 4rem 2rem 2rem;
-  span {
-    color: var(--color-white);
-  }
-  @media only screen and (max-width: 1024px) {
-    display: block;
-  }
-`;
 const SectionContent = styled.div`
   display: grid;
   grid-template-columns: 1fr 2.6rem;
