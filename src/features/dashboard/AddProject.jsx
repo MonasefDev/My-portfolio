@@ -17,10 +17,12 @@ function AddProject() {
   } = useForm();
 
   const onSubmit = (data) => {
-    // setImage(data.images[0]);
-    // console.log(data.images[0]);
     data = { ...data, poster_img: image, images };
     console.log(data);
+    reset();
+    setFeatures([]);
+    setImages([]);
+    setImage("");
   };
   return (
     <StyledAddProject>
@@ -120,14 +122,26 @@ function AddProject() {
           <FileInput
             id="poster_img"
             accept="image/*"
-            {...register("poster_img", {
-              required: "This field is required",
-            })}
+            // {...register("poster_img", {
+            //   required: "This field is required",
+            // })}
             name="Choose File"
-            onChange={(e) => setImage(e.target.files)}
+            onChange={(e) => setImage(e.target.files[0])}
           />
           {errors?.poster_img && (
             <ErrorBox>{errors?.poster_img?.message}</ErrorBox>
+          )}
+          {image !== "" && (
+            <ImagesContainer>
+              <ImageBox>
+                <img src={URL.createObjectURL(image)} alt={image.name} />
+                <img
+                  src="/assets/icons/close.svg"
+                  alt="close"
+                  onClick={() => setImage([])}
+                />
+              </ImageBox>
+            </ImagesContainer>
           )}
         </FormGroup>
         <FormGroup>
@@ -135,15 +149,28 @@ function AddProject() {
           <FileInput
             id="images"
             accept="image/*"
-            {...register("images", {
-              required: "This field is required",
-            })}
+            // {...register("images", {
+            //   required: "This field is required",
+            // })}
             name="Choose File"
-            onChange={(e) => setImages(e.target.files)}
+            onChange={(e) => setImages(Array.from(e.target.files))}
           />
           {errors?.images && <ErrorBox>{errors?.images?.message}</ErrorBox>}
+          {images.length > 0 && (
+            <ImagesContainer>
+              {images.map((image, index) => (
+                <ImageBox key={index}>
+                  <img src={URL.createObjectURL(image)} alt={image} />
+                  <img
+                    src="/assets/icons/close.svg"
+                    alt="close"
+                    onClick={() => setImages(images.filter((i) => i !== image))}
+                  />
+                </ImageBox>
+              ))}
+            </ImagesContainer>
+          )}
         </FormGroup>
-        {image && <img src={image.name} alt="plus" />}
         <Button id="create-button" type="submit" variation="default">
           create project
         </Button>
@@ -195,6 +222,9 @@ const StyledAddProject = styled.div`
   }
   @media only screen and (min-width: 1024px) {
     overflow-y: scroll;
+  }
+  button {
+    margin-bottom: 4rem;
   }
 `;
 
@@ -323,6 +353,40 @@ const Textarea = styled.textarea`
   transition: all 0.2s ease-in-out;
   &:focus {
     box-shadow: 0px 0px 0px 2px rgba(96, 123, 150, 0.3);
+  }
+`;
+
+const ImagesContainer = styled.div`
+  grid-area: 2/2/3/3;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  padding: 1rem 2rem;
+  gap: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--color-grey-0);
+`;
+const ImageBox = styled.div`
+  position: relative;
+  img {
+    transition: all 0.2s ease-in-out;
+    &:first-child {
+      border-radius: 8px;
+      width: 15rem;
+      @media only screen and (max-width: 1024px) {
+        width: 10rem;
+      }
+    }
+    &:last-child {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      height: 2.2rem;
+      cursor: pointer;
+      border-radius: 50%;
+      background-color: var(--color-grey-0);
+      border: 1px solid var(--color-white);
+    }
   }
 `;
 
