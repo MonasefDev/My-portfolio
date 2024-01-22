@@ -72,7 +72,6 @@ const mobileStyles = css`
 `;
 
 const FilterContainer = styled.div`
-  margin-bottom: 20px;
   min-width: var(--sidebar-width);
   border-right: 1px solid var(--color-lines);
   padding: 0;
@@ -93,6 +92,7 @@ const FilterHeading = styled.h4`
   border-bottom: 1px solid var(--color-lines);
   width: 100%;
   padding: 1rem 1rem 1rem 2rem;
+  height: 4rem;
 `;
 
 const ButtonDropdown = styled.button`
@@ -138,7 +138,6 @@ const FilterInput = styled.input`
 
   &:checked {
     background-color: var(--color-grey-1);
-    border-color: var(--color-grey-1);
   }
 
   &::before {
@@ -158,10 +157,10 @@ const FilterInput = styled.input`
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
-    color: var(--color-white);
     width: 1.1rem;
     height: 1.1rem;
     opacity: 1;
+    filter: invert(100%) sepia(100%);
   }
 `;
 

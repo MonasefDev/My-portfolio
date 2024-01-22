@@ -3,6 +3,8 @@ import styled from "styled-components";
 import ProjectList from "../features/projects/ProjectList";
 import ModelDetails from "../features/projects/ModelDetails";
 import FilterTechnologies from "../features/projects/FilterTechnologies";
+import HeaderText from "../ui/HeaderText";
+import ScrollBar from "../ui/ScrollBar";
 
 const fetchData = async (setProjects) => {
   try {
@@ -55,20 +57,22 @@ function Projects() {
         onFilterChange={handleFilterChange}
       />
       <ProjectsWrapper>
-        <ProjectsHeader>
-          {filteredTechnologies.map((tech) => (
-            <span key={tech}>{tech}; </span>
-          ))}
-          <StyledClearFilterButton onClick={() => setFilteredTechnologies([])}>
-            ✕
-          </StyledClearFilterButton>
-        </ProjectsHeader>
+        <HeaderText
+          text={
+            filteredTechnologies.length === 0
+              ? "All"
+              : filteredTechnologies.map((tech) => (
+                  <span key={tech}>{tech}; </span>
+                ))
+          }
+        />
         <ProjectList
           projects={filteredProjects}
           onSelectProject={handleSelectProject}
           onToggleModal={handleToggleModal}
         />
       </ProjectsWrapper>
+      <ScrollBar />
       {isModalVisible && (
         <>
           <BlurOverlay
@@ -89,6 +93,7 @@ const ContainerProjects = styled.div`
   display: flex;
   margin: 0 auto;
   position: relative;
+  height: 100%;
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
@@ -98,18 +103,6 @@ const ContainerProjects = styled.div`
 
 const ProjectsWrapper = styled.div`
   flex: 1;
-`;
-
-const ProjectsHeader = styled.div`
-  margin-bottom: 12px;
-  border-bottom: 1px solid var(--color-lines);
-  width: 100%;
-  padding: 1rem 1rem 1rem 2rem;
-`;
-
-const ClearFilterButton = styled.button`
-  background-color: transparent;
-  border: none;
 `;
 
 const BlurOverlay = styled.div`
@@ -122,11 +115,6 @@ const BlurOverlay = styled.div`
   z-index: 1;
   backdrop-filter: blur(8px);
   pointer-events: ${({ isvisible }) => (isvisible ? "auto" : "none")};
-`;
-
-const StyledClearFilterButton = styled(ClearFilterButton)`
-  background-color: transparent;
-  border: none;
 `;
 
 export default Projects;
