@@ -10,7 +10,6 @@ const ContactForm = () => {
   const [state, handleSubmit, reset] = useForm("mnqennyj");
   useEffect(() => {
     if (state.succeeded) {
-      console.log("Thanks for joining!");
       setName("");
       setEmail("");
       setMessage("");

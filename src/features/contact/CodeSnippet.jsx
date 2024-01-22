@@ -2,16 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 import Highlight from "react-highlight";
 import styled from "styled-components";
 import { snippet1 } from "../../data/snippet";
+import ScrollBar from "../../ui/ScrollBar";
 
 function CodeSnippet() {
   const [lineCount, setLineCount] = useState(0);
   const ref = useRef(null);
-  console.log(lineCount);
   const updateLines = () => {
     const textElement = ref.current.querySelector("pre");
     if (textElement) {
       const elementHeight = textElement.getBoundingClientRect().height;
-      console.log(elementHeight);
       const lineHeight = parseFloat(getComputedStyle(textElement).lineHeight);
       const lines = Math.ceil(elementHeight / lineHeight);
       setLineCount(lines);
@@ -36,9 +35,7 @@ function CodeSnippet() {
         </LineNumber>
         <Highlight>{snippet1}</Highlight>
       </Container>
-      <Scrollbar>
-        <div />
-      </Scrollbar>
+      <ScrollBar />
     </StyledCodeSnippet>
   );
 }

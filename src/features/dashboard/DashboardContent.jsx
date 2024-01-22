@@ -21,6 +21,7 @@ function DashboardContent({ children }) {
 const StyledDashboardContent = styled.div`
   display: grid;
   grid-template-rows: 5.6rem 1fr;
+  overflow: hidden;
   & > div:first-child {
     display: flex;
     align-items: center;
@@ -28,7 +29,12 @@ const StyledDashboardContent = styled.div`
     color: var(--color-white);
     border-bottom: 1px solid var(--color-lines);
   }
+  @media only screen and (max-width: 1024px) {
+    overflow: auto;
+  }
 `;
-const Container = styled.div``;
+const Container = styled.div`
+  overflow: auto;
+`;
 
 export default DashboardContent;

@@ -8,7 +8,7 @@ function AddProject() {
   const [features, setFeatures] = useState([]);
   const [feature, setFeature] = useState("");
   const [image, setImage] = useState("");
-  console.log(image);
+  const [images, setImages] = useState([]);
   const {
     register,
     handleSubmit,
@@ -19,8 +19,8 @@ function AddProject() {
   const onSubmit = (data) => {
     // setImage(data.images[0]);
     // console.log(data.images[0]);
+    data = { ...data, poster_img: image, images };
     console.log(data);
-    reset();
   };
   return (
     <StyledAddProject>
@@ -120,17 +120,17 @@ function AddProject() {
           <FileInput
             id="poster_img"
             accept="image/*"
-            // {...register("poster_img", {
-            //   required: "This field is required",
-            // })}
+            {...register("poster_img", {
+              required: "This field is required",
+            })}
             name="Choose File"
-            onChange={(e) => setImage(e.target.files[0])}
+            onChange={(e) => setImage(e.target.files)}
           />
           {errors?.poster_img && (
             <ErrorBox>{errors?.poster_img?.message}</ErrorBox>
           )}
         </FormGroup>
-        {/* <FormGroup>
+        <FormGroup>
           <Label>_project images:</Label>
           <FileInput
             id="images"
@@ -139,9 +139,10 @@ function AddProject() {
               required: "This field is required",
             })}
             name="Choose File"
+            onChange={(e) => setImages(e.target.files)}
           />
           {errors?.images && <ErrorBox>{errors?.images?.message}</ErrorBox>}
-        </FormGroup> */}
+        </FormGroup>
         {image && <img src={image.name} alt="plus" />}
         <Button id="create-button" type="submit" variation="default">
           create project
