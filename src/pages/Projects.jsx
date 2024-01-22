@@ -5,7 +5,6 @@ import ModelDetails from "../features/projects/ModelDetails";
 import FilterTechnologies from "../features/projects/FilterTechnologies";
 import HeaderText from "../ui/HeaderText";
 import ScrollBar from "../ui/ScrollBar";
-import HeaderTextMobile from "../ui/HeaderTextMobile";
 
 const fetchData = async (setProjects) => {
   try {
@@ -67,16 +66,6 @@ function Projects() {
                 ))
           }
         />
-        <HeaderTextMobile>
-          <span>{"// projects"}</span>
-          {` / ${
-            filteredTechnologies.length === 0
-              ? "All"
-              : filteredTechnologies.map((tech) => (
-                  <span key={tech}>{tech}; </span>
-                ))
-          }`}
-        </HeaderTextMobile>
         <ProjectList
           projects={filteredProjects}
           onSelectProject={handleSelectProject}
@@ -103,12 +92,10 @@ function Projects() {
 const ContainerProjects = styled.div`
   display: flex;
   margin: 0 auto;
-  position: relative;
   height: 100%;
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
-    position: static;
   }
 `;
 
@@ -117,9 +104,6 @@ const ProjectsWrapper = styled.div`
 `;
 
 const BlurOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(255, 255, 255, 0.1);

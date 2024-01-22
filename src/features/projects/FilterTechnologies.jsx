@@ -58,32 +58,14 @@ function FilterTechnologies({ technologies, onFilterChange }) {
   );
 }
 
-const mobileStyles = css`
-  @media screen and (max-width: 1024px) {
-    min-width: var(--sidebar-width-mob);
-  }
-
-  @media screen and (max-width: 768px) {
-    position: fixed;
-    background-color: var(--color-primary-3);
-    border-bottom: 1px solid var(--color-lines);
-    width: calc(100% - 30px);
-  }
-`;
-
 const FilterContainer = styled.div`
   min-width: var(--sidebar-width);
   border-right: 1px solid var(--color-lines);
   padding: 0;
-  position: relative;
-
-  ${mobileStyles}
 `;
 
 const FilterWrapper = styled.div`
   min-width: var(--sidebar-width);
-
-  ${mobileStyles}
 `;
 
 const FilterHeading = styled.h4`
@@ -168,15 +150,15 @@ const FilterLabel = styled.label`
 `;
 
 const FilterItemsContainer = styled.div`
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  transform: ${({ isOpen }) =>
-    isOpen ? "translateX(0%)" : "translateX(-150%)"};
-  opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
-  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
   overflow: hidden;
+  height: ${({ isOpen }) => (isOpen ? "auto" : "0")};
+  padding: ${({ isOpen }) => (isOpen ? "2rem" : "0")};
+  opacity: ${({ isOpen }) => (isOpen ? "1" : "0")};
+  transition: opacity 0.3s ease;
 
-  ${mobileStyles}
+  @media only screen and (max-width: 768px) {
+    border-bottom: 1px solid var(--color-lines);
+  }
 `;
 
 export default FilterTechnologies;
