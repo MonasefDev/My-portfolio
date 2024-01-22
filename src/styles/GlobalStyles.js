@@ -32,6 +32,7 @@ const GlobalStyles = createGlobalStyle`
   --break-point-desk: 1440px;
 
   --sidebar-width : 30rem;
+  --sidebar-width-mob : 20rem;
   --scroll-width: 2.6rem;
 }
 
