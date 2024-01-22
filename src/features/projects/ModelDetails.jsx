@@ -3,6 +3,68 @@ import React from "react";
 import ReactImageGallery from "react-image-gallery";
 import styled from "styled-components";
 
+function ModelDetails({ selectedProject, onCloseModal }) {
+  const images = selectedProject.images.map((image) => ({
+    original: image,
+    thumbnail: image,
+  }));
+
+  const tech = selectedProject.technologies.map((technology, index) => (
+    <span key={index}>{technology}</span>
+  ));
+
+  const features = selectedProject.features.map((feature, index) => (
+    <li key={index}>
+      <p>{feature}</p>
+    </li>
+  ));
+
+  return (
+    <DetailsContainer>
+      <CloseButton onClick={() => onCloseModal(false)}>✕</CloseButton>
+      {selectedProject && (
+        <div>
+          <div>
+            <ReactImageGallery items={images} />
+          </div>
+          <DetailsContent>
+            <DetailsSubheading>{selectedProject.title}</DetailsSubheading>
+            <DetailsParagraph>
+              Description: {selectedProject.description}
+            </DetailsParagraph>
+            <DetailsParagraph>
+              Details: {selectedProject.details}
+            </DetailsParagraph>
+            <DetailsBox>
+              <h4>Technologies:</h4>
+              {tech}
+            </DetailsBox>
+            <DetailsBox>
+              {" "}
+              <h4>Features:</h4>
+              <ul> {features} </ul>
+            </DetailsBox>
+            <DetailsLink
+              href={selectedProject.github_link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View on GitHub
+            </DetailsLink>
+            <DetailsLink
+              href={selectedProject.live_link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Live Demo
+            </DetailsLink>
+          </DetailsContent>
+        </div>
+      )}
+    </DetailsContainer>
+  );
+}
+
 const DetailsContainer = styled.div`
   margin-top: 2rem;
   padding: 5rem;
@@ -19,19 +81,13 @@ const DetailsContainer = styled.div`
   height: 95%;
   overflow: scroll;
 
-  .details {
-    &-wrapper {
-      overflow: scroll;
-    }
+  @media only screen and (max-width: 1024px) {
+    padding: 4rem 2rem 2rem 2rem;
+  }
 
-    &-gallery {
-      margin: 0 auto;
-      width: 90%;
-    }
-
-    &-content {
-      padding: 4rem 8rem 4rem 10rem;
-    }
+  @media only screen and (max-width: 768px) {
+    left: 5%;
+    right: 5%;
   }
 `;
 
@@ -45,6 +101,18 @@ const CloseButton = styled.button`
   cursor: pointer;
 `;
 
+const DetailsContent = styled.div`
+  padding: 4rem 8rem 4rem 10rem;
+
+  @media only screen and (max-width: 1024px) {
+    padding: 2rem;
+  }
+
+  @media only screen and (max-width: 768px) {
+    padding: 0;
+  }
+`;
+
 const DetailsSubheading = styled.h3`
   margin-bottom: 0.8rem;
 `;
@@ -56,13 +124,15 @@ const DetailsParagraph = styled.p`
 const DetailsBox = styled.div`
   margin-bottom: 1.2rem;
   margin-top: 2rem;
+
   h4 {
-    display: inline;
+    display: block;
   }
 
   span {
     padding: 0.4rem 0.8rem;
     background-color: var(--color-teal-1);
+    display: inline-block;
     border-radius: 0.4rem;
     color: var(--color-lines);
     margin: 0.4rem;
@@ -98,75 +168,16 @@ const DetailsLink = styled.a`
   color: var(--color-teal-1);
   text-decoration: none;
   margin-right: 1rem;
+
   &:hover {
     text-decoration: underline;
   }
+
+  @media only screen and (max-width: 768px) {
+    display: block;
+    margin-bottom: 0.8rem;
+    text-decoration-line: underline;
+  }
 `;
-
-function ModelDetails({ selectedProject, onCloseModal }) {
-  const images = selectedProject.images.map((image) => ({
-    original: image,
-    thumbnail: image,
-  }));
-
-  const tech = selectedProject.technologies.map((technology) => (
-    <span key={technology}>{technology}</span>
-  ));
-
-  const features = selectedProject.features.map((feature) => (
-    <li key={feature}>
-      <p>{feature}</p>
-    </li>
-  ));
-
-  return (
-    <DetailsContainer>
-      <CloseButton onClick={() => onCloseModal(false)}>✕</CloseButton>
-      {selectedProject ? (
-        <div className="details">
-          <div className="details-wrapper">
-            <div className="details-gallery">
-              <ReactImageGallery items={images} />
-            </div>
-            <div className="details-content">
-              <DetailsSubheading>{selectedProject.title}</DetailsSubheading>
-              <DetailsParagraph>
-                Description: {selectedProject.description}
-              </DetailsParagraph>
-              <DetailsParagraph>
-                Details: {selectedProject.details}
-              </DetailsParagraph>
-              <DetailsBox>
-                <h4>Technologies:</h4>
-                {tech}
-              </DetailsBox>
-              <DetailsBox>
-                {" "}
-                <h4>Features:</h4>
-                <ul> {features} </ul>
-              </DetailsBox>
-              <DetailsLink
-                href={selectedProject.github_link}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View on GitHub
-              </DetailsLink>
-              <DetailsLink
-                href={selectedProject.live_link}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Live Demo
-              </DetailsLink>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <DetailsParagraph>Select a project to view details.</DetailsParagraph>
-      )}
-    </DetailsContainer>
-  );
-}
 
 export default ModelDetails;

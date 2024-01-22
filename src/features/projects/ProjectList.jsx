@@ -2,30 +2,33 @@ import React from "react";
 import styled from "styled-components";
 import ProjectCard from "./ProjectCard";
 
-const ListContainer = styled.div`
-  .project-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
-    grid-gap: 2rem;
-    align-items: center;
+const ProjectList = ({ projects, onSelectProject, onToggleModal }) => (
+  <ProjectListWrapper>
+    {projects.map((project, index) => (
+      <ProjectCard
+        key={project.id}
+        project={project}
+        index={index}
+        onSelectProject={onSelectProject}
+        onToggleModal={onToggleModal}
+      />
+    ))}
+  </ProjectListWrapper>
+);
+
+const ProjectListWrapper = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(37rem, 1fr));
+  align-items: center;
+
+  @media only screen and (max-width: 1024px) {
+    grid-template-columns: repeat(auto-fit, minmax(32rem, 1fr));
+    li {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 `;
-
-const ProjectList = ({ projects, onSelectProject, onToggleModal }) => (
-  <ListContainer>
-    <ul className="project-list">
-      {projects.map((project, i) => (
-        <li key={project.id} className="project-item">
-          <ProjectCard
-            project={project}
-            index={i}
-            onSelectProject={onSelectProject}
-            onToggleModal={onToggleModal}
-          />
-        </li>
-      ))}
-    </ul>
-  </ListContainer>
-);
 
 export default ProjectList;

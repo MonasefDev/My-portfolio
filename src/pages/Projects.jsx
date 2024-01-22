@@ -4,10 +4,96 @@ import ProjectList from "../features/projects/ProjectList";
 import ModelDetails from "../features/projects/ModelDetails";
 import FilterTechnologies from "../features/projects/FilterTechnologies";
 
+const fetchData = async (setProjects) => {
+  try {
+    const response = await fetch("db/data.json");
+    const data = await response.json();
+    setProjects(data);
+  } catch (error) {
+    throw new Error("Error fetching data:", error);
+  }
+};
+
+function Projects() {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [projects, setProjects] = useState([]);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [filteredTechnologies, setFilteredTechnologies] = useState([]);
+  const allTechnologies = Array.from(
+    new Set(projects.flatMap((project) => project.technologies))
+  );
+
+  useEffect(() => {
+    fetchData(setProjects);
+  }, []);
+
+  const handleSelectProject = (project) => setSelectedProject(project);
+
+  const handleFilterChange = (selectedTechnology) => {
+    setFilteredTechnologies((prevTech) =>
+      prevTech.includes(selectedTechnology)
+        ? prevTech.filter((tech) => tech !== selectedTechnology)
+        : [...prevTech, selectedTechnology]
+    );
+    setSelectedProject(null);
+  };
+
+  const filteredProjects = projects.filter(
+    (project) =>
+      filteredTechnologies.length === 0 ||
+      filteredTechnologies.every((tech) => project.technologies.includes(tech))
+  );
+
+  const handleToggleModal = (isVisible) => setIsModalVisible(isVisible);
+
+  const handleBlurOverlayClick = () => handleToggleModal(false);
+
+  return (
+    <ContainerProjects>
+      <FilterTechnologies
+        technologies={allTechnologies}
+        onFilterChange={handleFilterChange}
+      />
+      <ProjectsWrapper>
+        <ProjectsHeader>
+          {filteredTechnologies.map((tech) => (
+            <span key={tech}>{tech}; </span>
+          ))}
+          <StyledClearFilterButton onClick={() => setFilteredTechnologies([])}>
+            ✕
+          </StyledClearFilterButton>
+        </ProjectsHeader>
+        <ProjectList
+          projects={filteredProjects}
+          onSelectProject={handleSelectProject}
+          onToggleModal={handleToggleModal}
+        />
+      </ProjectsWrapper>
+      {isModalVisible && (
+        <>
+          <BlurOverlay
+            isvisible={isModalVisible.toString()}
+            onClick={handleBlurOverlayClick}
+          />
+          <ModelDetails
+            selectedProject={selectedProject}
+            onCloseModal={() => handleToggleModal(false)}
+          />
+        </>
+      )}
+    </ContainerProjects>
+  );
+}
+
 const ContainerProjects = styled.div`
   display: flex;
   margin: 0 auto;
   position: relative;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+    position: static;
+  }
 `;
 
 const ProjectsWrapper = styled.div`
@@ -42,92 +128,5 @@ const StyledClearFilterButton = styled(ClearFilterButton)`
   background-color: transparent;
   border: none;
 `;
-
-function Projects() {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [projects, setProjects] = useState([]);
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [filteredTechnologies, setFilteredTechnologies] = useState([]);
-  const allTechnologies = Array.from(
-    new Set(projects.flatMap((project) => project.technologies))
-  );
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("db/data.json");
-        const data = await response.json();
-        setProjects(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  const handleSelectProject = (project) => {
-    setSelectedProject(project);
-  };
-
-  const handleFilterChange = (selectedTechnology) => {
-    if (filteredTechnologies.includes(selectedTechnology)) {
-      setFilteredTechnologies(
-        filteredTechnologies.filter((tech) => tech !== selectedTechnology)
-      );
-    } else {
-      setFilteredTechnologies([...filteredTechnologies, selectedTechnology]);
-    }
-    setSelectedProject(null);
-  };
-
-  const filteredProjects = projects.filter(
-    (project) =>
-      filteredTechnologies.length === 0 ||
-      filteredTechnologies.every((tech) => project.technologies.includes(tech))
-  );
-
-  const handleToggleModal = (isVisible) => {
-    setIsModalVisible(isVisible);
-  };
-
-  const handleBlurOverlayClick = () => {
-    handleToggleModal(false);
-  };
-
-  return (
-    <ContainerProjects>
-      <FilterTechnologies
-        technologies={allTechnologies}
-        onFilterChange={handleFilterChange}
-      />
-      <ProjectsWrapper>
-        <ProjectsHeader>
-          {filteredTechnologies.map((tech) => (
-            <span key={tech}>{tech}; </span>
-          ))}
-          <StyledClearFilterButton>✕</StyledClearFilterButton>
-        </ProjectsHeader>
-        <ProjectList
-          projects={filteredProjects}
-          onSelectProject={handleSelectProject}
-          onToggleModal={handleToggleModal}
-        />
-      </ProjectsWrapper>
-      {isModalVisible && (
-        <>
-          <BlurOverlay
-            isvisible={isModalVisible.toString()}
-            onClick={handleBlurOverlayClick}
-          />
-          <ModelDetails
-            selectedProject={selectedProject}
-            onCloseModal={() => handleToggleModal(false)}
-          />
-        </>
-      )}
-    </ContainerProjects>
-  );
-}
 
 export default Projects;
