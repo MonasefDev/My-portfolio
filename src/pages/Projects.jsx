@@ -5,6 +5,7 @@ import ModelDetails from "../features/projects/ModelDetails";
 import FilterTechnologies from "../features/projects/FilterTechnologies";
 import HeaderText from "../ui/HeaderText";
 import ScrollBar from "../ui/ScrollBar";
+import HeaderTextMobile from "../ui/HeaderTextMobile";
 
 const fetchData = async (setProjects) => {
   try {
@@ -50,6 +51,13 @@ function Projects() {
 
   const handleBlurOverlayClick = () => handleToggleModal(false);
 
+  const displayTechnologies = filteredTechnologies.map((tech, index) => (
+    <span style={{ color: "#607B96" }} key={tech}>
+      {tech}
+      {index < filteredTechnologies.length - 1 && "; "}
+    </span>
+  ));
+
   return (
     <ContainerProjects>
       <FilterTechnologies
@@ -58,14 +66,14 @@ function Projects() {
       />
       <ProjectsWrapper>
         <HeaderText
-          text={
-            filteredTechnologies.length === 0
-              ? "All"
-              : filteredTechnologies.map((tech) => (
-                  <span key={tech}>{tech}; </span>
-                ))
-          }
+          text={filteredTechnologies.length === 0 ? "all" : displayTechnologies}
         />
+
+        <HeaderTextMobile>
+          <span>{`// _Projects  `}</span> {"/ "}
+          {filteredTechnologies.length === 0 ? "all" : displayTechnologies}
+        </HeaderTextMobile>
+
         <ProjectList
           projects={filteredProjects}
           onSelectProject={handleSelectProject}
@@ -94,7 +102,7 @@ const ContainerProjects = styled.div`
   margin: 0 auto;
   height: 100%;
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 1024px) {
     flex-direction: column;
   }
 `;
@@ -104,8 +112,12 @@ const ProjectsWrapper = styled.div`
 `;
 
 const BlurOverlay = styled.div`
+  position: absolute;
   width: 100%;
   height: 100%;
+  left: 0;
+  top: 0;
+  right: 0;
   background-color: rgba(255, 255, 255, 0.1);
   z-index: 1;
   backdrop-filter: blur(8px);
