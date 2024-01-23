@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 function FilterTechnologies({ technologies, onFilterChange }) {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
-      const isMobileView = window.matchMedia("(max-width: 768px)").matches;
+      const isMobileView = window.matchMedia("(max-width: 1024px)").matches;
       if (isDropdownOpen && !isMobileView) {
         setDropdownOpen(false);
       }
@@ -24,7 +24,7 @@ function FilterTechnologies({ technologies, onFilterChange }) {
   };
 
   const onDropDown = () => {
-    const isMobileView = window.matchMedia("(max-width: 768px)").matches;
+    const isMobileView = window.matchMedia("(max-width: 1024px)").matches;
     if (isMobileView) {
       setDropdownOpen(!isDropdownOpen);
     }
@@ -33,8 +33,9 @@ function FilterTechnologies({ technologies, onFilterChange }) {
   return (
     <FilterContainer>
       <FilterWrapper>
-        <FilterHeading>
-          <ButtonDropdown onClick={onDropDown} isOpen={isDropdownOpen}>
+        <Title>_Projects</Title>
+        <FilterHeading onClick={onDropDown}>
+          <ButtonDropdown isOpen={!isDropdownOpen}>
             <img src="/assets/icons/arrow.svg" alt="arrow" /> projects
           </ButtonDropdown>
         </FilterHeading>
@@ -58,6 +59,19 @@ function FilterTechnologies({ technologies, onFilterChange }) {
   );
 }
 
+const Title = styled.div`
+  display: none;
+  height: 7rem;
+  color: var(--color-white);
+  align-items: center;
+  padding: 2rem;
+  border-bottom: 1px solid var(--color-lines);
+
+  @media only screen and (max-width: 1024px) {
+    display: flex;
+  }
+`;
+
 const FilterContainer = styled.div`
   min-width: var(--sidebar-width);
   border-right: 1px solid var(--color-lines);
@@ -74,6 +88,10 @@ const FilterHeading = styled.h4`
   width: 100%;
   padding: 1rem 1rem 1rem 2rem;
   height: 4rem;
+
+  @media only screen and (max-width: 1024px) {
+    background-color: var(--color-grey-0);
+  }
 `;
 
 const ButtonDropdown = styled.button`
@@ -156,7 +174,7 @@ const FilterItemsContainer = styled.div`
   opacity: ${({ isOpen }) => (isOpen ? "1" : "0")};
   transition: opacity 0.3s ease;
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 1024px) {
     border-bottom: 1px solid var(--color-lines);
   }
 `;
