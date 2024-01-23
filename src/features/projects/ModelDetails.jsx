@@ -75,10 +75,10 @@ const DetailsContainer = styled.div`
   position: fixed;
   left: 10%;
   right: 10%;
-  top: 0;
+  top: 2%;
   z-index: 9999;
   background-color: var(--color-primary-1);
-  height: 95%;
+  height: 90%;
   overflow: scroll;
 
   @media only screen and (max-width: 1024px) {

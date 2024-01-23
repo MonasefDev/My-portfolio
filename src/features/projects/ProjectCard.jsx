@@ -30,7 +30,8 @@ function ProjectCard({ project, index, onSelectProject, onToggleModal }) {
 const CardContainer = styled.div`
   max-width: 40rem;
   min-height: 40rem;
-  padding: 1.6rem;
+  width: 100%;
+  padding-top: 1.6rem;
 `;
 
 const CardHeading = styled.h3`

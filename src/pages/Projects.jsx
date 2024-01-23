@@ -3,6 +3,9 @@ import styled from "styled-components";
 import ProjectList from "../features/projects/ProjectList";
 import ModelDetails from "../features/projects/ModelDetails";
 import FilterTechnologies from "../features/projects/FilterTechnologies";
+import HeaderText from "../ui/HeaderText";
+import ScrollBar from "../ui/ScrollBar";
+import HeaderTextMobile from "../ui/HeaderTextMobile";
 
 const fetchData = async (setProjects) => {
   try {
@@ -48,6 +51,13 @@ function Projects() {
 
   const handleBlurOverlayClick = () => handleToggleModal(false);
 
+  const displayTechnologies = filteredTechnologies.map((tech, index) => (
+    <span style={{ color: "#607B96" }} key={tech}>
+      {tech}
+      {index < filteredTechnologies.length - 1 && "; "}
+    </span>
+  ));
+
   return (
     <ContainerProjects>
       <FilterTechnologies
@@ -55,20 +65,22 @@ function Projects() {
         onFilterChange={handleFilterChange}
       />
       <ProjectsWrapper>
-        <ProjectsHeader>
-          {filteredTechnologies.map((tech) => (
-            <span key={tech}>{tech}; </span>
-          ))}
-          <StyledClearFilterButton onClick={() => setFilteredTechnologies([])}>
-            ✕
-          </StyledClearFilterButton>
-        </ProjectsHeader>
+        <HeaderText
+          text={filteredTechnologies.length === 0 ? "all" : displayTechnologies}
+        />
+
+        <HeaderTextMobile>
+          <span>{`// _Projects  `}</span> {"/ "}
+          {filteredTechnologies.length === 0 ? "all" : displayTechnologies}
+        </HeaderTextMobile>
+
         <ProjectList
           projects={filteredProjects}
           onSelectProject={handleSelectProject}
           onToggleModal={handleToggleModal}
         />
       </ProjectsWrapper>
+      <ScrollBar />
       {isModalVisible && (
         <>
           <BlurOverlay
@@ -88,11 +100,10 @@ function Projects() {
 const ContainerProjects = styled.div`
   display: flex;
   margin: 0 auto;
-  position: relative;
+  height: 100%;
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 1024px) {
     flex-direction: column;
-    position: static;
   }
 `;
 
@@ -100,33 +111,17 @@ const ProjectsWrapper = styled.div`
   flex: 1;
 `;
 
-const ProjectsHeader = styled.div`
-  margin-bottom: 12px;
-  border-bottom: 1px solid var(--color-lines);
-  width: 100%;
-  padding: 1rem 1rem 1rem 2rem;
-`;
-
-const ClearFilterButton = styled.button`
-  background-color: transparent;
-  border: none;
-`;
-
 const BlurOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: absolute;
   width: 100%;
   height: 100%;
+  left: 0;
+  top: 0;
+  right: 0;
   background-color: rgba(255, 255, 255, 0.1);
   z-index: 1;
   backdrop-filter: blur(8px);
   pointer-events: ${({ isvisible }) => (isvisible ? "auto" : "none")};
-`;
-
-const StyledClearFilterButton = styled(ClearFilterButton)`
-  background-color: transparent;
-  border: none;
 `;
 
 export default Projects;

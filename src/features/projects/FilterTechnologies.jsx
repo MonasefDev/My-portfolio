@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 function FilterTechnologies({ technologies, onFilterChange }) {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
-      const isMobileView = window.matchMedia("(max-width: 768px)").matches;
+      const isMobileView = window.matchMedia("(max-width: 1024px)").matches;
       if (isDropdownOpen && !isMobileView) {
         setDropdownOpen(false);
       }
@@ -24,7 +24,7 @@ function FilterTechnologies({ technologies, onFilterChange }) {
   };
 
   const onDropDown = () => {
-    const isMobileView = window.matchMedia("(max-width: 768px)").matches;
+    const isMobileView = window.matchMedia("(max-width: 1024px)").matches;
     if (isMobileView) {
       setDropdownOpen(!isDropdownOpen);
     }
@@ -33,8 +33,9 @@ function FilterTechnologies({ technologies, onFilterChange }) {
   return (
     <FilterContainer>
       <FilterWrapper>
-        <FilterHeading>
-          <ButtonDropdown onClick={onDropDown} isOpen={isDropdownOpen}>
+        <Title>_Projects</Title>
+        <FilterHeading onClick={onDropDown}>
+          <ButtonDropdown isOpen={!isDropdownOpen}>
             <img src="/assets/icons/arrow.svg" alt="arrow" /> projects
           </ButtonDropdown>
         </FilterHeading>
@@ -58,34 +59,27 @@ function FilterTechnologies({ technologies, onFilterChange }) {
   );
 }
 
-const mobileStyles = css`
-  @media screen and (max-width: 1024px) {
-    min-width: var(--sidebar-width-mob);
-  }
+const Title = styled.div`
+  display: none;
+  height: 7rem;
+  color: var(--color-white);
+  align-items: center;
+  padding: 2rem;
+  border-bottom: 1px solid var(--color-lines);
 
-  @media screen and (max-width: 768px) {
-    position: fixed;
-    background-color: var(--color-primary-3);
-    border-bottom: 1px solid var(--color-lines);
-    width: calc(100% - 30px);
+  @media only screen and (max-width: 1024px) {
+    display: flex;
   }
 `;
 
 const FilterContainer = styled.div`
-  margin-bottom: 20px;
   min-width: var(--sidebar-width);
   border-right: 1px solid var(--color-lines);
   padding: 0;
-  position: relative;
-
-  ${mobileStyles}
 `;
 
 const FilterWrapper = styled.div`
-  position: fixed;
   min-width: var(--sidebar-width);
-
-  ${mobileStyles}
 `;
 
 const FilterHeading = styled.h4`
@@ -93,6 +87,11 @@ const FilterHeading = styled.h4`
   border-bottom: 1px solid var(--color-lines);
   width: 100%;
   padding: 1rem 1rem 1rem 2rem;
+  height: 4rem;
+
+  @media only screen and (max-width: 1024px) {
+    background-color: var(--color-grey-0);
+  }
 `;
 
 const ButtonDropdown = styled.button`
@@ -138,7 +137,6 @@ const FilterInput = styled.input`
 
   &:checked {
     background-color: var(--color-grey-1);
-    border-color: var(--color-grey-1);
   }
 
   &::before {
@@ -158,10 +156,10 @@ const FilterInput = styled.input`
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
-    color: var(--color-white);
     width: 1.1rem;
     height: 1.1rem;
     opacity: 1;
+    filter: invert(100%) sepia(100%);
   }
 `;
 
@@ -170,15 +168,15 @@ const FilterLabel = styled.label`
 `;
 
 const FilterItemsContainer = styled.div`
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  transform: ${({ isOpen }) =>
-    isOpen ? "translateX(0%)" : "translateX(-150%)"};
-  opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
-  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
   overflow: hidden;
+  height: ${({ isOpen }) => (isOpen ? "auto" : "0")};
+  padding: ${({ isOpen }) => (isOpen ? "2rem" : "0")};
+  opacity: ${({ isOpen }) => (isOpen ? "1" : "0")};
+  transition: opacity 0.3s ease;
 
-  ${mobileStyles}
+  @media only screen and (max-width: 1024px) {
+    border-bottom: 1px solid var(--color-lines);
+  }
 `;
 
 export default FilterTechnologies;
