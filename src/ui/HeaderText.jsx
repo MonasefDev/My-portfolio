@@ -26,6 +26,10 @@ const StyledHeaderText = styled.div`
     border-left: ${(props) =>
       props.text ? "1px solid var(--color-lines);" : "none"};
   }
+
+  @media only screen and (max-width: 1024px) {
+    display: none;
+  }
 `;
 
 export default HeaderText;
