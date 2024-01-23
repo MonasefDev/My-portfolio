@@ -3,28 +3,31 @@ import { projects } from "../../data/projects";
 import Table from "../../ui/Table";
 import styled from "styled-components";
 import ProjectRow from "./ProjectRow";
+import Menus from "../../ui/Menus";
 function ProjectsList() {
   console.log(projects);
   return (
     <StyledProjectsList>
-      <Table columns="2fr 1fr 1fr 2fr 3.2rem">
-        <Table.Header>
-          <div>projects</div>
-          <div>github_link</div>
-          <div>demo_link</div>
-          <div>technologies</div>
-          <div></div>
-        </Table.Header>
-        <Table.Body>
-          <ProjectRow />
-        </Table.Body>
-        {/* <Table.Body
-          data={bookings}
-          render={(booking) => (
-            <BookingRow key={booking.id} booking={booking} />
+      <Menus>
+        <Table columns="2fr 1fr 1fr 2fr 3.2rem">
+          <Table.Header>
+            <div>projects</div>
+            <div>github_link</div>
+            <div>demo_link</div>
+            <div>technologies</div>
+            <div></div>
+          </Table.Header>
+          <Table.Body>
+            <ProjectRow />
+          </Table.Body>
+          <Table.Body
+            data={projects}
+            render={(project) => (
+              <ProjectRow key={project.id} project={project} />
             )}
-          /> */}
-      </Table>
+          />
+        </Table>
+      </Menus>
     </StyledProjectsList>
   );
 }

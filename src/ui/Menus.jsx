@@ -14,27 +14,27 @@ const StyledToggle = styled.button`
   background: none;
   border: none;
   padding: 0.4rem;
-  border-radius: var(--border-radius-sm);
+  border-radius: 5px;
   transform: translateX(0.8rem);
   transition: all 0.2s;
 
   &:hover {
-    background-color: var(--color-grey-100);
+    background-color: var(--color-grey-0);
   }
 
   & svg {
     width: 2.4rem;
     height: 2.4rem;
-    color: var(--color-grey-700);
+    opacity: 0.6;
+    color: var(--color-white);
   }
 `;
 
 const StyledList = styled.ul`
   position: fixed;
 
-  background-color: var(--color-grey-0);
-  box-shadow: var(--shadow-md);
-  border-radius: var(--border-radius-md);
+  background-color: var(--color-primary-3);
+  box-shadow: 0px 0.6rem 2.4rem rgba(0, 0, 0, 0.3);
 
   right: ${(props) => props.position.x}px;
   top: ${(props) => props.position.y}px;
@@ -54,13 +54,13 @@ const StyledButton = styled.button`
   gap: 1.6rem;
 
   &:hover {
-    background-color: var(--color-grey-50);
+    background-color: var(--color-grey-0);
   }
 
   & svg {
     width: 1.6rem;
     height: 1.6rem;
-    color: var(--color-grey-400);
+    color: var(--color-grey-1);
     transition: all 0.3s;
   }
 `;

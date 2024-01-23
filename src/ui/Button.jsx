@@ -14,6 +14,14 @@ const variations = {
       background-color: var(--color-button-d-2);
     }
   `,
+  danger: css`
+    color: var(--color-primary-1);
+    background-color: var(--color-button-red-1);
+
+    &:hover {
+      background-color: var(--color-button-red-2);
+    }
+  `,
   default: css`
     color: var(--color-white);
     background-color: var(--color-button-p-1);
