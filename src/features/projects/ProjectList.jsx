@@ -18,19 +18,17 @@ const ProjectList = ({ projects, onSelectProject, onToggleModal }) => (
 
 const ProjectListWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(37rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
   justify-items: center;
   gap: 2.5rem;
   padding: 0 2rem;
   overflow: scroll;
   height: 100%;
-
-  @media only screen and (max-width: 1024px) {
-    grid-template-columns: repeat(auto-fit, minmax(32rem, 1fr));
-  }
+  padding: 6rem;
 
   @media only screen and (max-width: 768px) {
     grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+    padding: 1.5rem;
   }
 
   @media only screen and (max-width: 480px) {
