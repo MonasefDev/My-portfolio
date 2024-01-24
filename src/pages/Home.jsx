@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CodeSnippet from "../ui/CodeSnippet";
+import { snippet1 } from "../data/snippet";
+import { useState } from "react";
 
 const StyledHome = styled.div`
   height: calc(100vh - 200px);
@@ -73,6 +74,11 @@ const DetailsTitle = styled.div`
     font-size: 3.2rem;
     font-weight: 450;
     color: var(--color-purple-1);
+
+    @media only screen and (max-width: 768px) {
+      font-size: 2.4rem;
+      color: var(--color-accent-3);
+    }
   }
 `;
 
@@ -108,12 +114,39 @@ const CodeSnippetWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 2rem;
-  position: relative; // Added position relative
+  position: relative;
+  overflow: hidden;
+`;
 
-  & > div {
-    height: 25rem;
-    opacity: ${(props) => (props.isCenter ? 1 : 0.5)};
-    transition: opacity 0.3s ease;
+const SliderContainer = styled.div`
+  display: flex;
+  transition: transform 0.5s ease;
+`;
+
+const SliderItem = styled.div`
+  opacity: ${({ opacity }) => opacity};
+  flex: 0 0 100%;
+`;
+
+const NavigationButtons = styled.div`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 1rem;
+`;
+
+const NavigationButton = styled.button`
+  background-color: var(--color-accent-3);
+  color: var(--color-white-2);
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+  font-size: 1.4rem;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: var(--color-accent-4);
   }
 `;
 
@@ -122,31 +155,15 @@ const StyledSpan = styled.span`
 `;
 
 const Home = () => {
-  const [centerIndex, setCenterIndex] = useState(4);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  const handleScroll = () => {
-    const container = document.getElementById("codeSnippetContainer");
-    if (!container) return;
-
-    const scrollPosition = container.scrollTop;
-    const itemHeight = 25 + 2 * 16;
-    const newIndex = Math.floor(scrollPosition / itemHeight);
-
-    setCenterIndex(newIndex);
+  const handleNextSlide = () => {
+    setCurrentSlide((prevSlide) => (prevSlide + 1) % 5);
   };
 
-  useEffect(() => {
-    const container = document.getElementById("codeSnippetContainer");
-    if (container) {
-      container.addEventListener("scroll", handleScroll);
-    }
-
-    return () => {
-      if (container) {
-        container.removeEventListener("scroll", handleScroll);
-      }
-    };
-  }, []);
+  const handlePrevSlide = () => {
+    setCurrentSlide((prevSlide) => (prevSlide - 1 + 5) % 5);
+  };
 
   return (
     <StyledHome>
@@ -171,22 +188,42 @@ const Home = () => {
                 target="_blank"
                 rel="noreferrer"
               >
-                <StyledSpan color="var(--color-accent-4)">
+                <StyledSpan
+                  style={{
+                    wordWrap: "break-word",
+                    color: "var(--color-accent-4)",
+                  }}
+                >
                   {"“https://github.com/example/url”"}
-                </StyledSpan>{" "}
+                </StyledSpan>
               </a>
             </div>
           </LinkToGoToGithub>
         </Details>
         <CodeSnippetContainer id="codeSnippetContainer">
           <CodeSnippetWrapper>
-            {[...Array(10)].map((_, index) => (
-              <CodeSnippet
-                key={index}
-                code={"// code snippet showcase"}
-                isCenter={index === centerIndex}
-              />
-            ))}
+            <SliderContainer
+              style={{
+                transform: `translateY(-${currentSlide * 100}%)`,
+              }}
+            >
+              {[...Array(5)].map((_, index) => (
+                <SliderItem
+                  key={index}
+                  opacity={Math.abs(currentSlide - index) <= 2 ? 0.4 : 0.1}
+                >
+                  <CodeSnippet key={index} code={snippet1} />
+                </SliderItem>
+              ))}
+            </SliderContainer>
+            <NavigationButtons>
+              <NavigationButton onClick={handlePrevSlide}>
+                Previous
+              </NavigationButton>
+              <NavigationButton onClick={handleNextSlide}>
+                Next
+              </NavigationButton>
+            </NavigationButtons>
           </CodeSnippetWrapper>
         </CodeSnippetContainer>
       </HomeLayout>
