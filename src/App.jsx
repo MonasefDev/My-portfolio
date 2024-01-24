@@ -8,7 +8,7 @@ import AppLayout from "./ui/AppLayout";
 import Dashboard from "./pages/Dashboard";
 import AddProject from "./features/dashboard/AddProject";
 import ProjectsList from "./features/dashboard/ProjectsList";
-import AddSkill from "./features/dashboard/AddSkill";
+import AddTech from "./features/dashboard/techs/AddTech";
 
 function App() {
   return (
@@ -28,7 +28,7 @@ function App() {
           />
           <Route path="add-project" element={<AddProject />} />
           <Route path="list-projects" element={<ProjectsList />} />
-          <Route path="add-skill" element={<AddSkill />} />
+          <Route path="add-technologie" element={<AddTech />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -16,7 +16,7 @@ function Sidebar() {
         <NavLink to="/dashboard/list-projects">
           <li>Project list</li>
         </NavLink>
-        <NavLink to="/dashboard/add-skill">
+        <NavLink to="/dashboard/add-technologie">
           <li>Add skill</li>
         </NavLink>
       </List>

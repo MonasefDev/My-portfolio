@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Button from "./Button";
 
 const StyledConfirmDelete = styled.div`
-  width: 40rem;
+  max-width: 40rem;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
@@ -12,6 +12,9 @@ const StyledConfirmDelete = styled.div`
     font-size: 2.4rem;
     font-weight: 600;
     color: var(--color-white);
+    @media only screen and (max-width: 1024px) {
+      font-size: 2rem;
+    }
   }
 
   & p {
@@ -29,7 +32,7 @@ const StyledConfirmDelete = styled.div`
 function ConfirmDelete({ resourceName, onConfirm, disabled, onCloseModal }) {
   return (
     <StyledConfirmDelete>
-      <h3>Delete {resourceName}</h3>
+      <h3>Delete {resourceName} ?</h3>
       <p>
         Are you sure you want to delete this {resourceName} permanently? This
         action cannot be undone.
