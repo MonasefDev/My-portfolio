@@ -15,7 +15,7 @@ const variations = {
     }
   `,
   danger: css`
-    color: var(--color-primary-1);
+    color: var(--color-white);
     background-color: var(--color-button-red-1);
 
     &:hover {
@@ -30,6 +30,14 @@ const variations = {
       background-color: var(--color-button-p-2);
     }
   `,
+  ghost: css`
+    color: var(--color-white);
+    background-color: transparent;
+    border: 1px solid var(--color-white);
+    &:hover {
+      border: 1px solid #ffffff7d;
+    }
+  `,
 };
 
 const StyledButton = styled.button`
@@ -39,6 +47,7 @@ const StyledButton = styled.button`
   font-size: 1%.4rem;
   border: none;
   outline: none;
+  transition: all 0.2s ease-in-out;
 
   ${(props) => variations[props.variation]}
 `;

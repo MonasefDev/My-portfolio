@@ -23,7 +23,7 @@ const GlobalStyles = createGlobalStyle`
   --color-white : #FFFFFF;
   /*color button */
   --color-button-red-1 : #F44336;
-  --color-button-red-2 : #EF5350;
+  --color-button-red-2 : #f44336b3;
   --color-button-d-1: #FEA55F;
   --color-button-d-2: #FFAC6B;
   --color-button-p-1: #1C2B3A;
