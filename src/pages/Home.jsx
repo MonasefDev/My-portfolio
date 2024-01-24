@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import CodeSnippet from "../ui/CodeSnippet";
-import { snippet1 } from "../data/snippet";
-import { useState } from "react";
+import { snippetHome } from "../data/snippet-Home";
 
 const StyledHome = styled.div`
   height: calc(100vh - 200px);
@@ -114,39 +113,23 @@ const CodeSnippetWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 2rem;
-  position: relative;
-  overflow: hidden;
-`;
 
-const SliderContainer = styled.div`
-  display: flex;
-  transition: transform 0.5s ease;
-`;
+  & > div {
+    height: 15rem;
 
-const SliderItem = styled.div`
-  opacity: ${({ opacity }) => opacity};
-  flex: 0 0 100%;
-`;
+    &:nth-child(3) {
+      opacity: 1;
+    }
 
-const NavigationButtons = styled.div`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  gap: 1rem;
-`;
+    &:nth-child(2),
+    &:nth-child(4) {
+      opacity: 0.4;
+    }
 
-const NavigationButton = styled.button`
-  background-color: var(--color-accent-3);
-  color: var(--color-white-2);
-  padding: 0.5rem 1rem;
-  border: none;
-  cursor: pointer;
-  font-size: 1.4rem;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: var(--color-accent-4);
+    &:nth-child(1),
+    &:nth-child(5) {
+      opacity: 0.2;
+    }
   }
 `;
 
@@ -155,16 +138,6 @@ const StyledSpan = styled.span`
 `;
 
 const Home = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  const handleNextSlide = () => {
-    setCurrentSlide((prevSlide) => (prevSlide + 1) % 5);
-  };
-
-  const handlePrevSlide = () => {
-    setCurrentSlide((prevSlide) => (prevSlide - 1 + 5) % 5);
-  };
-
   return (
     <StyledHome>
       <HomeLayout>
@@ -200,30 +173,11 @@ const Home = () => {
             </div>
           </LinkToGoToGithub>
         </Details>
-        <CodeSnippetContainer id="codeSnippetContainer">
+        <CodeSnippetContainer>
           <CodeSnippetWrapper>
-            <SliderContainer
-              style={{
-                transform: `translateY(-${currentSlide * 100}%)`,
-              }}
-            >
-              {[...Array(5)].map((_, index) => (
-                <SliderItem
-                  key={index}
-                  opacity={Math.abs(currentSlide - index) <= 2 ? 0.4 : 0.1}
-                >
-                  <CodeSnippet key={index} code={snippet1} />
-                </SliderItem>
-              ))}
-            </SliderContainer>
-            <NavigationButtons>
-              <NavigationButton onClick={handlePrevSlide}>
-                Previous
-              </NavigationButton>
-              <NavigationButton onClick={handleNextSlide}>
-                Next
-              </NavigationButton>
-            </NavigationButtons>
+            {[...Array(5)].map((_, index) => (
+              <CodeSnippet key={index} code={snippetHome} />
+            ))}
           </CodeSnippetWrapper>
         </CodeSnippetContainer>
       </HomeLayout>
