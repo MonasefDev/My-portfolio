@@ -13,7 +13,6 @@ function ProjectRow({ project }) {
     live_link,
     technologies,
   } = project;
-  console.log(projectId);
   const deleteProject = (id) => {
     console.log("delete project : ", id);
   };
@@ -47,27 +46,6 @@ function ProjectRow({ project }) {
               </Menus.Button>
             </Modal.Open>
           </Menus.List>
-
-          {/* <Modal.Open opens="edit">
-            <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
-            </Modal.Open>
-            
-            <Modal.Open opens="delete">
-            <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
-            </Modal.Open>
-            </Menus.List>
-            
-            <Modal.Window name="edit">
-            <CreateCabinForm cabinToEdit={cabin} />
-            </Modal.Window>
-            
-            <Modal.Window name="delete">
-            <ConfirmDelete
-            resourceName="cabins"
-            disabled={isDeleting}
-            onConfirm={() => deleteCabin(cabinId)}
-            />
-        </Modal.Window> */}
         </Menus.Menu>
         <Modal.Window name="delete">
           <ConfirmDelete

@@ -44,12 +44,16 @@ const StyledButton = styled.button`
   width: fit-content;
   padding: 1rem 1.4rem;
   border-radius: 0.8rem;
-  font-size: 1%.4rem;
+  font-size: 1.4rem;
   border: none;
   outline: none;
   transition: all 0.2s ease-in-out;
 
   ${(props) => variations[props.variation]}
+  @media only screen and (max-width: 1024px) {
+    padding: 0.8rem 1.2rem;
+    font-size: 1.2rem;
+  }
 `;
 Button.defaultProps = {
   variation: "primary",

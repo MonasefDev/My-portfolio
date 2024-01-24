@@ -14,6 +14,10 @@ const StyledModal = styled.div`
   box-shadow: 0 2.4rem 3.2rem rgba(0, 0, 0, 0.4);
   padding: 3.2rem 4rem;
   transition: all 0.5s;
+  @media only screen and (max-width: 1024px) {
+    padding: 3.2rem 2rem;
+    width: 96vw;
+  }
 `;
 
 const Overlay = styled.div`

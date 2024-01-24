@@ -5,8 +5,8 @@ const StyledTable = styled.div`
   border: 1px solid var(--color-lines);
   background-color: var(--color-primary-2);
   max-width: 120rem;
+  min-width: ${(props) => (props.minWidth ? "7rem" : "auto")};
   margin: 0 auto;
-  min-width: 70rem;
   font-size: 1.4rem;
   border-radius: 7px;
   overflow: hidden;
