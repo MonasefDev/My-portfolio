@@ -9,6 +9,8 @@ import Dashboard from "./pages/Dashboard";
 import AddProject from "./features/dashboard/AddProject";
 import ProjectsList from "./features/dashboard/ProjectsList";
 import AddTech from "./features/dashboard/techs/AddTech";
+import Login from "./features/login/Login";
+import ProtectedRoute from "./ui/ProtectedRoute";
 
 function App() {
   return (
@@ -21,7 +23,14 @@ function App() {
           <Route path="contact" element={<Contact />} />
         </Route>
 
-        <Route path="dashboard" element={<Dashboard />}>
+        <Route
+          path="dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        >
           <Route
             index
             element={<Navigate replace to="/dashboard/add-project" />}
@@ -30,6 +39,7 @@ function App() {
           <Route path="list-projects" element={<ProjectsList />} />
           <Route path="add-technologie" element={<AddTech />} />
         </Route>
+        <Route path="login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );

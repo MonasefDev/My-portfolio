@@ -1,13 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
+import { getProjects } from "../../services/projectsApi";
 
 function DashboardContent({ children }) {
-  // const [path, setPath] = useState(window.location.pathname.split("/").at(-1));
-  // console.log(path);
+  // const dispatch = useDispatch();
   // useEffect(() => {
-  //   setPath(window.location.pathname.split("/").at(-1));
-  // }, [children]);
+  //   async function fetchData() {
+  //     try {
+  //       const user = await loginUser({
+  //         username: "user_5",
+  //         password: "123456",
+  //       });
+  //       console.log(user);
+  //       if (!user) return;
+  //       else {
+  //         const data = await getProjects(user.token);
+  //         console.log(data);
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  //   fetchData();
+  // }, []);
+
   return (
     <StyledDashboardContent>
       <div />
