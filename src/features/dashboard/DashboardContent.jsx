@@ -3,11 +3,8 @@ import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 
 function DashboardContent({ children }) {
-  // const [path, setPath] = useState(window.location.pathname.split("/").at(-1));
-  // console.log(path);
-  // useEffect(() => {
-  //   setPath(window.location.pathname.split("/").at(-1));
-  // }, [children]);
+  // const dispatch = useDispatch();
+
   return (
     <StyledDashboardContent>
       <div />
