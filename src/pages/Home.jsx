@@ -37,9 +37,9 @@ const Details = styled.div`
 
   @media only screen and (max-width: 1024px) {
     width: 100%;
-    padding: 0 2rem;
+    padding: 0;
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 0;
   }
 `;
 
@@ -75,7 +75,7 @@ const DetailsTitle = styled.div`
     color: var(--color-purple-1);
 
     @media only screen and (max-width: 768px) {
-      font-size: 2.4rem;
+      font-size: 2.2rem;
       color: var(--color-accent-3);
     }
   }
