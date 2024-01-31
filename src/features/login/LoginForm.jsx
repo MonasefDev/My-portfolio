@@ -12,10 +12,8 @@ function LoginForm() {
   const { isLoading, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(user, isLoading);
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("logging in");
     if (!username || !password) return;
     dispatch(login({ username, password }));
   }

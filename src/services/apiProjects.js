@@ -9,7 +9,6 @@ export const getProjects = async (token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log("projects: ", response.data);
     return response.data;
   } catch (error) {
     throw error.response ? error.response.data : error.message;

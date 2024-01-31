@@ -1,29 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
-import { getProjects } from "../../services/projectsApi";
 
 function DashboardContent({ children }) {
   // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const user = await loginUser({
-  //         username: "user_5",
-  //         password: "123456",
-  //       });
-  //       console.log(user);
-  //       if (!user) return;
-  //       else {
-  //         const data = await getProjects(user.token);
-  //         console.log(data);
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  //   fetchData();
-  // }, []);
 
   return (
     <StyledDashboardContent>

@@ -3,12 +3,28 @@ import styled from "styled-components";
 import Button from "../../ui/Button";
 import { useForm } from "react-hook-form";
 import FileInput from "../../ui/FileInput";
+import axios from "axios";
+import { useSelector } from "react-redux";
+
+const projectData = {
+  project: {
+    description: "text",
+    details: "text",
+    github_link: "text",
+    images: ["cabin-002.jpg", "cabin-003.jpg"],
+    live_link: "text",
+    poster_img: "cabin-002.jpg",
+    title: "project1",
+  },
+};
 
 function AddProject() {
   const [features, setFeatures] = useState([]);
   const [feature, setFeature] = useState("");
   const [image, setImage] = useState("");
   const [images, setImages] = useState([]);
+  // const [project, setProject] = useState({});
+  // console.log(project);
   const {
     register,
     handleSubmit,
@@ -16,13 +32,31 @@ function AddProject() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    data = { ...data, poster_img: image, images };
-    console.log(data);
-    reset();
-    setFeatures([]);
-    setImages([]);
-    setImage("");
+  const { token } = useSelector((state) => state.auth.user);
+  const onSubmit = async (data) => {
+    data = {
+      ...data,
+      poster_img: image.name,
+      images: images.map((image) => image.name),
+      technologies: ["React", "Redux", "Tailwind"],
+      features: features,
+    };
+    const projectObj = { project: data };
+    console.log(projectObj);
+    // reset();
+    // setFeatures([]);
+    // setImages([]);
+
+    try {
+      await axios.post("http://127.0.0.1:3000/projects", projectObj, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("Project created successfully");
+    } catch (error) {
+      console.error("Error creating project", error);
+    }
   };
   return (
     <StyledAddProject>
