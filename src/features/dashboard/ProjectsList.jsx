@@ -10,12 +10,12 @@ import { getProjects } from "./projectsSlice";
 import Spinner from "../../ui/Spinner";
 function ProjectsList() {
   const { isLoading, projects } = useSelector((state) => state.projects);
-  const { user } = useSelector((state) => state.auth);
+  const authToken = JSON.parse(sessionStorage.getItem("authToken"));
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getProjects(user.token));
-  }, [dispatch, user.token]);
+    dispatch(getProjects(authToken));
+  }, [dispatch, authToken]);
 
   return (
     <StyledProjectsList>

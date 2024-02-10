@@ -5,6 +5,8 @@ import Button from "../../ui/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "./userSlice";
 import { useNavigate } from "react-router-dom";
+import Spinner from "../../ui/Spinner";
+import SpinnerMini from "../../ui/SpinnerMini";
 
 function LoginForm() {
   const [username, setUsername] = useState("user_5");
@@ -47,8 +49,7 @@ function LoginForm() {
       </FormRowVertical>
       <FormRowVertical>
         <Button variation="default" disabled={isLoading}>
-          Log in
-          {/* {!isLoading ? "Log in" : <SpinnerMini />} */}
+          {!isLoading ? "Log in" : <SpinnerMini />}
         </Button>
       </FormRowVertical>
     </Form>
@@ -64,6 +65,10 @@ const Form = styled.form`
   justify-content: center;
   @media only screen and (max-width: 1024px) {
     padding: 2rem;
+  }
+  & button {
+    width: 100% !important;
+    height: 4rem !important;
   }
 `;
 

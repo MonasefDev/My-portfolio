@@ -3,9 +3,11 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import FileInput from "../../../ui/FileInput";
 import Button from "../../../ui/Button";
+import axios from "axios";
 
 function CreateTechForm() {
   const [image, setImage] = useState("");
+  const authToken = JSON.parse(sessionStorage.getItem("authToken"));
   const {
     register,
     handleSubmit,
@@ -14,11 +16,35 @@ function CreateTechForm() {
   } = useForm();
 
   const onSubmit = (data) => {
-    data = { ...data, tech_icon: image };
-    console.log(data);
-    // reset();
-    // setImages([]);
-    // setImage("");
+    // // data = { ...data, tech_icon: image };
+    // // reset();
+    // // setImages([]);
+    // // setImage("");
+    // const formData = new FormData();
+    // formData.append("name", "REACT");
+    // formData.append("tech_icon", "image");
+    // createTech(formData);
+  };
+
+  const handleClick = (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("name", "REACT");
+    formData.append("tech_icon", "image");
+    createTech(formData);
+  };
+  const createTech = (formData) => {
+    console.log(formData);
+    // try {
+    //   await axios.post("http://127.0.0.1:3000/technologies", formData, {
+    //     headers: {
+    //       Authorization: `Bearer ${authToken}`,
+    //     },
+    //   });
+    //   console.log("Project created successfully");
+    // } catch (error) {
+    //   console.error("Error creating project", error);
+    // }
   };
   return (
     <StyledCreateTechForm>
@@ -63,7 +89,12 @@ function CreateTechForm() {
           )}
         </FormGroup>
 
-        <Button id="create-button" type="submit" variation="default">
+        <Button
+          onClick={handleClick}
+          id="create-button"
+          type="submit"
+          variation="default"
+        >
           create project
         </Button>
       </form>

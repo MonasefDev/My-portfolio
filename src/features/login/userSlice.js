@@ -1,6 +1,7 @@
 // authSlice.js
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loginApi } from "../../services/apiAuth";
+import toast from "react-hot-toast";
 
 const loginAsync = createAsyncThunk(
   "auth/login",
@@ -25,8 +26,13 @@ const authSlice = createSlice({
       .addCase(loginAsync.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload;
+        sessionStorage.setItem(
+          "authToken",
+          JSON.stringify(action.payload.token)
+        );
       })
       .addCase(loginAsync.rejected, (state) => {
+        toast.error("Login failed, please try again");
         state.isLoading = false;
       });
   },

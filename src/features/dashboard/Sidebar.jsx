@@ -17,7 +17,7 @@ function Sidebar() {
           <li>Project list</li>
         </NavLink>
         <NavLink to="/dashboard/add-technologie">
-          <li>Add skill</li>
+          <li>Add technologie</li>
         </NavLink>
       </List>
       <ButtonFloat>

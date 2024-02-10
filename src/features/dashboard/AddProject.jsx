@@ -8,13 +8,16 @@ import { useSelector } from "react-redux";
 
 const projectData = {
   project: {
-    description: "text",
-    details: "text",
-    github_link: "text",
-    images: ["cabin-002.jpg", "cabin-003.jpg"],
-    live_link: "text",
+    title: "project 1",
+    description: "Our platform allows you to make payments from anywhere.",
+    details:
+      "Our platform allows you to make payments from anywhere, at any time, using your preferred payment method. We accept all major credit cards, as well as digital wallets like PayPal, Apple Pay, and Google Pay. With our state-of-the-art security measures and",
+    features: ["feat1"],
+    technologies: ["React", "Redux", "Tailwind"],
+    github_link: "http://localhost:5173",
+    live_link: "http://localhost:5173",
     poster_img: "cabin-002.jpg",
-    title: "project1",
+    images: ["cabin-002.jpg", "cabin-003.jpg"],
   },
 };
 
@@ -32,7 +35,7 @@ function AddProject() {
     formState: { errors },
   } = useForm();
 
-  const { token } = useSelector((state) => state.auth.user);
+  const authToken = sessionStorage.getItem("authToken");
   const onSubmit = async (data) => {
     data = {
       ...data,
@@ -48,11 +51,16 @@ function AddProject() {
     // setImages([]);
 
     try {
-      await axios.post("http://127.0.0.1:3000/projects", projectObj, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.post(
+        "http://127.0.0.1:3000/projects",
+        projectData,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      console.log(response);
       console.log("Project created successfully");
     } catch (error) {
       console.error("Error creating project", error);
