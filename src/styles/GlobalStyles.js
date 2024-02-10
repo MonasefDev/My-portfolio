@@ -21,6 +21,8 @@ const GlobalStyles = createGlobalStyle`
   /* color lines */
   --color-lines : #1E2D3D;
   --color-white : #FFFFFF;
+  --color-white-2 : #e5e9f0;
+
   /*color button */
   --color-button-red-1 : #F44336;
   --color-button-red-2 : #f44336b3;
