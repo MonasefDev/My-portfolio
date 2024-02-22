@@ -1,16 +1,11 @@
-import axios from "axios";
+import supabase from "./supabase";
 
-const baseURL = "http://127.0.0.1:3000";
-
-export const getProjects = async (token) => {
-  try {
-    const response = await axios.get(`${baseURL}/projects`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    throw error.response ? error.response.data : error.message;
+export async function getTechs() {
+  const { data, error } = await supabase.from("technologies").select("*");
+  if (error) {
+    console.error(error);
+    throw new Error("technologies could not be loaded");
   }
-};
+
+  return data;
+}

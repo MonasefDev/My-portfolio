@@ -16,39 +16,42 @@ function CreateTechForm() {
   } = useForm();
 
   const onSubmit = (data) => {
-    // // data = { ...data, tech_icon: image };
-    // // reset();
-    // // setImages([]);
-    // // setImage("");
-    // const formData = new FormData();
-    // formData.append("name", "REACT");
-    // formData.append("tech_icon", "image");
-    // createTech(formData);
-  };
-
-  const handleClick = (event) => {
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append("name", "REACT");
-    formData.append("tech_icon", "image");
+    const formData = { ...data, tech_icon: image };
     createTech(formData);
   };
-  const createTech = (formData) => {
+
+  // const handleClick = (event) => {
+  //   event.preventDefault();
+  //   const formData = new FormData();
+  //   formData.append("name", "REACT");
+  //   formData.append("tech_icon", "image");
+  //   createTech(formData);
+  // };
+  const createTech = async (data) => {
+    const formData = new FormData();
+    formData.append("name", "REACT");
+    formData.append("tech_icon", image);
+
     console.log(formData);
-    // try {
-    //   await axios.post("http://127.0.0.1:3000/technologies", formData, {
-    //     headers: {
-    //       Authorization: `Bearer ${authToken}`,
-    //     },
-    //   });
-    //   console.log("Project created successfully");
-    // } catch (error) {
-    //   console.error("Error creating project", error);
-    // }
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:3000/technologies",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      console.log(response);
+      if (response) console.log("Technologie created successfully");
+    } catch (error) {
+      console.error("Error creating Technologie", error);
+    }
   };
   return (
     <StyledCreateTechForm>
-      <form onSubmit={handleSubmit(onSubmit)} id="add-project-form">
+      <form onSubmit={handleSubmit(onSubmit)} id="add-technologie-form">
         <FormGroup>
           <Label>tech name:</Label>
           <Input
@@ -89,12 +92,7 @@ function CreateTechForm() {
           )}
         </FormGroup>
 
-        <Button
-          onClick={handleClick}
-          id="create-button"
-          type="submit"
-          variation="default"
-        >
+        <Button id="create-button" type="submit" variation="default">
           create project
         </Button>
       </form>

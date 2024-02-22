@@ -35,7 +35,7 @@ function AddProject() {
     formState: { errors },
   } = useForm();
 
-  const authToken = sessionStorage.getItem("authToken");
+  const authToken = JSON.parse(sessionStorage.getItem("authToken"));
   const onSubmit = async (data) => {
     data = {
       ...data,
@@ -45,22 +45,18 @@ function AddProject() {
       features: features,
     };
     const projectObj = { project: data };
-    console.log(projectObj);
+    console.log(projectData);
     // reset();
     // setFeatures([]);
     // setImages([]);
 
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:3000/projects",
-        projectData,
-        {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
-        }
-      );
-      console.log(response);
+      await axios.post("http://127.0.0.1:3000/projects", projectData, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      // console.log(response);
       console.log("Project created successfully");
     } catch (error) {
       console.error("Error creating project", error);
@@ -217,6 +213,9 @@ function AddProject() {
           create project
         </Button>
       </form>
+      <Button id="create-button" onClick={onSubmit} variation="default">
+        create project
+      </Button>
     </StyledAddProject>
   );
 }

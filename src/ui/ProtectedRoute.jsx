@@ -15,6 +15,7 @@ function ProtectedRoute({ children }) {
   const { isLoading, user: isAuthenticated } = useSelector(
     (state) => state.auth
   );
+
   const navigate = useNavigate();
 
   // 1. Load the authenticated user

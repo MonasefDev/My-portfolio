@@ -28,9 +28,9 @@ function App() {
           <Route
             path="dashboard"
             element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
+              // <ProtectedRoute>
+              <Dashboard />
+              // </ProtectedRoute>
             }
           >
             <Route
@@ -56,11 +56,12 @@ function App() {
             duration: 5000,
           },
           style: {
-            fontSize: "16px",
+            fontSize: "14px",
             maxWidth: "500px",
             padding: "8px 12px",
-            backgroundColor: "var(--color-grey-1)",
+            backgroundColor: "var(--color-button-p-1)",
             color: "white",
+            fontWeight: "300",
           },
         }}
       />
