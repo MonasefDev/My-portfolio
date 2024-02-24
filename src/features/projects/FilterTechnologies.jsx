@@ -41,15 +41,15 @@ function FilterTechnologies({ technologies, onFilterChange }) {
         </FilterHeading>
         <FilterItemsContainer isOpen={!isDropdownOpen}>
           {technologies.map((technology) => (
-            <FilterItem key={technology}>
+            <FilterItem key={technology.id}>
               <FilterInput
                 type="checkbox"
-                id={technology}
-                value={technology}
+                id={technology.id}
+                value={technology.name}
                 onChange={handleCheckboxChange}
               />
-              <FilterLabel htmlFor={technology} className="filter-label">
-                {technology}
+              <FilterLabel htmlFor={technology.name} className="filter-label">
+                {technology.name}
               </FilterLabel>
             </FilterItem>
           ))}
@@ -165,6 +165,7 @@ const FilterInput = styled.input`
 
 const FilterLabel = styled.label`
   font-weight: 500;
+  text-transform: uppercase;
 `;
 
 const FilterItemsContainer = styled.div`

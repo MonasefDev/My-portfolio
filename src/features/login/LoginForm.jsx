@@ -3,7 +3,6 @@ import styled from "styled-components";
 import FormRowVertical from "./FormRowVertical";
 import Button from "../../ui/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "./userSlice";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../../ui/Spinner";
 import SpinnerMini from "../../ui/SpinnerMini";
@@ -12,12 +11,11 @@ function LoginForm() {
   const [username, setUsername] = useState("user_5");
   const [password, setPassword] = useState("123456");
   const { isLoading, user } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   function handleSubmit(e) {
     e.preventDefault();
     if (!username || !password) return;
-    dispatch(login({ username, password }));
+    // dispatch(login({ username, password }));
   }
   useEffect(() => {
     if (user) navigate("/dashboard", { replace: true });

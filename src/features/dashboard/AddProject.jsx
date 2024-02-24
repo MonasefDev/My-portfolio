@@ -5,20 +5,20 @@ import { useForm } from "react-hook-form";
 import FileInput from "../../ui/FileInput";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { useCreateProject } from "./useCreateProject";
+import SpinnerMini from "../../ui/SpinnerMini";
 
 const projectData = {
-  project: {
-    title: "project 1",
-    description: "Our platform allows you to make payments from anywhere.",
-    details:
-      "Our platform allows you to make payments from anywhere, at any time, using your preferred payment method. We accept all major credit cards, as well as digital wallets like PayPal, Apple Pay, and Google Pay. With our state-of-the-art security measures and",
-    features: ["feat1"],
-    technologies: ["React", "Redux", "Tailwind"],
-    github_link: "http://localhost:5173",
-    live_link: "http://localhost:5173",
-    poster_img: "cabin-002.jpg",
-    images: ["cabin-002.jpg", "cabin-003.jpg"],
-  },
+  title: "project 1",
+  description: "Our platform allows you to make payments from anywhere.",
+  details:
+    "Our platform allows you to make payments from anywhere, at any time, using your preferred payment method. We accept all major credit cards, as well as digital wallets like PayPal, Apple Pay, and Google Pay. With our state-of-the-art security measures and",
+  features: ["feat1"],
+  technologies: ["React", "Redux", "Tailwind"],
+  github_link: "http://localhost:5173",
+  live_link: "http://localhost:5173",
+  poster_img: "cabin-002.jpg",
+  images: ["cabin-002.jpg", "cabin-003.jpg"],
 };
 
 function AddProject() {
@@ -26,8 +26,8 @@ function AddProject() {
   const [feature, setFeature] = useState("");
   const [image, setImage] = useState("");
   const [images, setImages] = useState([]);
+  const { isCreating, createProject } = useCreateProject();
   // const [project, setProject] = useState({});
-  // console.log(project);
   const {
     register,
     handleSubmit,
@@ -39,28 +39,20 @@ function AddProject() {
   const onSubmit = async (data) => {
     data = {
       ...data,
-      poster_img: image.name,
-      images: images.map((image) => image.name),
+      poster_img: image,
+      images,
       technologies: ["React", "Redux", "Tailwind"],
       features: features,
     };
-    const projectObj = { project: data };
-    console.log(projectData);
-    // reset();
-    // setFeatures([]);
-    // setImages([]);
-
-    try {
-      await axios.post("http://127.0.0.1:3000/projects", projectData, {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      });
-      // console.log(response);
-      console.log("Project created successfully");
-    } catch (error) {
-      console.error("Error creating project", error);
-    }
+    createProject(data, {
+      onSuccess: (data) => {
+        reset();
+        setImage("");
+        setFeatures("");
+        setFeature("");
+        setImages("");
+      },
+    });
   };
   return (
     <StyledAddProject>
@@ -209,8 +201,13 @@ function AddProject() {
             </ImagesContainer>
           )}
         </FormGroup>
-        <Button id="create-button" type="submit" variation="default">
-          create project
+        <Button
+          id="create-button"
+          disabled={isCreating}
+          type="submit"
+          variation="default"
+        >
+          {isCreating ? <SpinnerMini width={"15rem"} /> : "create project"}
         </Button>
       </form>
       <Button id="create-button" onClick={onSubmit} variation="default">

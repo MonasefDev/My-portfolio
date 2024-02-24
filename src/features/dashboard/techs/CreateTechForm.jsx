@@ -3,52 +3,47 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import FileInput from "../../../ui/FileInput";
 import Button from "../../../ui/Button";
-import axios from "axios";
+import { useCreateTech } from "./useCreateTechs";
+import { useEditTech } from "./useEditTech";
+import SpinnerMini from "../../../ui/SpinnerMini";
 
-function CreateTechForm() {
-  const [image, setImage] = useState("");
-  const authToken = JSON.parse(sessionStorage.getItem("authToken"));
+function CreateTechForm({ techToEdit = {}, onCloseModal }) {
+  const { isCreating, createTech } = useCreateTech();
+  const { isEditing, editTech } = useEditTech();
+  const isWorking = isCreating || isEditing;
+  const { id: editId, ...editValues } = techToEdit;
+  const isEditSession = Boolean(editId);
+  const [image, setImage] = useState(isEditSession ? editValues.tech_icon : "");
+  const [width, setWidth] = useState("");
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({ defaultValues: isEditSession ? editValues : {} });
 
   const onSubmit = (data) => {
     const formData = { ...data, tech_icon: image };
-    createTech(formData);
-  };
-
-  // const handleClick = (event) => {
-  //   event.preventDefault();
-  //   const formData = new FormData();
-  //   formData.append("name", "REACT");
-  //   formData.append("tech_icon", "image");
-  //   createTech(formData);
-  // };
-  const createTech = async (data) => {
-    const formData = new FormData();
-    formData.append("name", "REACT");
-    formData.append("tech_icon", image);
-
-    console.log(formData);
-    try {
-      const response = await axios.post(
-        "http://127.0.0.1:3000/technologies",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
+    isEditSession
+      ? editTech(
+          { newTech: { ...data, tech_icon: image }, id: editId },
+          {
+            onSuccess: (data) => {
+              reset();
+              setImage("");
+              onCloseModal?.();
+            },
+          }
+        )
+      : createTech(formData, {
+          onSuccess: (data) => {
+            reset();
+            setImage("");
+            onCloseModal?.();
           },
-        }
-      );
-      console.log(response);
-      if (response) console.log("Technologie created successfully");
-    } catch (error) {
-      console.error("Error creating Technologie", error);
-    }
+        });
   };
+
   return (
     <StyledCreateTechForm>
       <form onSubmit={handleSubmit(onSubmit)} id="add-technologie-form">
@@ -69,9 +64,7 @@ function CreateTechForm() {
           <FileInput
             id="tech_icon"
             accept="image/*"
-            {...register("tech_icon", {
-              required: "This field is required",
-            })}
+            {...register("tech_icon", {})}
             name="Choose File"
             onChange={(e) => setImage(e.target.files[0])}
           />
@@ -81,7 +74,11 @@ function CreateTechForm() {
           {image !== "" && (
             <ImagesContainer>
               <ImageBox>
-                <img src={URL.createObjectURL(image)} alt={image.name} />
+                {isEditSession && !image.name ? (
+                  <img src={image} alt={"tech_icon"} />
+                ) : (
+                  <img src={URL.createObjectURL(image)} alt={image.name} />
+                )}
                 <img
                   src="/assets/icons/close.svg"
                   alt="close"
@@ -92,8 +89,19 @@ function CreateTechForm() {
           )}
         </FormGroup>
 
-        <Button id="create-button" type="submit" variation="default">
-          create project
+        <Button
+          onClick={(e) => {
+            setWidth(e.target.clientWidth + "px");
+          }}
+          id="create-button"
+          type="submit"
+          variation="default"
+        >
+          {isWorking ? (
+            <SpinnerMini width={width} />
+          ) : (
+            `${isEditSession ? "edit" : "create"} technology`
+          )}
         </Button>
       </form>
     </StyledCreateTechForm>

@@ -6,29 +6,16 @@ import FilterTechnologies from "../features/projects/FilterTechnologies";
 import HeaderText from "../ui/HeaderText";
 import ScrollBar from "../ui/ScrollBar";
 import HeaderTextMobile from "../ui/HeaderTextMobile";
-
-const fetchData = async (setProjects) => {
-  try {
-    const response = await fetch("db/data.json");
-    const data = await response.json();
-    setProjects(data);
-  } catch (error) {
-    throw new Error("Error fetching data:", error);
-  }
-};
+import { useProjects } from "../features/dashboard/useProjects";
+import { useTechs } from "../features/dashboard/techs/useTechs";
+import Spinner from "../ui/Spinner";
 
 function Projects() {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [projects, setProjects] = useState([]);
+  const { isLoading, projects = [] } = useProjects();
+  const { isLoadingTech, techs: allTechnologies = [] } = useTechs();
   const [selectedProject, setSelectedProject] = useState(null);
   const [filteredTechnologies, setFilteredTechnologies] = useState([]);
-  const allTechnologies = Array.from(
-    new Set(projects.flatMap((project) => project.technologies))
-  );
-
-  useEffect(() => {
-    fetchData(setProjects);
-  }, []);
 
   const handleSelectProject = (project) => setSelectedProject(project);
 
@@ -60,37 +47,46 @@ function Projects() {
 
   return (
     <ContainerProjects>
-      <FilterTechnologies
-        technologies={allTechnologies}
-        onFilterChange={handleFilterChange}
-      />
-      <ProjectsWrapper>
-        <HeaderText
-          text={filteredTechnologies.length === 0 ? "all" : displayTechnologies}
-        />
-
-        <HeaderTextMobile>
-          <span>{`// _Projects  `}</span> {"/ "}
-          {filteredTechnologies.length === 0 ? "all" : displayTechnologies}
-        </HeaderTextMobile>
-
-        <ProjectList
-          projects={filteredProjects}
-          onSelectProject={handleSelectProject}
-          onToggleModal={handleToggleModal}
-        />
-      </ProjectsWrapper>
-      <ScrollBar />
-      {isModalVisible && (
+      {isLoading ? (
+        <Spinner />
+      ) : (
         <>
-          <BlurOverlay
-            isvisible={isModalVisible.toString()}
-            onClick={handleBlurOverlayClick}
+          <FilterTechnologies
+            technologies={allTechnologies}
+            onFilterChange={handleFilterChange}
           />
-          <ModelDetails
-            selectedProject={selectedProject}
-            onCloseModal={() => handleToggleModal(false)}
-          />
+
+          <ProjectsWrapper>
+            <HeaderText
+              text={
+                filteredTechnologies.length === 0 ? "all" : displayTechnologies
+              }
+            />
+
+            <HeaderTextMobile>
+              <span>{`// _Projects  `}</span> {"/ "}
+              {filteredTechnologies.length === 0 ? "all" : displayTechnologies}
+            </HeaderTextMobile>
+
+            <ProjectList
+              projects={filteredProjects}
+              onSelectProject={handleSelectProject}
+              onToggleModal={handleToggleModal}
+            />
+          </ProjectsWrapper>
+          <ScrollBar />
+          {isModalVisible && (
+            <>
+              <BlurOverlay
+                isvisible={isModalVisible.toString()}
+                onClick={handleBlurOverlayClick}
+              />
+              <ModelDetails
+                selectedProject={selectedProject}
+                onCloseModal={() => handleToggleModal(false)}
+              />
+            </>
+          )}
         </>
       )}
     </ContainerProjects>

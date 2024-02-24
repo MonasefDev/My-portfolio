@@ -16,7 +16,7 @@ function ProjectCard({ project, index, onSelectProject, onToggleModal }) {
       </CardHeading>
       <CardDetailsContainer>
         <CardImage>
-          <img src={`${project.poster_img}${index + 1}`} alt={project.title} />
+          <img src={project.poster_img} alt={project.title} />
         </CardImage>
         <CardDetails>
           <CardParagraph>{project.description}</CardParagraph>

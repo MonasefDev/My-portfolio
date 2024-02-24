@@ -10,12 +10,21 @@ import AddProject from "./features/dashboard/AddProject";
 import ProjectsList from "./features/dashboard/ProjectsList";
 import AddTech from "./features/dashboard/techs/AddTech";
 import Login from "./features/login/Login";
-import ProtectedRoute from "./ui/ProtectedRoute";
 import { Toaster } from "react-hot-toast";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60 * 1000,
+    },
+  },
+});
 function App() {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<AppLayout />}>
@@ -65,7 +74,7 @@ function App() {
           },
         }}
       />
-    </>
+    </QueryClientProvider>
   );
 }
 

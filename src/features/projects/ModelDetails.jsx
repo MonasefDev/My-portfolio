@@ -4,6 +4,7 @@ import ReactImageGallery from "react-image-gallery";
 import styled from "styled-components";
 
 function ModelDetails({ selectedProject, onCloseModal }) {
+  console.log(selectedProject.images);
   const images = selectedProject.images.map((image) => ({
     original: image,
     thumbnail: image,
