@@ -23,7 +23,12 @@ function CreateTechForm({ techToEdit = {}, onCloseModal }) {
   } = useForm({ defaultValues: isEditSession ? editValues : {} });
 
   const onSubmit = (data) => {
-    const formData = { name: data.name.toUpperCase(), tech_icon: image };
+    const formData = {
+      name:
+        data.name.charAt(0).toUpperCase() + data.name.slice(1).toLowerCase(),
+      tech_icon: image,
+    };
+    console.log(formData);
     isEditSession
       ? editTech(
           { newTech: { ...data, tech_icon: image }, id: editId },

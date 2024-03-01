@@ -92,6 +92,8 @@ const CardDetails = styled.div`
 
 const CardParagraph = styled.p`
   margin-bottom: 1.6rem;
+  height: 4rem;
+  overflow: hidden;
 `;
 
 const CardButton = styled.button`

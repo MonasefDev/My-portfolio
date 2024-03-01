@@ -4,12 +4,21 @@ import styled from "styled-components";
 import Button from "../../ui/Button";
 import { useLogout } from "../login/useLogout";
 import SpinnerMini from "../../ui/SpinnerMini";
+import { HiArrowRightCircle, HiHome } from "react-icons/hi2";
+import useIsMobile from "../../hooks/useIsMobile";
 
 function Sidebar() {
   const { isLoading, logout } = useLogout();
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   return (
     <StyledSidebar>
+      {isMobile && (
+        <HomeImg>
+          <HiHome onClick={() => navigate("/")} />
+          <HiArrowRightCircle onClick={() => logout()} />
+        </HomeImg>
+      )}
       <Title>Dashboard</Title>
       <List>
         <NavLink to="/dashboard/add-project">
@@ -41,6 +50,23 @@ const StyledSidebar = styled.div`
   border-right: 1px solid var(--color-lines);
   @media only screen and (max-width: 1024px) {
     border: none;
+  }
+`;
+
+const HomeImg = styled.div`
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  right: 1rem;
+  display: flex;
+  justify-content: space-between;
+  svg {
+    width: 3.5rem;
+    height: 3.5rem;
+    fill: var(--color-grey-1);
+    opacity: 0.7;
+    cursor: pointer;
+    z-index: 999;
   }
 `;
 const Title = styled.div`

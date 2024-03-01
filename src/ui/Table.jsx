@@ -5,11 +5,11 @@ const StyledTable = styled.div`
   border: 1px solid var(--color-lines);
   background-color: var(--color-primary-2);
   max-width: 120rem;
-  min-width: ${(props) => (props.minWidth ? "7rem" : "auto")};
+  min-width: ${(props) => (props.minWidth ? "70rem" : "auto")};
   margin: 0 auto;
   font-size: 1.4rem;
   border-radius: 7px;
-  overflow: hidden;
+  overflow: auto;
 `;
 
 const CommonRow = styled.div`
@@ -64,10 +64,12 @@ const Empty = styled.p`
 
 const TableContext = createContext();
 
-function Table({ columns, children }) {
+function Table({ columns, children, minWidth }) {
   return (
     <TableContext.Provider value={{ columns }}>
-      <StyledTable role="table">{children}</StyledTable>
+      <StyledTable minWidth={minWidth} role="table">
+        {children}
+      </StyledTable>
     </TableContext.Provider>
   );
 }
