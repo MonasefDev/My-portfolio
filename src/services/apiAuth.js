@@ -1,12 +1,27 @@
-import axios from "axios";
+import supabase from "./supabase";
 
-const baseURL = "http://127.0.0.1:3000";
+export async function login({ email, password }) {
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
 
-export const loginApi = async (credentials) => {
-  try {
-    const response = await axios.post(`${baseURL}/login`, credentials);
-    return response.data;
-  } catch (error) {
-    throw error.response ? error.response.data : error.message;
-  }
-};
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
+export async function getCurrentUser() {
+  const { data: session } = await supabase.auth.getSession();
+  if (!session.session) return null;
+
+  const { data, error } = await supabase.auth.getUser();
+
+  if (error) throw new Error(error.message);
+  return data?.user;
+}
+
+export async function logout() {
+  const { error } = await supabase.auth.signOut();
+  if (error) throw new Error(error.message);
+}

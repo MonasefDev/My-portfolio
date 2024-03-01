@@ -1,22 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 // import { projects } from "../../data/projects";
 import Table from "../../ui/Table";
 import styled from "styled-components";
 import ProjectRow from "./ProjectRow";
 import Menus from "../../ui/Menus";
-import { useDispatch, useSelector } from "react-redux";
-import { getProjects } from "./projectsSlice";
-// import Spinner from "../../ui/Spinner1";
+import { useProjects } from "./useProjects";
 import Spinner from "../../ui/Spinner";
+// import Spinner from "../../ui/Spinner";
 function ProjectsList() {
-  const { isLoading, projects } = useSelector((state) => state.projects);
-  const { user } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getProjects(user.token));
-  }, [dispatch, user.token]);
-
+  const { isLoading, projects } = useProjects();
   return (
     <StyledProjectsList>
       {isLoading ? (

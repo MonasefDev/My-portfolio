@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Highlight from "react-highlight";
 import styled from "styled-components";
 import { gists } from "../../data/gist-data";
 import CodeSnippet from "../../ui/CodeSnippet";

@@ -3,26 +3,50 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import FileInput from "../../../ui/FileInput";
 import Button from "../../../ui/Button";
+import { useCreateTech } from "./useCreateTechs";
+import { useEditTech } from "./useEditTech";
+import SpinnerMini from "../../../ui/SpinnerMini";
 
-function CreateTechForm() {
-  const [image, setImage] = useState("");
+function CreateTechForm({ techToEdit = {}, onCloseModal }) {
+  const { isCreating, createTech } = useCreateTech();
+  const { isEditing, editTech } = useEditTech();
+  const isWorking = isCreating || isEditing;
+  const { id: editId, ...editValues } = techToEdit;
+  const isEditSession = Boolean(editId);
+  const [image, setImage] = useState(isEditSession ? editValues.tech_icon : "");
+  const [width, setWidth] = useState("");
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({ defaultValues: isEditSession ? editValues : {} });
 
   const onSubmit = (data) => {
-    data = { ...data, tech_icon: image };
-    console.log(data);
-    // reset();
-    // setImages([]);
-    // setImage("");
+    const formData = { name: data.name.toUpperCase(), tech_icon: image };
+    isEditSession
+      ? editTech(
+          { newTech: { ...data, tech_icon: image }, id: editId },
+          {
+            onSuccess: (data) => {
+              reset();
+              setImage("");
+              onCloseModal?.();
+            },
+          }
+        )
+      : createTech(formData, {
+          onSuccess: (data) => {
+            reset();
+            setImage("");
+            onCloseModal?.();
+          },
+        });
   };
+
   return (
     <StyledCreateTechForm>
-      <form onSubmit={handleSubmit(onSubmit)} id="add-project-form">
+      <form onSubmit={handleSubmit(onSubmit)} id="add-technologie-form">
         <FormGroup>
           <Label>tech name:</Label>
           <Input
@@ -40,9 +64,7 @@ function CreateTechForm() {
           <FileInput
             id="tech_icon"
             accept="image/*"
-            {...register("tech_icon", {
-              required: "This field is required",
-            })}
+            {...register("tech_icon", {})}
             name="Choose File"
             onChange={(e) => setImage(e.target.files[0])}
           />
@@ -52,7 +74,11 @@ function CreateTechForm() {
           {image !== "" && (
             <ImagesContainer>
               <ImageBox>
-                <img src={URL.createObjectURL(image)} alt={image.name} />
+                {isEditSession && !image.name ? (
+                  <img src={image} alt={"tech_icon"} />
+                ) : (
+                  <img src={URL.createObjectURL(image)} alt={image.name} />
+                )}
                 <img
                   src="/assets/icons/close.svg"
                   alt="close"
@@ -63,8 +89,19 @@ function CreateTechForm() {
           )}
         </FormGroup>
 
-        <Button id="create-button" type="submit" variation="default">
-          create project
+        <Button
+          onClick={(e) => {
+            setWidth(e.target.clientWidth + "px");
+          }}
+          id="create-button"
+          type="submit"
+          variation="default"
+        >
+          {isWorking ? (
+            <SpinnerMini width={width} />
+          ) : (
+            `${isEditSession ? "edit" : "create"} technology`
+          )}
         </Button>
       </form>
     </StyledCreateTechForm>

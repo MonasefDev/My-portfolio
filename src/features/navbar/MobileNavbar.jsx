@@ -47,7 +47,7 @@ function MobileNavbar() {
     <>
       <StyledMobileNavbar>
         <Link onClick={() => setIsMenuOpen(false)} to="/">
-          name
+          abdelkarim-monasef
         </Link>
         <Img
           src={isMenuOpen ? burgerClose : burger}

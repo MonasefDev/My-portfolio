@@ -1,7 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-function ProjectCard({ project, index, onSelectProject, onToggleModal }) {
+function ProjectCard({
+  project,
+  index,
+  techs,
+  onSelectProject,
+  onToggleModal,
+}) {
+  const techImage = techs?.find(
+    (tech) => tech.name.toLowerCase() === project.technologies[0].toLowerCase()
+  );
   const handleProjectSelect = () => {
     onSelectProject(project);
     onToggleModal(true);
@@ -16,7 +25,8 @@ function ProjectCard({ project, index, onSelectProject, onToggleModal }) {
       </CardHeading>
       <CardDetailsContainer>
         <CardImage>
-          <img src={`${project.poster_img}${index + 1}`} alt={project.title} />
+          <img src={project.poster_img} alt={project.title} />
+          <TechImage src={techImage?.tech_icon} alt={project.technologies[0]} />
         </CardImage>
         <CardDetails>
           <CardParagraph>{project.description}</CardParagraph>
@@ -59,13 +69,21 @@ const CardImage = styled.div`
   margin-bottom: 1.6rem;
   height: 15rem;
   overflow: hidden;
-
-  img {
+  position: relative;
+  img:first-child {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 0.8rem 0.8rem 0 0;
   }
+`;
+
+const TechImage = styled.img`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 3rem;
+  height: 3rem;
 `;
 
 const CardDetails = styled.div`
