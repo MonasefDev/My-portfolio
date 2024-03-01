@@ -11,93 +11,76 @@ export async function getProjects() {
 }
 
 export async function createEditProject(newProject, id) {
-  const imagesArr = newProject.images || [];
-  const hasImagePath = imagesArr[0]?.startsWith?.(supabaseUrl);
+  const imagesArr = newProject
+    ? [newProject.poster_img, ...newProject.images]
+    : [];
+  let storageError = false;
 
-  const imageNameArr = imagesArr.map((image) =>
-    `${Math.floor(Math.random() * 10 ** 8)}-${image.name}`.replaceAll("/", "")
-  );
+  // create url for images and upload then
 
-  const imagesPath = hasImagePath
-    ? imagesArr
-    : imageNameArr.map(
-        (imageName) =>
-          `${supabaseUrl}/storage/v1/object/public/projects_images/${imageName}`
-      );
+  const uploadImage = async (imageName, image) => {
+    const { error } = await supabase.storage
+      .from("projects_images")
+      .upload(imageName, image);
 
-  const posterImage = newProject.poster_img || {};
-  const hasPosterImagePath = posterImage?.startsWith?.(supabaseUrl);
+    if (error) {
+      storageError = true;
+      console.error(error);
+      throw new Error("image could not be uploaded");
+    }
+  };
 
-  const posterImageName = `${Math.floor(Math.random() * 10 ** 8)}-${
-    posterImage.name
-  }`.replaceAll("/", "");
-  const posterImagePath = hasPosterImagePath
-    ? posterImage
-    : `${supabaseUrl}/storage/v1/object/public/projects_images/${posterImageName}`;
+  const imagesPath = imagesArr.map((image) => {
+    if (image.startsWith?.(supabaseUrl)) {
+      return image;
+    } else {
+      const imageName = `${Math.floor(Math.random() * 10 ** 8)}-${
+        image.name
+      }`.replaceAll("/", "");
+      uploadImage(imageName, image);
+      return `${supabaseUrl}/storage/v1/object/public/projects_images/${imageName}`;
+    }
+  });
 
   // 1. Create/edit cabin
-  let query = supabase.from("projects");
+  if (storageError) {
+    throw new Error("project could not be created");
+  } else {
+    let query = supabase.from("projects");
+    const [poster_img, ...images] = imagesPath;
+    // A) CREATE
+    if (!id)
+      query = query.insert([
+        { ...newProject, images: images, poster_img: poster_img },
+      ]);
 
-  // A) CREATE
-  if (!id)
-    query = query.insert([
-      { ...newProject, images: imagesPath, poster_img: posterImagePath },
-    ]);
+    // B) EDIT
+    if (id)
+      query = query
+        .update({
+          ...newProject,
+          images: images,
+          poster_img: poster_img,
+        })
+        .eq("id", id);
 
-  // B) EDIT
-  if (id)
-    query = query
-      .update({
-        ...newProject,
-        images: imagesPath,
-        poster_img: posterImagePath,
-      })
-      .eq("id", id);
+    const { data, error } = await query.select().single();
 
-  const { data, error } = await query.select().single();
+    if (error) {
+      console.error(error);
+      throw new Error("project could not be created");
+    }
+  }
+  /////////////////////////////////////
+  /////////////////////////////////////
+}
+
+export async function deleteProject(id) {
+  const { data, error } = await supabase.from("projects").delete().eq("id", id);
 
   if (error) {
     console.error(error);
-    throw new Error("technology could not be created");
-  }
-
-  // 2. Upload images
-  if (!hasImagePath || !hasPosterImagePath) {
-    let storageErrors;
-    for (const imageName of imageNameArr) {
-      const imagePath = `${supabaseUrl}/storage/v1/object/public/projects_images/${imageName}`;
-
-      const { error: storageError } = await supabase.storage
-        .from("projects_images")
-        .upload(imageName, imagePath);
-
-      if (storageError) {
-        storageErrors = storageError;
-        console.error(storageError);
-        throw new Error("One or more images could not be uploaded");
-      }
-    }
-
-    if (!hasPosterImagePath) {
-      const { error: posterStorageError } = await supabase.storage
-        .from("projects_images")
-        .upload(posterImageName, posterImage);
-
-      if (posterStorageError) {
-        storageErrors = posterStorageError;
-        console.error(posterStorageError);
-        throw new Error("Poster image could not be uploaded");
-      }
-    }
-
-    // 3. Delete the cabin IF there was an error uplaoding image
-    if (storageErrors) {
-      await supabase.from("projects").delete().eq("id", data.id);
-      console.error(storageErrors);
-      throw new Error(
-        "project images could not be uploaded and the project was not created"
-      );
-    }
+    throw new Error("project could not be deleted");
   }
   return data;
 }

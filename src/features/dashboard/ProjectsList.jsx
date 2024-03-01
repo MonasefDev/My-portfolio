@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 // import { projects } from "../../data/projects";
 import Table from "../../ui/Table";
 import styled from "styled-components";
@@ -9,7 +9,6 @@ import Spinner from "../../ui/Spinner";
 // import Spinner from "../../ui/Spinner";
 function ProjectsList() {
   const { isLoading, projects } = useProjects();
-  console.log("projects : ", projects);
   return (
     <StyledProjectsList>
       {isLoading ? (

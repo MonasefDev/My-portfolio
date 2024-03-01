@@ -8,12 +8,15 @@ const StyledModal = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
+  width: max-content;
+  max-height: 80%;
   transform: translate(-50%, -50%);
   background-color: var(--color-primary-3);
   border-radius: 8px;
   box-shadow: 0 2.4rem 3.2rem rgba(0, 0, 0, 0.4);
   padding: 3.2rem 4rem;
   transition: all 0.5s;
+  overflow: auto;
   @media only screen and (max-width: 1024px) {
     padding: 3.2rem 2rem;
     width: 96vw;

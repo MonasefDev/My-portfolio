@@ -4,6 +4,9 @@ import Menus from "../../ui/Menus";
 import { HiEye, HiTrash } from "react-icons/hi2";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
+import { useDeleteProject } from "./useDeleteProject";
+import { useNavigate } from "react-router-dom";
+import AddProject from "./AddProject";
 
 function ProjectRow({ project }) {
   const {
@@ -13,10 +16,8 @@ function ProjectRow({ project }) {
     live_link,
     technologies,
   } = project;
-  const deleteProject = (id) => {
-    console.log("delete project : ", id);
-  };
-
+  const { isDeleting, deleteProject } = useDeleteProject();
+  const navigate = useNavigate();
   return (
     <Table.Row>
       <div>{title}</div>
@@ -31,26 +32,27 @@ function ProjectRow({ project }) {
         <Menus.Menu>
           <Menus.Toggle id={projectId} />
           <Menus.List id={projectId}>
-            <Menus.Button
-              icon={<HiEye />}
-              onClick={() => console.log("show details details")}
-            >
-              details
-            </Menus.Button>
-            <Modal.Open opens="delete">
+            <Modal.Open opens="edit">
               <Menus.Button
-                icon={<HiTrash />}
-                onClick={() => console.log("delete")}
+                icon={<HiEye />}
+                onClick={() => navigate(`/dashboard/edit-project/${projectId}`)}
               >
-                delete
+                edit
               </Menus.Button>
+            </Modal.Open>
+            <Modal.Open opens="delete">
+              <Menus.Button icon={<HiTrash />}>delete</Menus.Button>
             </Modal.Open>
           </Menus.List>
         </Menus.Menu>
+        <Modal.Window name="edit">
+          <AddProject projectToEdit={project} />
+        </Modal.Window>
         <Modal.Window name="delete">
           <ConfirmDelete
             resourceName="project"
             onConfirm={() => deleteProject(projectId)}
+            disabled={isDeleting}
           />
         </Modal.Window>
       </Modal>

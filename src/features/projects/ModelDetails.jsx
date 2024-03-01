@@ -1,184 +1,198 @@
-import "react-image-gallery/styles/css/image-gallery.css";
-import React from "react";
-import ReactImageGallery from "react-image-gallery";
 import styled from "styled-components";
+import { MdViewInAr } from "react-icons/md";
+import { RiCheckFill, RiCloseLine, RiCodeSSlashFill } from "react-icons/ri";
+import { RxDotFilled } from "react-icons/rx";
+import { MdOutlineArrowBack } from "react-icons/md";
+import ReactImageGallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
+import Button from "../../ui/Button";
+import { useOutsideClick } from "../../hooks/useOutsideClick";
 
-function ModelDetails({ selectedProject, onCloseModal }) {
-  console.log(selectedProject.images);
-  const images = selectedProject.images.map((image) => ({
-    original: image,
-    thumbnail: image,
-  }));
+const ModalProject = ({ onCloseModal, content }) => {
+  const {
+    id,
+    title,
+    images,
+    live_link,
+    github_link,
+    details,
+    technologies,
+    features,
+  } = content;
+  const ref = useOutsideClick(onCloseModal);
 
-  const tech = selectedProject.technologies.map((technology, index) => (
-    <span key={index}>{technology}</span>
-  ));
-
-  const features = selectedProject.features.map((feature, index) => (
-    <li key={index}>
-      <p>{feature}</p>
-    </li>
-  ));
+  const imageReadyToView = images?.map((image) => {
+    return {
+      original: image,
+      thumbnail: image,
+    };
+  });
 
   return (
-    <DetailsContainer>
-      <CloseButton onClick={() => onCloseModal(false)}>✕</CloseButton>
-      {selectedProject && (
-        <div>
-          <div>
-            <ReactImageGallery items={images} />
-          </div>
-          <DetailsContent>
-            <DetailsSubheading>{selectedProject.title}</DetailsSubheading>
-            <DetailsParagraph>
-              Description: {selectedProject.description}
-            </DetailsParagraph>
-            <DetailsParagraph>
-              Details: {selectedProject.details}
-            </DetailsParagraph>
-            <DetailsBox>
-              <h4>Technologies:</h4>
-              {tech}
-            </DetailsBox>
-            <DetailsBox>
-              {" "}
-              <h4>Features:</h4>
-              <ul> {features} </ul>
-            </DetailsBox>
-            <DetailsLink
-              href={selectedProject.github_link}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View on GitHub
-            </DetailsLink>
-            <DetailsLink
-              href={selectedProject.live_link}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Live Demo
-            </DetailsLink>
-          </DetailsContent>
+    <ModalContainer>
+      <ContentContainer>
+        <div ref={ref}>
+          <ModelHeader>
+            <CloseButton onClick={() => onCloseModal(false)}>
+              <MdOutlineArrowBack size={25} />
+            </CloseButton>
+            <ProjectTitle>
+              {`Project ${id} `} <span>{`// ${title}`}</span>
+            </ProjectTitle>
+            <CloseButton onClick={() => onCloseModal(false)}>
+              <RiCloseLine size={30} />
+            </CloseButton>
+          </ModelHeader>
+          <ImageGalleryWrapper>
+            <ReactImageGallery items={imageReadyToView} showNav={false} />
+          </ImageGalleryWrapper>
+          <DetailsContainer>
+            <Title>Details:</Title>
+            <p>{details}</p>
+            <Title>Technologies:</Title>
+            <ListRow>
+              {technologies?.map((technology, index) => (
+                <li key={index}>
+                  <RxDotFilled /> {technology}
+                </li>
+              ))}
+            </ListRow>
+            <Title>Features:</Title>
+            <ul>
+              {features?.map((feature, index) => (
+                <li key={index}>
+                  <RiCheckFill /> {feature}
+                </li>
+              ))}
+            </ul>
+            <Buttons>
+              <Button
+                variation="default"
+                href={live_link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <a href={github_link} target="_blank" rel="noopener noreferrer">
+                  <MdViewInAr size={24} /> preview
+                </a>
+              </Button>
+              <Button variation="default">
+                <a href={github_link} target="_blank" rel="noopener noreferrer">
+                  <RiCodeSSlashFill size={24} /> view-code
+                </a>
+              </Button>
+            </Buttons>
+          </DetailsContainer>
         </div>
-      )}
-    </DetailsContainer>
+      </ContentContainer>
+    </ModalContainer>
   );
-}
+};
+
+const ModalContainer = styled.div`
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  padding: 3rem;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  background-color: rgba(31, 41, 55, 0.7);
+  @media only screen and (max-width: 1024px) {
+    padding: 1rem;
+  }
+`;
+
+const ModelHeader = styled.div`
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  background-color: rgba(1, 22, 39, 0.9);
+  justify-content: space-between;
+  padding: 0 1rem;
+`;
+const CloseButton = styled.span`
+  width: 3.2rem;
+  height: 3.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #fea55f;
+  border: 2px solid #1e2d3d;
+  border-radius: 50%;
+`;
+
+const ContentContainer = styled.div`
+  position: relative;
+  overflow-y: scroll;
+  max-width: 100rem;
+  line-height: 1.4;
+  margin: 0 auto;
+  height: 100%;
+  border: 1px solid var(--color-lines);
+  background-color: var(--color-primary-3);
+  border-radius: 1rem;
+  overflow: auto;
+`;
+
+const ProjectTitle = styled.p`
+  margin: 1rem 0;
+  text-align: center;
+  font-weight: 500;
+  font-size: 2rem;
+  color: var(--color-purple-1);
+  span {
+    font-weight: 300;
+    color: var(--color-grey-1);
+  }
+  @media only screen and (max-width: 1024px) {
+    font-size: 1.6rem;
+  }
+`;
+
+const ImageGalleryWrapper = styled.figure`
+  border-top: 1px solid #1e2d3d;
+  border-bottom: 1px solid #1e2d3d;
+`;
 
 const DetailsContainer = styled.div`
-  margin-top: 2rem;
-  padding: 5rem;
-  border: 1px solid var(--color-lines);
-  border-radius: 0.8rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: var(--color-grey-2);
-  position: fixed;
-  left: 10%;
-  right: 10%;
-  top: 2%;
-  z-index: 9999;
-  background-color: var(--color-primary-1);
-  height: 90%;
-  overflow: scroll;
-
-  @media only screen and (max-width: 1024px) {
-    padding: 4rem 2rem 2rem 2rem;
-  }
-
-  @media only screen and (max-width: 768px) {
-    left: 5%;
-    right: 5%;
-  }
-`;
-
-const CloseButton = styled.button`
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: none;
-  border: none;
-  color: var(--color-teal-1);
-  cursor: pointer;
-`;
-
-const DetailsContent = styled.div`
-  padding: 4rem 8rem 4rem 10rem;
-
+  padding: 3rem;
   @media only screen and (max-width: 1024px) {
     padding: 2rem;
   }
+`;
 
-  @media only screen and (max-width: 768px) {
-    padding: 0;
+const Title = styled.h3`
+  margin: 1rem 0;
+  font-weight: 500;
+  font-size: 1.8rem;
+  color: var(--color-purple-1);
+`;
+
+const ListRow = styled.ul`
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+`;
+
+const Buttons = styled.div`
+  margin-top: 4rem;
+  display: flex;
+  gap: 2rem;
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
   }
 `;
 
-const DetailsSubheading = styled.h3`
-  margin-bottom: 0.8rem;
-`;
-
-const DetailsParagraph = styled.p`
-  margin-bottom: 1.2rem;
-`;
-
-const DetailsBox = styled.div`
-  margin-bottom: 1.2rem;
-  margin-top: 2rem;
-
-  h4 {
-    display: block;
-  }
-
-  span {
-    padding: 0.4rem 0.8rem;
-    background-color: var(--color-teal-1);
-    display: inline-block;
-    border-radius: 0.4rem;
-    color: var(--color-lines);
-    margin: 0.4rem;
-    margin-top: 2rem;
-    transition: all 0.2s ease-in-out;
-    cursor: pointer;
-
-    &:hover {
-      background-color: var(--color-button-d-2);
-    }
-  }
-
-  li {
-    display: table-row;
-  }
-
-  li:before {
-    content: "✓";
-    color: var(--color-teal-1);
-  }
-
-  li > p {
-    display: table-cell;
-    padding: 1rem;
-
-    &:hover {
-      color: var(--color-white);
-    }
-  }
-`;
-
-const DetailsLink = styled.a`
-  color: var(--color-teal-1);
-  text-decoration: none;
-  margin-right: 1rem;
-
-  &:hover {
-    text-decoration: underline;
-  }
-
-  @media only screen and (max-width: 768px) {
-    display: block;
-    margin-bottom: 0.8rem;
-    text-decoration-line: underline;
-  }
-`;
-
-export default ModelDetails;
+export default ModalProject;

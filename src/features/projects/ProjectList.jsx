@@ -2,12 +2,18 @@ import React from "react";
 import styled from "styled-components";
 import ProjectCard from "./ProjectCard";
 
-const ProjectList = ({ projects, onSelectProject, onToggleModal }) => (
+const ProjectList = ({
+  projects = [],
+  techs,
+  onSelectProject,
+  onToggleModal,
+}) => (
   <ProjectListWrapper>
     {projects.map((project, index) => (
       <ProjectCard
         key={project.id}
         project={project}
+        techs={techs}
         index={index}
         onSelectProject={onSelectProject}
         onToggleModal={onToggleModal}

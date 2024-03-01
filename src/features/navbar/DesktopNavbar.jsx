@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useUser } from "../login/useUser";
 
 const StyledDesktopNavbar = styled.header`
   display: grid;
@@ -57,9 +58,10 @@ const StyledDesktopNavbar = styled.header`
 `;
 
 function DesktopNavbar() {
+  const { isAuthenticated } = useUser();
   return (
     <StyledDesktopNavbar>
-      <Link to="/">name</Link>
+      <Link to="/">abdelkarim-monasef</Link>
       <NavLink className="nav-link" to="/">
         _hello
       </NavLink>
@@ -69,9 +71,13 @@ function DesktopNavbar() {
       <NavLink className="nav-link" to="/projects">
         _projects
       </NavLink>
-      <NavLink className="nav-link" to="/dashboard">
-        _dashboard
-      </NavLink>
+      {isAuthenticated ? (
+        <NavLink className="nav-link" to="/dashboard">
+          _dashboard
+        </NavLink>
+      ) : (
+        <div />
+      )}
       <div />
       <NavLink className="nav-link" to="/contact">
         _contact

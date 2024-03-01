@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useUser } from "../features/login/useUser";
+import Spinner from "./Spinner";
 
 const FullPage = styled.div`
   height: 100vh;
@@ -12,9 +14,7 @@ const FullPage = styled.div`
 `;
 
 function ProtectedRoute({ children }) {
-  const { isLoading, user: isAuthenticated } = useSelector(
-    (state) => state.auth
-  );
+  const { isLoading, user: isAuthenticated } = useUser();
 
   const navigate = useNavigate();
 
@@ -29,7 +29,12 @@ function ProtectedRoute({ children }) {
   );
 
   // 3. While loading, show a spinner
-  if (isLoading) return <FullPage>Is loading...</FullPage>;
+  if (isLoading)
+    return (
+      <FullPage>
+        <Spinner />
+      </FullPage>
+    );
 
   // 4. If there IS a user, render the app
   if (isAuthenticated) return children;

@@ -6,31 +6,36 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../../ui/Spinner";
 import SpinnerMini from "../../ui/SpinnerMini";
+import { useLogin } from "./useLogin";
 
 function LoginForm() {
-  const [username, setUsername] = useState("user_5");
-  const [password, setPassword] = useState("123456");
-  const { isLoading, user } = useSelector((state) => state.auth);
-  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { isLoading, login } = useLogin();
   function handleSubmit(e) {
     e.preventDefault();
-    if (!username || !password) return;
-    // dispatch(login({ username, password }));
+    if (!email || !password) return;
+    login(
+      { email, password },
+      {
+        onSettled: () => {
+          setEmail("");
+          setPassword("");
+        },
+      }
+    );
   }
-  useEffect(() => {
-    if (user) navigate("/dashboard", { replace: true });
-  }, [user]);
 
   return (
     <Form onSubmit={handleSubmit}>
       <FormRowVertical label="User Name">
         <Input
-          type="username"
-          id="username"
+          type="email"
+          id="email"
           // This makes this form better for password managers
-          autoComplete="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          autoComplete="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           // disabled={isLoading}
         />
       </FormRowVertical>
@@ -47,7 +52,7 @@ function LoginForm() {
       </FormRowVertical>
       <FormRowVertical>
         <Button variation="default" disabled={isLoading}>
-          {!isLoading ? "Log in" : <SpinnerMini />}
+          {!isLoading ? "Log in" : <SpinnerMini width="15rem" />}
         </Button>
       </FormRowVertical>
     </Form>

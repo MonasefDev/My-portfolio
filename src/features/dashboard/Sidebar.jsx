@@ -2,8 +2,11 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../ui/Button";
+import { useLogout } from "../login/useLogout";
+import SpinnerMini from "../../ui/SpinnerMini";
 
 function Sidebar() {
+  const { isLoading, logout } = useLogout();
   const navigate = useNavigate();
   return (
     <StyledSidebar>
@@ -21,8 +24,11 @@ function Sidebar() {
         </NavLink>
       </List>
       <ButtonFloat>
+        <Button onClick={() => logout()} variation="default">
+          {isLoading ? <SpinnerMini width="100%" /> : "Logout"}
+        </Button>
         <Button onClick={() => navigate("/")} variation="default">
-          Logout
+          Home
         </Button>
       </ButtonFloat>
     </StyledSidebar>
@@ -78,6 +84,9 @@ const ButtonFloat = styled.div`
   bottom: 2rem;
   left: 2rem;
   right: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   button {
     width: 100%;
   }

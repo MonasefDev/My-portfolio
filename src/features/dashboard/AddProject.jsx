@@ -1,59 +1,92 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Button from "../../ui/Button";
 import { useForm } from "react-hook-form";
 import FileInput from "../../ui/FileInput";
-import axios from "axios";
-import { useSelector } from "react-redux";
 import { useCreateProject } from "./useCreateProject";
 import SpinnerMini from "../../ui/SpinnerMini";
+import TechnologiesList from "./TechnologiesList";
+import { useTechs } from "./techs/useTechs";
+import Spinner from "../../ui/Spinner";
+import { useParams } from "react-router-dom";
+import { useProjects } from "./useProjects";
+import { useEditProject } from "./useEditProject";
 
-const projectData = {
-  title: "project 1",
-  description: "Our platform allows you to make payments from anywhere.",
-  details:
-    "Our platform allows you to make payments from anywhere, at any time, using your preferred payment method. We accept all major credit cards, as well as digital wallets like PayPal, Apple Pay, and Google Pay. With our state-of-the-art security measures and",
-  features: ["feat1"],
-  technologies: ["React", "Redux", "Tailwind"],
-  github_link: "http://localhost:5173",
-  live_link: "http://localhost:5173",
-  poster_img: "cabin-002.jpg",
-  images: ["cabin-002.jpg", "cabin-003.jpg"],
-};
-
-function AddProject() {
-  const [features, setFeatures] = useState([]);
+function AddProject({ projectToEdit = {}, onCloseModal }) {
+  const { id: editId, ...editValues } = projectToEdit;
+  const isEditSession = Boolean(editId);
+  const [features, setFeatures] = useState(
+    isEditSession ? editValues.features : []
+  );
   const [feature, setFeature] = useState("");
-  const [image, setImage] = useState("");
-  const [images, setImages] = useState([]);
+  const [image, setImage] = useState(
+    isEditSession ? editValues.poster_img : ""
+  );
+  const [images, setImages] = useState(isEditSession ? editValues.images : []);
   const { isCreating, createProject } = useCreateProject();
-  // const [project, setProject] = useState({});
+  const { isEditing, editProject } = useEditProject();
+  const isWorking = isCreating || isEditing;
+  const [isDropDown, setIsDropDown] = useState(false);
+  const [checkedValue, setCheckedValue] = useState(
+    isEditSession ? editValues.technologies : []
+  );
+  const { isLoading, techs } = useTechs();
+  // const [isEditSession, setIsEditSession] = useState(false);
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: editId ? editValues : {},
+  });
 
-  const authToken = JSON.parse(sessionStorage.getItem("authToken"));
   const onSubmit = async (data) => {
     data = {
       ...data,
       poster_img: image,
       images,
-      technologies: ["React", "Redux", "Tailwind"],
+      technologies: checkedValue,
       features: features,
     };
-    createProject(data, {
-      onSuccess: (data) => {
-        reset();
-        setImage("");
-        setFeatures("");
-        setFeature("");
-        setImages("");
-      },
-    });
+    const submitProject = isEditSession ? editProject : createProject;
+    if (isEditSession)
+      editProject(
+        { newProject: data, id: editId },
+        {
+          onSuccess: (data) => {
+            onCloseModal?.();
+            reset();
+            setImage("");
+            setFeatures("");
+            setFeature("");
+            setImages("");
+          },
+        }
+      );
+    else
+      submitProject(data, {
+        onSuccess: (data) => {
+          reset();
+          setImage("");
+          setFeatures("");
+          setFeature("");
+          setImages("");
+        },
+      });
   };
+
+  const onFiltred = (event) => {
+    const { value, checked } = event.target;
+    let checkedArr;
+    if (checked) {
+      checkedArr = [...checkedValue, value];
+    } else {
+      checkedArr = checkedValue.filter((element) => element !== value);
+    }
+    setCheckedValue(checkedArr);
+  };
+
   return (
     <StyledAddProject>
       <form onSubmit={handleSubmit(onSubmit)} id="add-project-form">
@@ -95,6 +128,38 @@ function AddProject() {
           {errors?.github_link && (
             <ErrorBox>{errors?.github_link?.message}</ErrorBox>
           )}
+        </FormGroup>
+        <FormGroup>
+          <Label>_technologies:</Label>
+          <SelectElement>
+            <SelectText>
+              {checkedValue.length === 0
+                ? "Select technologies"
+                : checkedValue.length === 1
+                ? checkedValue[0]
+                : `${checkedValue.length} selected`}
+            </SelectText>
+            <img
+              open={isDropDown}
+              src="/assets/icons/arrow.svg"
+              alt="arrow"
+              onClick={() => setIsDropDown(!isDropDown)}
+            />
+            {isDropDown && (
+              <TechsContainer>
+                {isLoading ? (
+                  <Spinner />
+                ) : (
+                  <TechnologiesList
+                    technologies={techs}
+                    onFiltred={onFiltred}
+                    isOpen={isDropDown}
+                    checkedValue={checkedValue}
+                  />
+                )}
+              </TechsContainer>
+            )}
+          </SelectElement>
         </FormGroup>
         <FormGroup>
           <Label>_project details:</Label>
@@ -164,7 +229,10 @@ function AddProject() {
           {image !== "" && (
             <ImagesContainer>
               <ImageBox>
-                <img src={URL.createObjectURL(image)} alt={image.name} />
+                <img
+                  src={isEditSession ? image : URL.createObjectURL(image)}
+                  alt="project poster"
+                />
                 <img
                   src="/assets/icons/close.svg"
                   alt="close"
@@ -183,14 +251,19 @@ function AddProject() {
             //   required: "This field is required",
             // })}
             name="Choose File"
-            onChange={(e) => setImages(Array.from(e.target.files))}
+            onChange={(e) =>
+              setImages((prev) => [...prev, ...Array.from(e.target.files)])
+            }
           />
           {errors?.images && <ErrorBox>{errors?.images?.message}</ErrorBox>}
           {images.length > 0 && (
             <ImagesContainer>
               {images.map((image, index) => (
                 <ImageBox key={index}>
-                  <img src={URL.createObjectURL(image)} alt={image} />
+                  <img
+                    src={image.name ? URL.createObjectURL(image) : image}
+                    alt="project poster"
+                  />
                   <img
                     src="/assets/icons/close.svg"
                     alt="close"
@@ -203,40 +276,22 @@ function AddProject() {
         </FormGroup>
         <Button
           id="create-button"
-          disabled={isCreating}
+          disabled={isWorking}
           type="submit"
           variation="default"
         >
-          {isCreating ? <SpinnerMini width={"15rem"} /> : "create project"}
+          {isWorking ? (
+            <SpinnerMini width={"15rem"} />
+          ) : isEditSession ? (
+            "edit project"
+          ) : (
+            "create project"
+          )}
         </Button>
       </form>
-      <Button id="create-button" onClick={onSubmit} variation="default">
-        create project
-      </Button>
     </StyledAddProject>
   );
 }
-
-// {
-//       "id": 1,
-//       "title": "",
-//       "description": "",
-//       "github_link": "",
-//       "live_link": ""
-//       "details": "",
-//       "technologies": ["React", "Redux", "CSS", "Tailwind"],
-//       "features": [
-//         "feat1",
-//         "feat2",
-//         "feat3"
-//       ],
-//       "poster_img": "",
-//       "images": [
-//         "img1",
-//         "img2",
-//         "img3"
-//       ],
-//     }
 
 const StyledAddProject = styled.div`
   display: flex;
@@ -289,6 +344,52 @@ const ErrorBox = styled.div`
 
 const Label = styled.label`
   margin-bottom: 0.75rem; /* Equivalent to mb-3 in Tailwind */
+`;
+
+const SelectText = styled.div`
+  position: relative;
+`;
+
+const SelectElement = styled.div`
+  position: relative;
+  cursor: pointer;
+
+  margin-bottom: 0.75rem; /* Equivalent to mb-3 in Tailwind */
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem; /* Equivalent to p-2 in Tailwind */
+  background-color: var(--color-primary-2);
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--color-grey-0);
+  &::before {
+    content: "";
+    position: absolute;
+    width: 4.5rem;
+    height: 100%;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 0 8px 8px 0;
+    background-color: var(--color-button-p-1);
+    z-index: 9;
+  }
+  img {
+    z-index: 10;
+    padding: 0 1rem;
+    transform: rotate(${(props) => (props.open ? "90deg" : "0")});
+  }
+`;
+
+const TechsContainer = styled.div`
+  position: absolute;
+  top: calc(100% + 5px);
+  z-index: 9999;
+  left: -1px;
+  right: -1px;
+  background-color: var(--color-primary-2);
+  border-radius: 8px;
+  border: 1px solid var(--color-grey-0);
 `;
 
 const InputBox = styled.div`
