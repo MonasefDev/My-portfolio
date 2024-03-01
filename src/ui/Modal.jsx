@@ -17,6 +17,9 @@ const StyledModal = styled.div`
   padding: 3.2rem 4rem;
   transition: all 0.5s;
   overflow: auto;
+  div {
+    width: max-content;
+  }
   @media only screen and (max-width: 1024px) {
     padding: 3.2rem 2rem;
     width: 96vw;

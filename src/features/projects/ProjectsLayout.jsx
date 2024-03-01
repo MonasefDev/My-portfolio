@@ -34,7 +34,7 @@ function ProjectsLayout() {
     setCheckedValue(checkedArr);
     getFiltredProject(checkedArr);
     setSelectedTechText(
-      checkedArr.length === 0 ? "all" : checkedArr.join(", ").toLowerCase()
+      checkedArr.length === 0 ? "all" : checkedArr.join(", ")
     );
   };
 
