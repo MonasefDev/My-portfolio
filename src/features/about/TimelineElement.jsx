@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import UserEducation from "./UserEducation";
 
 const TimelineElementWrapper = styled.div`
   .container {
@@ -57,7 +58,11 @@ const TimelineElement = ({ index, image, header, date, description }) => {
         <div className="text-box">
           <span className="text-lg">{header}</span>
           <span className="text-sm">{date}</span>
-          <div dangerouslySetInnerHTML={{ __html: description }} />
+          {header === "Frontend Developer" ? (
+            <UserEducation />
+          ) : (
+            <div dangerouslySetInnerHTML={{ __html: description }} />
+          )}
         </div>
       </div>
     </TimelineElementWrapper>
