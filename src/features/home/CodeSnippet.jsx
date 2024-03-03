@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import { snippetHome } from "../../data/snippet-home";
+import { snippetHome } from "../../data/snippet-homet";
 import CodeSnippet from "../../ui/CodeSnippet";
 
 function CodeSnippetSection() {
