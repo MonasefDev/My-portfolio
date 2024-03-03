@@ -94,6 +94,8 @@ const CardParagraph = styled.p`
   margin-bottom: 1.6rem;
   height: 4rem;
   overflow: hidden;
+  white-space: pre-wrap;
+  text-overflow: ellipsis;
 `;
 
 const CardButton = styled.button`

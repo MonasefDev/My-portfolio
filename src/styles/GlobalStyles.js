@@ -67,6 +67,7 @@ body {
   height: 100%;
   width: 100%;
   font-size: 1.6rem;
+  font-weight: 400;
 }
 #root {
   height: 100%;
@@ -114,6 +115,8 @@ h6 {
   overflow-wrap: break-word;
   hyphens: auto;
   font-size: 1;
+  font-weight: 400;
+
 }
 /* Scroll bar */
 
