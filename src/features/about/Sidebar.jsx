@@ -9,7 +9,7 @@ import ContactItem from "./ContactItem";
 const StyledSidebar = styled.div`
   border-right: 1px solid var(--color-lines);
   display: grid;
-  grid-template-columns: 5.6rem 1fr;
+  grid-template-columns: 5.6rem calc(var(--sidebar-width) - 5.6rem);
   @media only screen and (max-width: 1024px) {
     display: flex;
     flex-direction: column;

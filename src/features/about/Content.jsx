@@ -43,12 +43,15 @@ function Content({ selectedSection, selectedItem }) {
 const StyledContent = styled.div`
   display: grid;
   grid-template-rows: 4rem calc(100% - 4rem);
-  overflow: hidden;
   border-right: 1px solid var(--color-lines);
   @media only screen and (max-width: 1024px) {
     display: flex;
     flex-direction: column;
     width: 100%;
+    height: 100%;
+    border-right: 0;
+    border-bottom: 1px solid var(--color-lines);
+    padding-bottom: 2rem;
   }
 `;
 

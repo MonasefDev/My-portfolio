@@ -14,6 +14,7 @@ const StyledAboutLayout = styled.div`
   @media only screen and (max-width: 1024px) {
     display: flex;
     flex-direction: column;
+    overflow: scroll;
   }
 `;
 const ContentSection = styled.div`

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import useIsMobile from "../../hooks/useIsMobile";
+
 const StyledContactItem = styled.div``;
 const Title = styled.div`
   height: 4rem;
@@ -10,7 +11,6 @@ const Title = styled.div`
   gap: 1rem;
   color: var(--color-white);
   border-bottom: 1px solid var(--color-lines);
-
   cursor: pointer;
 
   @media only screen and (max-width: 1024px) {
@@ -36,6 +36,7 @@ const FolderImg = styled.div`
   display: flex;
   gap: 1rem;
   align-items: center;
+  width: 100%;
   color: ${(props) =>
     props.open ? "var(--color-white)" : "var(--color-grey-2)"};
   transition: all 0.2s ease-in-out;
@@ -46,6 +47,23 @@ const FolderImg = styled.div`
     &:first-child {
       transform: rotate(${(props) => (props.open ? "90deg" : "0")});
     }
+  }
+`;
+
+const moveLeft = keyframes`
+  0% {
+    transform: translateX(110%);
+  }
+  100% {
+    transform: translateX(-110%);
+  }
+`;
+
+const Email = styled.div`
+  width: 100%;
+  overflow: hidden;
+  div {
+    animation: ${moveLeft} 10s linear infinite;
   }
 `;
 
@@ -63,11 +81,15 @@ function ContactItem() {
         <SectionFolder>
           <FolderImg>
             <img src={`/assets/icons/email.svg`} alt="email" />
-            <span>exemple@gmail.com</span>
+            <Email>
+              <div>
+                <span>monasef.dev@gmail.com</span>
+              </div>
+            </Email>
           </FolderImg>
           <FolderImg>
             <img src={`/assets/icons/phone.svg`} alt="email" />
-            <span>+2126 70 00 00 00</span>
+            <span>+212 6 33 62 73 00</span>
           </FolderImg>
         </SectionFolder>
       )}

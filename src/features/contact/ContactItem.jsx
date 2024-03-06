@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import useIsMobile from "../../hooks/useIsMobile";
+
 const StyledContactItem = styled.div`
   border-bottom: ${(props) =>
     props.open ? "1px solid var(--color-lines)" : "none"};
@@ -66,11 +67,11 @@ function ContactItem() {
         <SectionFolder>
           <FolderImg>
             <img src={`/assets/icons/email.svg`} alt="email" />
-            <span>exemple@gmail.com</span>
+            <span>monasef.dev@gmail.com</span>
           </FolderImg>
           <FolderImg>
             <img src={`/assets/icons/phone.svg`} alt="email" />
-            <span>+2126 70 00 00 00</span>
+            <span>+212 6 33 62 73</span>
           </FolderImg>
         </SectionFolder>
       )}

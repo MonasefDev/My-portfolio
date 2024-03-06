@@ -26,9 +26,9 @@ const StyledHomeLayout = styled.div`
   position: relative;
   display: grid;
   grid-gap: 2rem;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 100%;
   padding: 1rem;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 100%;
 
   @media only screen and (max-width: 1024px) {
     gap: 0;

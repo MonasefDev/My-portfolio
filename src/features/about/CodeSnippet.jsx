@@ -31,6 +31,11 @@ const StyledCodeSnippet = styled.div`
       display: none;
     }
   }
+  @media only screen and (max-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
 `;
 const CodeSnippetSection = styled.div`
   display: grid;
@@ -53,6 +58,7 @@ const Container = styled.div`
   flex-direction: column;
   padding: 2rem;
   overflow: auto;
+  color: var(--color-white);
 `;
 
 const Scrollbar = styled.div`
